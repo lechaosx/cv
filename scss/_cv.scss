@@ -22,8 +22,6 @@ body {
 	min-height: 100vh;
 }
 
-code { font-family: var(--mono-font); }
-
 // ── Main layout ────────────────────────────────────────────────────────────
 
 main {
@@ -51,8 +49,7 @@ main {
 		padding-bottom: 2.5rem;
 	}
 
-	:focus-visible:not([contenteditable]) { outline: var(--border) solid; }
-	[contenteditable]:focus               { outline: none; }
+	:focus-visible { outline: var(--border) solid; }
 }
 
 // ── Photo ──────────────────────────────────────────────────────────────────
@@ -191,16 +188,11 @@ section { margin-bottom: 20px; }
 	display: grid;
 	grid-template-columns: 1fr 2fr;
 
-	// view mode: article is transparent to the grid
 	> article { display: contents; }
 
-	// left column — view mode and edit mode (.timeline-entry)
-	> article > :first-child,
-	> .timeline-entry:nth-child(2n + 1) { @include timeline-left; }
+	> article > :first-child { @include timeline-left; }
 
-	// right column
-	> article > :last-child,
-	> .timeline-entry:nth-child(2n)     { @include timeline-right; }
+	> article > :last-child     { @include timeline-right; }
 
 	.badge-list { margin-top: 8px; justify-content: end; }
 }
@@ -223,76 +215,7 @@ section { margin-bottom: 20px; }
 	}
 }
 
-// ── Date range (edit mode only — JS renders spans) ─────────────────────────
-
-.start-part:has(.start-year:empty),
-.end-part:has(.end-year:empty)                     { display: none; }
-
-.start-part:has(.start-month:empty) .start-month,
-.start-part:has(.start-month:empty) .sm-sep,
-.end-part:has(.end-month:empty) .end-month,
-.end-part:has(.end-month:empty) .em-sep            { display: none; }
-
-.present-text                                      { display: none; }
-.cv-dates:has(.start-year:not(:empty)):has(.end-year:empty) .present-text { display: inline; }
-
-// ── CV generator widget ────────────────────────────────────────────────────
-
-.cv-gen {
-	display: none;
-	margin-top: auto;
-
-	form {
-		display: flex;
-		gap: 10px;
-
-		input {
-			flex-grow: 1;
-			padding: 6px 10px;
-			border-radius: 0.5em;
-			border: none;
-		}
-
-		button {
-			padding: 6px 10px;
-			border-radius: 0.5em;
-			border: none;
-			color: var(--button-text);
-			background-color: var(--button);
-			cursor: pointer;
-
-			&:hover { outline: var(--button) solid; }
-		}
-	}
-}
-
-.cv-gen-error {
-	margin-top: 8px;
-	color: #e07070;
-}
-
-// ── Edit link ──────────────────────────────────────────────────────────────
-
-.edit-link {
-	position: fixed;
-	bottom: 10px;
-	right: 10px;
-	width: 16px;
-	height: 16px;
-	color: var(--text);
-	opacity: 0.2;
-	z-index: 100;
-	transition: opacity 0.15s;
-
-	&:hover { opacity: 0.7; }
-	svg      { width: 100%; height: 100%; display: block; }
-}
-
 // ── Responsive ─────────────────────────────────────────────────────────────
-
-@media (min-width: 80rem) {
-	.cv-gen { display: block; }
-}
 
 @media (min-width: 80rem), print {
 	main { grid-template-columns: 1fr 2fr; }
@@ -311,6 +234,10 @@ section { margin-bottom: 20px; }
 	.section-header { margin-right: -2.5rem; }
 }
 
+@media screen and (min-width: 80rem) {
+	main { grid-template-columns: 35% 65%; }
+}
+
 @media print {
 	html, body { height: 100%; }
 
@@ -320,5 +247,4 @@ section { margin-bottom: 20px; }
 		grid-template-rows: auto 1fr;
 	}
 
-	.cv-gen, .edit-link { display: none !important; }
 }

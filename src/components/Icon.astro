@@ -1,0 +1,10 @@
+---
+interface Props { name: 'map-pin' | 'phone' | 'mail' | 'website' | 'github' | 'linkedin' }
+const { name } = Astro.props;
+const icons = import.meta.glob('../icons/*.svg', { eager: true, query: '?raw', import: 'default' });
+const file = name === 'github' || name === 'linkedin' ? `simple-icons-${name}` : `lucide-${name}`;
+const svg = name === 'website'
+  ? '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a16 16 0 0 1 0 20 16 16 0 0 1 0-20"/></svg>'
+  : icons[`../icons/${file}.svg`] as string;
+---
+<Fragment set:html={svg.replace('<svg', '<svg aria-hidden="true"')} />

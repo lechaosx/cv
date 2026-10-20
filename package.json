@@ -1,16 +1,31 @@
 {
-  "name": "cv-generator-editor",
+  "name": "drahomir-cv",
   "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=24.13.0 <25"
+  },
   "scripts": {
-    "build":     "esbuild editor/index.ts --bundle --outfile=server/static/edit.js --platform=browser --target=es2022 --define:DEBUG=false",
-    "build:css": "sass scss/style.scss server/static/style.css --style=compressed --no-source-map",
-    "serve":     "bun build.mjs"
+    "dev": "astro dev",
+    "check": "astro check --minimumFailingSeverity hint",
+    "test": "node --test --test-isolation=none tests/*.test.ts",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test:e2e": "npm run build && playwright test"
+  },
+  "dependencies": {
+    "astro": "^7.3.5",
+    "zod": "^4.6.5",
+    "@fontsource-variable/roboto": "^5.3.0",
+    "@fontsource-variable/roboto-condensed": "^5.2.8"
   },
   "devDependencies": {
-    "esbuild":             "^0.28.0",
-    "esbuild-sass-plugin": "^3.7.0",
-    "sass":                "^1.97.3",
-    "sass-embedded":       "^1.97.3",
-    "typescript":          "^5.7.3"
+    "@astrojs/check": "^0.9.10",
+    "@playwright/test": "1.63.0",
+    "@types/node": "^24.19.0",
+    "sass": "^1.97.3",
+    "typescript": "^6.0.3",
+    "yaml": "^2.9.1"
   }
 }

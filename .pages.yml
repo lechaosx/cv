@@ -1,0 +1,65 @@
+media:
+  input: public/uploads
+  output: /uploads
+  categories:
+  - image
+content:
+- name: cv
+  label: Drahomír’s CV
+  type: file
+  path: src/content/cv.yaml
+  format: yaml
+  fields:
+  - {name: language, label: Language, type: select, required: true, options: {values: [en, cs]}}
+  - {name: title_before_name, label: Title before name, type: string, required: false}
+  - {name: name, label: Full name, type: string, required: true}
+  - {name: title_after_name, label: Title after name, type: string, required: false}
+  - {name: position, label: Profession, type: string, required: false}
+  - {name: phone, label: Phone, type: string, required: false}
+  - {name: email, label: Email, type: string, required: false}
+  - {name: location, label: Location, type: string, required: false}
+  - {name: photo, label: Portrait, type: image, required: false}
+  - {name: description, label: About me, type: text, required: false}
+  - {name: interests, label: Interests, type: string, required: false, list: true}
+  - name: links
+    label: Links
+    type: object
+    required: false
+    list: true
+    fields:
+    - {name: label, label: Visible text, type: string, required: true}
+    - {name: url, label: 'Address (https://…) ', type: string, required: true}
+    - {name: icon, label: Icon, type: select, required: true, options: {values: [website, github, linkedin]}}
+  - name: experience
+    label: Work experience
+    type: object
+    required: false
+    list: true
+    fields: &timelineFields
+    - {name: organization, label: Organization, type: string, required: true}
+    - {name: department, label: Department, type: string, required: false}
+    - {name: title, label: Position or qualification, type: string, required: true}
+    - {name: start_month, label: Start month, type: string, required: false, pattern: &monthPattern {regex: '^(0[1-9]|1[0-2])?$', message: Use
+          01–12 or leave empty.}}
+    - {name: start_year, label: Start year, type: string, required: false, pattern: &yearPattern {regex: '^([1-9][0-9]{3})?$', message: Use
+          a four-digit year or leave empty.}}
+    - {name: end_month, label: End month, type: string, required: false, pattern: *monthPattern}
+    - {name: end_year, label: End year, type: string, required: false, pattern: *yearPattern}
+    - {name: description, label: Description, type: text, required: false}
+    - {name: badges, label: Skills and tools, type: string, required: false, list: true}
+  - name: education
+    label: Education
+    type: object
+    required: false
+    list: true
+    fields: *timelineFields
+  - name: theme
+    label: Colors
+    type: object
+    required: false
+    fields:
+    - {name: dark, label: Sidebar color, type: string, required: false, pattern: {regex: '^(#[0-9a-fA-F]{3}|#[0-9a-fA-F]{6})?$', message: 'Use
+          a hex color, e.g. #283649; clear to restore the default.'}}
+    - {name: light, label: Accent color, type: string, required: false, pattern: {regex: '^(#[0-9a-fA-F]{3}|#[0-9a-fA-F]{6})?$', message: 'Use
+          a hex color, e.g. #283649; clear to restore the default.'}}
+    description: Clear either field to use the stylesheet default.

@@ -1,12 +1,9 @@
 {
+  "extends": "astro/tsconfigs/strictest",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "strict": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "rootDir": "./editor",
-    "noEmit": true
-  },
-  "include": ["editor/**/*"]
+    "allowImportingTsExtensions": true,
+    "types": ["node"]
+  }
 }
