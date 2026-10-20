@@ -31,3 +31,19 @@ test('published crawler files and exports contain only canonical CV routes and c
   assert.ok(!existsSync('dist/fixtures'));
   assert.ok(!readdirSync('dist').some(name => name.includes('fixture')));
 });
+
+test('each language offers a tagged one-page A4 PDF download', async () => {
+  for (const language of ['en', 'cs'] as const) {
+    const html = output(`${language}/index.html`);
+    assert.match(html, new RegExp(`href="/${language}/cv\\.pdf"[^>]*download`));
+    const { PDFDocument, PDFName } = await import('pdf-lib');
+    const pdf = await PDFDocument.load(readFileSync(`dist/${language}/cv.pdf`));
+    assert.equal(pdf.getPageCount(), 1);
+    const { width, height } = pdf.getPage(0).getSize();
+    assert.ok(Math.abs(width - 595.28) < 1);
+    assert.ok(Math.abs(height - 841.89) < 1);
+    assert.ok(pdf.getTitle()?.includes(cv.name));
+    assert.ok(pdf.getTitle()?.includes(language === 'cs' ? 'Životopis' : 'CV'));
+    assert.ok(pdf.catalog.has(PDFName.of('StructTreeRoot')));
+  }
+});

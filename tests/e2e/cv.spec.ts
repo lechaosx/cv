@@ -39,7 +39,7 @@ test('keyboard reaches phone, email and each visible Connect link exactly once',
       if (href) focused.push(href);
       if (focused.length > 0 && !href) break;
     }
-    expect(focused).toEqual(['/cs/', '/en/', `tel:${cv.phone.replace(/[ ()-]/g, '')}`, `mailto:${cv.email}`, ...cv.links.map(link => link.url)]);
+    expect(focused).toEqual(['/cs/', '/en/', '/en/cv.pdf', `tel:${cv.phone.replace(/[ ()-]/g, '')}`, `mailto:${cv.email}`, ...cv.links.map(link => link.url)]);
   }
 });
 

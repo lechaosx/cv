@@ -68,6 +68,7 @@ const theme = Object.entries(data.theme).filter(([, value]) => value).map(([key,
         <a href="/cs/" lang="cs" hreflang="cs" data-language="cs" aria-current={language === 'cs' ? 'page' : undefined}>Čeština</a>
         <a href="/en/" lang="en" hreflang="en" data-language="en" aria-current={language === 'en' ? 'page' : undefined}>English</a>
       </div>
+      <a href={`/${language}/cv.pdf`} download>{labels.downloadPDF}</a>
       <label class="theme-control" hidden>{labels.theme}
         <select aria-label={labels.theme}>
           <option value="system">{labels.system}</option>

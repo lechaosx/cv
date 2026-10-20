@@ -19,3 +19,7 @@ HTML, metadata, structured identity and Markdown exports use the same validated 
 ## Stable browser fixtures [Explicit]
 
 Browser layout and preference checks render the production template with test-owned content so ordinary CV edits do not break them. Their separate output directory keeps fixtures out of the published artifact; production export checks still exercise the current CV.
+
+## PDF generation [Implicit]
+
+Headless Chromium renders the published language pages with local assets and the existing print stylesheet. PDF page counts determine the fitting scale; generation failures stop publishing so downloads stay consistent with the HTML.

@@ -23,3 +23,7 @@ Search results and share previews follow the page language, with one identity ac
 ## Readable exports [Explicit]
 
 Each language has a Markdown CV; a bilingual full export and compact `llms.txt` index make the same facts available to text readers and assistants. All exports follow the edited content, without another document to maintain.
+
+## One-page PDF downloads [Explicit]
+
+Each language offers a selectable-text A4 PDF, generated during publishing at the largest scale that fits one page. Readers can download it without adjusting print settings.

@@ -10,7 +10,7 @@
     "dev": "astro dev",
     "check": "astro check --minimumFailingSeverity hint",
     "test": "node --test --test-isolation=none tests/*.test.ts",
-    "build": "astro build",
+    "build": "astro build && node scripts/generate-pdfs.ts",
     "preview": "astro preview",
     "test:e2e": "npm run build && node --test --test-isolation=none tests/build/*.test.ts && astro build --config tests/astro.config.mjs && playwright test"
   },
@@ -24,6 +24,7 @@
     "@astrojs/check": "^0.9.10",
     "@playwright/test": "1.63.0",
     "@types/node": "^24.19.0",
+    "pdf-lib": "^1.17.1",
     "sass": "^1.97.3",
     "typescript": "^6.0.3",
     "yaml": "^2.9.1"
