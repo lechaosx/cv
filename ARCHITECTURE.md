@@ -22,4 +22,8 @@ Browser layout and preference checks render the production template with test-ow
 
 ## PDF generation [Implicit]
 
-Headless Chromium renders the published language pages with local assets and the existing print stylesheet. PDF page counts determine the fitting scale; generation failures stop publishing so downloads stay consistent with the HTML.
+Development downloads and publishing share one Chromium renderer so both use local assets, the print stylesheet and the same page-count fitting rule. Development renders the current page on demand; publishing stores static PDFs and stops on generation failure.
+
+## Published HTML [Explicit]
+
+The build formats HTML for readable View Source and gives bundled assets neutral names, keeping component paths and development tooling out of the published page. Semantic markup, accessibility hooks and structured metadata remain public.

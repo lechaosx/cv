@@ -22,7 +22,12 @@ const labels = translations[language];
 const theme = Object.entries(data.theme).filter(([, value]) => value).map(([key, value]) => `--${key}: ${value}`).join(';');
 ---
 <!doctype html>
-<html lang={data.language} style={theme}>
+<!--
+  👀 Caught you peeking!
+
+  Since you're here: https://github.com/lechaosx/cv
+-->
+<html lang={data.language} style={theme || undefined}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -70,9 +75,9 @@ const theme = Object.entries(data.theme).filter(([, value]) => value).map(([key,
       </figure>
       <header class="main-info">
         <div>
-          <p class="title">{t(data.title_before_name)}</p>
+          {data.title_before_name && <p class="title">{t(data.title_before_name)}</p>}
           <h1>{t(data.name)}</h1>
-          <p class="title">{t(data.title_after_name)}</p>
+          {data.title_after_name && <p class="title">{t(data.title_after_name)}</p>}
           <p class="position">{t(data.position)}</p>
         </div>
         <address class="contact-list">

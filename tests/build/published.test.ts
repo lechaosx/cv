@@ -10,6 +10,25 @@ const cv = cvSchema.parse(parse(readFileSync('src/content/cv.yaml', 'utf8')));
 const site = new URL(config.site!);
 const output = (path: string) => readFileSync(`dist/${path}`, 'utf8');
 
+test('published HTML is readable and exposes only the public page and assets', () => {
+  for (const route of ['', 'en/', 'cs/']) {
+    const html = output(`${route}index.html`);
+    assert.match(html, /<!doctype html>\n/i);
+    assert.match(html, /\n  <head>\n/);
+    assert.match(html, /\n  <body>\n/);
+    assert.match(html, /<!--\n\s+👀 Caught you peeking!/);
+    assert.match(html, /https:\/\/github\.com\/lechaosx\/cv\s/);
+    assert.doesNotMatch(html, /(?:data-astro|\/src\/|\/@vite|\.astro[._?]|sourceMappingURL|\/home\/|style="")/);
+    assert.equal([...html.matchAll(/<!--/g)].length, 1);
+    const assetPaths = [...html.matchAll(/(?:src|href)="(\/assets\/[^"#?]+)"/g)].map(match => match[1]!);
+    assert.ok(assetPaths.length > 0);
+    for (const asset of assetPaths) {
+      assert.ok(existsSync(`dist${asset}`), `Missing published asset: ${asset}`);
+      assert.match(asset, /^\/assets\/[\w-]+\.(?:js|css|woff2)$/);
+    }
+  }
+});
+
 test('published crawler files and exports contain only canonical CV routes and current content', () => {
   const robots = output('robots.txt');
   assert.ok(robots.includes('User-agent: *\nAllow: /'));
