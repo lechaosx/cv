@@ -217,6 +217,70 @@ section { margin-bottom: 20px; }
 
 // ── Responsive ─────────────────────────────────────────────────────────────
 
+@media screen and (width < 80rem) {
+	main {
+		width: 100%;
+		text-align: left;
+		overflow-wrap: anywhere;
+
+		> * {
+			min-inline-size: 0;
+			padding-inline: clamp(1rem, 5vw, 2.5rem);
+		}
+
+		> :nth-child(-n + 2) { padding-block: clamp(1.5rem, 5vw, 2.5rem); }
+	}
+
+	.photo img,
+	.photo svg {
+		max-width: 16rem;
+		margin-inline: auto;
+	}
+
+	.main-info {
+		> :first-child { min-inline-size: 0; }
+		.contact-list { flex: 0 1 auto; min-inline-size: 0; }
+	}
+
+	.contact-list span,
+	.connect span { min-inline-size: 0; }
+
+	.timeline {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+		> article > * { min-inline-size: 0; }
+	}
+
+	.badge-list > * { max-inline-size: 100%; }
+}
+
+@media screen and (max-width: 40rem) {
+	.timeline {
+		grid-template-columns: minmax(0, 1fr);
+
+		> article {
+			display: block;
+			border-left: 1px solid var(--timeline);
+			margin-left: 7px;
+			padding-left: 20px;
+		}
+
+		> article > :first-child {
+			padding: 0 0 0.5rem;
+			border-right: none;
+			text-align: left;
+
+			&::after {
+				left: -20px;
+				right: auto;
+				transform: translate(-50%, -50%);
+			}
+		}
+
+		> article > :last-child { padding: 0 0 24px; }
+		.badge-list { justify-content: start; }
+	}
+}
+
 @media (min-width: 80rem), print {
 	main { grid-template-columns: 1fr 2fr; }
 

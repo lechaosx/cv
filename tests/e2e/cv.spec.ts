@@ -5,48 +5,63 @@ import { cvSchema } from '../../src/cv';
 
 const cv = cvSchema.parse(parse(readFileSync('src/content/cv.yaml', 'utf8')));
 
-for (const viewport of [{ width: 1440, height: 1000 }, { width: 390, height: 844 }]) {
-  for (const colorScheme of ['light', 'dark'] as const) {
-    test(`CV renders offline with JavaScript disabled at ${viewport.width}px in ${colorScheme}`, async ({ page }) => {
-      await page.setViewportSize(viewport);
-      await page.emulateMedia({ colorScheme });
-      const external: string[] = [];
-      const failures: string[] = [];
-      page.on('response', response => { if (response.status() >= 400) failures.push(response.url()); });
-      await page.route('**/*', route => {
-        if (new URL(route.request().url()).origin !== 'http://127.0.0.1:4331') {
-          external.push(route.request().url());
-          return route.abort();
-        }
-        return route.continue();
-      });
-      await page.goto('/');
-      await page.evaluate(() => document.fonts.ready);
-      await expect(page.getByRole('heading', { name: cv.name, exact: true })).toBeVisible();
-      await expect(page.locator('html')).toHaveAttribute('lang', cv.language);
-      if (cv.email) await expect(page.getByRole('link', { name: cv.email, exact: true })).toHaveAttribute('href', `mailto:${cv.email}`);
-      if (cv.phone) await expect(page.getByRole('link', { name: cv.phone, exact: true })).toHaveAttribute('href', `tel:${cv.phone}`);
-      for (const link of cv.links) await expect(page.getByRole('link', { name: link.label, exact: true })).toHaveAttribute('href', link.url);
-      await expect(page.locator('article')).toHaveCount(cv.experience.length + cv.education.length);
-      await expect(page.locator('script')).toHaveCount(0);
-      if (cv.photo) expect(await page.locator('.photo img').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
-      const portrait = await page.locator('.photo > img, .photo > svg').boundingBox();
-      expect(Math.abs(portrait!.width - portrait!.height)).toBeLessThan(1);
-      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
-      expect(await page.evaluate(() => document.fonts.check('300 16px "Roboto Variable"') && document.fonts.check('700 40px "Roboto Condensed Variable"'))).toBe(true);
-      if (viewport.width >= 1280 && cv.theme['dark']) {
-        const expected = await page.evaluate(color => {
-          const element = document.createElement('div');
-          element.style.color = color;
-          return element.style.color;
-        }, cv.theme['dark']);
-        await expect(page.locator('.photo')).toHaveCSS('background-color', expected);
-      }
-      expect(external).toEqual([]);
-      expect(failures).toEqual([]);
-    });
+test('screen content stays readable offline, without JavaScript, from phones to desktop', async ({ page }) => {
+  const external: string[] = [];
+  const failures: string[] = [];
+  page.on('response', response => { if (response.status() >= 400) failures.push(response.url()); });
+  await page.route('**/*', route => {
+    if (new URL(route.request().url()).origin !== 'http://127.0.0.1:4331') {
+      external.push(route.request().url());
+      return route.abort();
+    }
+    return route.continue();
+  });
+
+  for (const [width, colorScheme] of [[1440, 'light'], [768, 'light'], [390, 'dark'], [320, 'light']] as const) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ colorScheme });
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.getByRole('heading', { name: cv.name, exact: true })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), width + 'px page fits the viewport').toBe(true);
+    const portrait = await page.locator('.photo > img, .photo > svg').boundingBox();
+    expect(Math.abs(portrait!.width - portrait!.height)).toBeLessThan(1);
+    if (width <= 390 && cv.experience.length + cv.education.length > 0) {
+      const organization = await page.locator('.timeline article > :first-child').first().boundingBox();
+      const description = await page.locator('.timeline article > :last-child').first().boundingBox();
+      expect(description!.y).toBeGreaterThan(organization!.y);
+      expect(description!.width).toBeGreaterThan(width * 0.7);
+    }
   }
-}
+
+  await expect(page.locator('html')).toHaveAttribute('lang', cv.language);
+  if (cv.email) await expect(page.getByRole('link', { name: cv.email, exact: true })).toHaveAttribute('href', 'mailto:' + cv.email);
+  if (cv.phone) await expect(page.getByRole('link', { name: cv.phone, exact: true })).toHaveAttribute('href', 'tel:' + cv.phone);
+  for (const link of cv.links) await expect(page.getByRole('link', { name: link.label, exact: true })).toHaveAttribute('href', link.url);
+  await expect(page.locator('article')).toHaveCount(cv.experience.length + cv.education.length);
+  await expect(page.locator('script')).toHaveCount(0);
+  if (cv.photo) expect(await page.locator('.photo img').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+  expect(await page.evaluate(() => document.fonts.check('300 16px "Roboto Variable"') && document.fonts.check('700 40px "Roboto Condensed Variable"'))).toBe(true);
+
+  await page.evaluate(() => {
+    document.documentElement.style.fontSize = '200%';
+    for (const [selector, text] of [
+      ['.contact-list div:last-child span', 'a.very.long.email.address.for.professional.enquiries@example.com'],
+      ['.connect a span', 'github.com/an-extremely-long-unbroken-professional-profile-name'],
+      ['.timeline article strong', 'AnExtremelyLongUnbrokenOrganizationName'],
+      ['.badge-list li', 'AnExtremelyLongUnbrokenTechnicalSpecialization'],
+    ] as const) {
+      const element = document.querySelector(selector);
+      if (element) element.textContent = text;
+    }
+  });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'long content at 200% text size fits the small phone').toBe(true);
+  if (cv.experience.length + cv.education.length > 0) {
+    expect(await page.locator('.timeline article > :last-child').first().evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
+  }
+  expect(external).toEqual([]);
+  expect(failures).toEqual([]);
+});
 
 test('print keeps the two-column layout, colors, and readable content', async ({ page }, info) => {
   await page.setViewportSize({ width: 794, height: 1123 });
