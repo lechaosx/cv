@@ -1,8 +1,7 @@
 media:
   input: public/uploads
   output: /uploads
-  categories:
-  - image
+  categories: [image]
 content:
 - name: cv
   label: Drahomír’s CV
@@ -10,17 +9,25 @@ content:
   path: src/content/cv.yaml
   format: yaml
   fields:
-  - {name: language, label: Language, type: select, required: true, options: {values: [en, cs]}}
   - {name: title_before_name, label: Title before name, type: string, required: false}
   - {name: name, label: Full name, type: string, required: true}
   - {name: title_after_name, label: Title after name, type: string, required: false}
-  - {name: position, label: Profession, type: string, required: false}
+  - {name: position_en, description: Fill both languages or leave both empty., label: Profession — English, type: string, required: false}
+  - {name: position_cs, label: Profession — Czech, type: string, required: false}
   - {name: phone, label: Phone, type: string, required: false}
   - {name: email, label: Email, type: string, required: false}
   - {name: location, label: Location, type: string, required: false}
   - {name: photo, label: Portrait, type: image, required: false}
-  - {name: description, label: About me, type: text, required: false}
-  - {name: interests, label: Interests, type: string, required: false, list: true}
+  - {name: description_en, description: Fill both languages or leave both empty., label: About me — English, type: text, required: false}
+  - {name: description_cs, label: About me — Czech, type: text, required: false}
+  - name: interests
+    label: Interests
+    type: object
+    required: false
+    list: true
+    fields:
+    - {name: label_en, label: English, type: string, required: true}
+    - {name: label_cs, label: Czech, type: string, required: true}
   - name: links
     label: Links
     type: object
@@ -36,16 +43,16 @@ content:
     required: false
     list: true
     fields: &timelineFields
-    - {name: organization, label: Organization, type: string, required: true}
-    - {name: department, label: Department, type: string, required: false}
-    - {name: title, label: Position or qualification, type: string, required: true}
-    - {name: start_month, label: Start month, type: string, required: false, pattern: &monthPattern {regex: '^(0[1-9]|1[0-2])?$', message: Use
-          01–12 or leave empty.}}
-    - {name: start_year, label: Start year, type: string, required: false, pattern: &yearPattern {regex: '^([1-9][0-9]{3})?$', message: Use
-          a four-digit year or leave empty.}}
-    - {name: end_month, label: End month, type: string, required: false, pattern: *monthPattern}
-    - {name: end_year, label: End year, type: string, required: false, pattern: *yearPattern}
-    - {name: description, label: Description, type: text, required: false}
+    - {name: organization_en, label: Organization — English, type: string, required: true}
+    - {name: organization_cs, label: Organization — Czech, type: string, required: true}
+    - {name: department_en, description: Fill both languages or leave both empty., label: Department — English, type: string, required: false}
+    - {name: department_cs, label: Department — Czech, type: string, required: false}
+    - {name: title_en, label: Position or qualification — English, type: string, required: true}
+    - {name: title_cs, label: Position or qualification — Czech, type: string, required: true}
+    - {name: from, label: From, type: string, required: false, pattern: &datePattern {regex: '^([1-9][0-9]{3}|(0?[1-9]|1[0-2])/[1-9][0-9]{3})?$', message: 'Use YYYY or M/YYYY; leave empty for a completion date only.'}}
+    - {name: to, label: To, type: string, required: false, pattern: *datePattern, description: Leave empty for an ongoing role.}
+    - {name: description_en, description: Fill both languages or leave both empty., label: Description — English, type: text, required: false}
+    - {name: description_cs, label: Description — Czech, type: text, required: false}
     - {name: badges, label: Skills and tools, type: string, required: false, list: true}
   - name: education
     label: Education
@@ -58,8 +65,5 @@ content:
     type: object
     required: false
     fields:
-    - {name: dark, label: Sidebar color, type: string, required: false, pattern: {regex: '^(#[0-9a-fA-F]{3}|#[0-9a-fA-F]{6})?$', message: 'Use
-          a hex color, e.g. #283649; clear to restore the default.'}}
-    - {name: light, label: Accent color, type: string, required: false, pattern: {regex: '^(#[0-9a-fA-F]{3}|#[0-9a-fA-F]{6})?$', message: 'Use
-          a hex color, e.g. #283649; clear to restore the default.'}}
-    description: Clear either field to use the stylesheet default.
+    - {name: dark, label: Sidebar color, type: string, required: false, pattern: {regex: '^(#[0-9a-fA-F]{3}|#[0-9a-fA-F]{6})?$', message: 'Use a hex color, e.g. #283649; clear to restore the default.'}}
+    - {name: light, label: Accent color, type: string, required: false, pattern: {regex: '^(#[0-9a-fA-F]{3}|#[0-9a-fA-F]{6})?$', message: 'Use a hex color, e.g. #283649; clear to restore the default.'}}

@@ -1,117 +1,169 @@
 title_before_name: Ing.
 name: Drahomír Dlabaja
-title_after_name: ''
-position: Software Engineer
+title_after_name: ""
 phone: +420 605 401 878
 email: dr.dlabaja@gmail.com
 location: Brno, Královo Pole
 photo: /uploads/profile.jpg
-description: 'Skilled software engineer with a proven ability to lead and collaboratively tackle complex
-  problems, analyze solutions with their trade-offs, and make sure the implementation meets customer needs.
-  Proactive strategic thinker who can get things done.
-
-  '
 interests:
-- Learning
-- Bouldering
-- Running
-- 3D Printing
-- Cooking
-- Hiking
-- Music
-- Coffee Science
-- Gaming
+  - label_en: Learning
+    label_cs: Vzdělávání
+  - label_en: Bouldering
+    label_cs: Bouldering
+  - label_en: Running
+    label_cs: Běh
+  - label_en: 3D Printing
+    label_cs: 3D tisk
+  - label_en: Cooking
+    label_cs: Vaření
+  - label_en: Hiking
+    label_cs: Turistika
+  - label_en: Music
+    label_cs: Hudba
+  - label_en: Coffee Science
+    label_cs: Věda o kávě
+  - label_en: Gaming
+    label_cs: Hraní her
 links:
-- label: github.com/lechaosx
-  url: https://github.com/lechaosx
-  icon: github
-- label: linkedin.com/in/dlabajad
-  url: https://linkedin.com/in/dlabajad
-  icon: linkedin
+  - label: github.com/lechaosx
+    url: https://github.com/lechaosx
+    icon: github
+  - label: linkedin.com/in/dlabajad
+    url: https://linkedin.com/in/dlabajad
+    icon: linkedin
 experience:
-- title: Software Development Lead
-  start_month: '07'
-  start_year: '2025'
-  end_month: '07'
-  end_year: '2025'
-  description: Brief engagement during their leadership transition period. The role was discontinued early
-    due to organizational restructuring and strategic misalignment.
-  badges: []
-  organization: Panoris
-- title: Senior Software Engineer
-  start_month: '03'
-  start_year: '2023'
-  end_month: '05'
-  end_year: '2025'
-  description: Working as a technical lead of Chyron Weather™, a product for interactive visualization
-    of weather forecasts for broadcast. Leading maintenance of a 20-year-old, 10M LOC legacy codebase.
-    Collaborating in a cross-functional, diverse team of nine software developers. Mentoring team members
-    and leading technical discussions. Actively promoting healthy agile development practices. Introduced
-    agility into our processes with measurable positive outcomes.
-  badges:
-  - Windows
-  - Visual Studio
-  - CMake
-  - Conan
-  - C++14
-  - C++/CLI
-  - C#
-  - Python
-  - Git
-  - Jenkins
-  - Jira
-  - .NET Framework
-  organization: Chyron
-- title: Software Developer
-  start_month: '04'
-  start_year: '2021'
-  end_month: '03'
-  end_year: '2023'
-  description: Worked on BlueSkyPlan, a product for dental treatment planning. As a member of a Geometry
-    Team, I spent most of the time researching, implementing, and optimizing advanced algorithms and data
-    structures for mesh and voxel data. I worked at spatial query acceleration, vertical and horizontal
-    parallelism, robust mesh booleans, and more. As part of a cloud computing initiative, I led the development
-    of a new, platform-independent build architecture for the existing codebase based on modern CMake
-    and Conan.
-  badges:
-  - Linux
-  - Windows
-  - Visual Studio
-  - CMake
-  - Conan
-  - C++17
-  - Qt 5
-  - Git
-  - GitLab CI/CD
-  - Redmine
-  organization: TESCAN 3DIM, s.r.o.
-- title: Data Compression Researcher
-  start_month: '06'
-  start_year: '2019'
-  end_month: '12'
-  end_year: '2020'
-  description: Researched and implemented new, state-of-the-art methodology for compression of 4D light-field
-    image data. The work was published in Multimedia Tools and Applications journal and presented at the
-    WSCG conference. The code is publicly available as an open-source library at my GitHub.
-  badges:
-  - Linux
-  - C++20
-  - Git
-  - CMake
-  organization: Brno University of Technology
+  - badges: []
+    title_en: Software Development Lead
+    title_cs: Vedoucí vývoje softwaru
+    description_en: Brief engagement during their leadership transition period. The role was
+      discontinued early due to organizational restructuring and strategic misalignment.
+    description_cs: Krátké působení během změny ve vedení společnosti. Pozice byla předčasně zrušena
+      kvůli organizační restrukturalizaci a rozdílným strategickým představám.
+    organization_en: Panoris
+    organization_cs: Panoris
+    department_en: ""
+    department_cs: ""
+    from: 07/2025
+    to: 07/2025
+  - badges:
+      - Windows
+      - Visual Studio
+      - CMake
+      - Conan
+      - C++14
+      - C++/CLI
+      - C#
+      - Python
+      - Git
+      - Jenkins
+      - Jira
+      - .NET Framework
+    title_en: Senior Software Engineer
+    title_cs: Seniorní softwarový inženýr
+    description_en: Working as a technical lead of Chyron Weather™, a product for interactive
+      visualization of weather forecasts for broadcast. Leading maintenance of a 20-year-old, 10M
+      LOC legacy codebase. Collaborating in a cross-functional, diverse team of nine software
+      developers. Mentoring team members and leading technical discussions. Actively promoting
+      healthy agile development practices. Introduced agility into our processes with measurable
+      positive outcomes.
+    description_cs: Práce na pozici technického vedoucího Chyron Weather™, produktu pro interaktivní
+      vizualizaci předpovědí počasí pro televizní vysílání. Vedení údržby dvacet let starého kódu o
+      rozsahu deseti milionů řádků. Spolupráce v mezioborovém a různorodém týmu devíti softwarových
+      vývojářů. Mentoring členů týmu a vedení technických diskusí. Aktivní podpora zdravých postupů
+      agilního vývoje. Zavedení agilních principů do procesů s měřitelnými pozitivními výsledky.
+    organization_en: Chyron
+    organization_cs: Chyron
+    department_en: ""
+    department_cs: ""
+    from: 03/2023
+    to: 05/2025
+  - badges:
+      - Linux
+      - Windows
+      - Visual Studio
+      - CMake
+      - Conan
+      - C++17
+      - Qt 5
+      - Git
+      - GitLab CI/CD
+      - Redmine
+    title_en: Software Developer
+    title_cs: Softwarový vývojář
+    description_en: Worked on BlueSkyPlan, a product for dental treatment planning. As a member of a
+      Geometry Team, I spent most of the time researching, implementing, and optimizing advanced
+      algorithms and data structures for mesh and voxel data. I worked at spatial query
+      acceleration, vertical and horizontal parallelism, robust mesh booleans, and more. As part of
+      a cloud computing initiative, I led the development of a new, platform-independent build
+      architecture for the existing codebase based on modern CMake and Conan.
+    description_cs: Práce na BlueSkyPlan, produktu pro plánování stomatologických zákroků. Jako člen
+      týmu geometrie jsem se převážně věnoval výzkumu, implementaci a optimalizaci pokročilých
+      algoritmů a datových struktur pro polygonální sítě a voxelová data. Pracoval jsem na
+      zrychlování prostorových dotazů, vertikálním a horizontálním paralelismu, robustních
+      booleovských operacích nad sítěmi a dalších tématech. V rámci iniciativy zaměřené na cloudové
+      výpočty jsem vedl vývoj nové, platformově nezávislé architektury sestavování existujícího kódu
+      založené na moderním CMake a Conanu.
+    organization_en: TESCAN 3DIM, s.r.o.
+    organization_cs: TESCAN 3DIM, s.r.o.
+    department_en: ""
+    department_cs: ""
+    from: 04/2021
+    to: 03/2023
+  - badges:
+      - Linux
+      - C++20
+      - Git
+      - CMake
+    title_en: Data Compression Researcher
+    title_cs: Výzkumník v oblasti komprese dat
+    description_en: Researched and implemented new, state-of-the-art methodology for compression of 4D
+      light-field image data. The work was published in Multimedia Tools and Applications journal
+      and presented at the WSCG conference. The code is publicly available as an open-source library
+      at my GitHub.
+    description_cs: Výzkum a implementace nové špičkové metodiky komprese obrazových dat 4D světelných
+      polí. Práce byla publikována v časopise Multimedia Tools and Applications a prezentována na
+      konferenci WSCG. Kód je veřejně dostupný jako open-source knihovna na mém GitHubu.
+    organization_en: Brno University of Technology
+    organization_cs: Vysoké učení technické v Brně
+    department_en: ""
+    department_cs: ""
+    from: 06/2019
+    to: 12/2020
 education:
-- title: Master's Degree
-  end_year: '2022'
-  description: Specialization in Computer Graphics and Interaction. Thesis on visualization of large volumetric
-    data on CPU, with emphasis on data structures, cache coherency, parallelization, and vectorization.
-    Developed in cooperation with TESCAN 3DIM, s.r.o.
-  organization: Brno University of Technology
-  department: Faculty of Information Technology
-- title: Bachelor's Degree
-  end_year: '2019'
-  description: Thesis on lossy light field compression. Received Dean's award for excellent bachelor's
-    thesis. Presented the research at the Excel@FIT student conference, earned award for quality work
-    and experimental results.
-  organization: Brno University of Technology
-  department: Faculty of Information Technology
-language: en
+  - title_en: Master's Degree
+    title_cs: Magisterský titul
+    description_en: Specialization in Computer Graphics and Interaction. Thesis on visualization of
+      large volumetric data on CPU, with emphasis on data structures, cache coherency,
+      parallelization, and vectorization. Developed in cooperation with TESCAN 3DIM, s.r.o.
+    description_cs: Specializace na počítačovou grafiku a interakci. Diplomová práce zaměřená na
+      vizualizaci rozsáhlých objemových dat na CPU s důrazem na datové struktury, koherenci cache,
+      paralelizaci a vektorizaci. Vyvinuto ve spolupráci s TESCAN 3DIM, s.r.o.
+    organization_en: Brno University of Technology
+    organization_cs: Vysoké učení technické v Brně
+    department_en: Faculty of Information Technology
+    department_cs: Fakulta informačních technologií
+    from: ""
+    to: "2022"
+  - title_en: Bachelor's Degree
+    title_cs: Bakalářský titul
+    description_en: Thesis on lossy light field compression. Received Dean's award for excellent
+      bachelor's thesis. Presented the research at the Excel@FIT student conference, earned award
+      for quality work and experimental results.
+    description_cs: Bakalářská práce o ztrátové kompresi světelných polí. Ocenění děkana za vynikající
+      bakalářskou práci. Prezentace výzkumu na studentské konferenci Excel@FIT a ocenění za kvalitní
+      práci a experimentální výsledky.
+    organization_en: Brno University of Technology
+    organization_cs: Vysoké učení technické v Brně
+    department_en: Faculty of Information Technology
+    department_cs: Fakulta informačních technologií
+    from: ""
+    to: "2019"
+position_en: Software Engineer
+position_cs: Softwarový inženýr
+description_en: >
+  Skilled software engineer with a proven ability to lead and collaboratively tackle complex
+  problems, analyze solutions with their trade-offs, and make sure the implementation meets customer
+  needs. Proactive strategic thinker who can get things done.
+description_cs: Zkušený softwarový inženýr s prokázanou schopností vést tým a společně řešit složité
+  problémy, analyzovat řešení a jejich kompromisy a zajistit, aby implementace odpovídala potřebám
+  zákazníka. Proaktivní a strategicky uvažující člověk, který dokáže dotahovat věci do konce.

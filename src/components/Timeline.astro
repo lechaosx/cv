@@ -1,26 +1,27 @@
 ---
-import { formatDate, type TimelineEntry } from '../cv';
-interface Props { entries: TimelineEntry[]; present: string }
-const { entries, present } = Astro.props;
+import { dateTime, type LocalizedCV, type Language } from '../cv';
+import { renderedText } from '../i18n';
+interface Props { entries: LocalizedCV['experience']; present: string; language: Language }
+const { entries, present, language } = Astro.props;
+const t = (value: string) => renderedText(value, language);
 ---
 <div class="timeline">
   {entries.map(entry => (
     <article>
       <div>
-        <strong>{entry.organization}</strong>
-        {entry.department && <div>{entry.department}</div>}
-        {(entry.start_year || entry.end_year) && <p class="cv-dates">
-          {entry.start_year ? <>
-            <time datetime={`${entry.start_year}${entry.start_month ? `-${entry.start_month}` : ''}`}>{formatDate(entry.start_month, entry.start_year)}</time>
-            {' – '}
-            {entry.end_year ? <time datetime={`${entry.end_year}${entry.end_month ? `-${entry.end_month}` : ''}`}>{formatDate(entry.end_month, entry.end_year)}</time> : present}
-          </> : <time datetime={`${entry.end_year}${entry.end_month ? `-${entry.end_month}` : ''}`}>{formatDate(entry.end_month, entry.end_year)}</time>}
+        <strong>{t(entry.organization)}</strong>
+        {entry.department && <div>{t(entry.department)}</div>}
+        {(entry.from || entry.to) && <p class="cv-dates">
+          {entry.from ? <>
+            <time datetime={dateTime(entry.from)}>{entry.from}</time>
+            {entry.from !== entry.to && <>{' – '}{entry.to ? <time datetime={dateTime(entry.to)}>{entry.to}</time> : present}</>}
+          </> : <time datetime={dateTime(entry.to)}>{entry.to}</time>}
         </p>}
-        {entry.badges.length > 0 && <ul class="badge-list">{entry.badges.map(badge => <li>{badge}</li>)}</ul>}
+        {entry.badges.length > 0 && <ul class="badge-list">{entry.badges.map(badge => <li>{t(badge)}</li>)}</ul>}
       </div>
       <div>
-        <strong>{entry.title}</strong>
-        {entry.description && <p>{entry.description}</p>}
+        <strong>{t(entry.title)}</strong>
+        {entry.description && <p>{t(entry.description)}</p>}
       </div>
     </article>
   ))}

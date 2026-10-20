@@ -1,6 +1,6 @@
 # Drahomír’s CV
 
-A static CV for https://dlabaja.eu. Content is edited through Pages CMS or `src/content/cv.yaml`. Saving to `master` runs validation and browser checks before GitHub Pages publishes the change.
+A static bilingual CV for https://dlabaja.eu, edited in Pages CMS or `src/content/cv.yaml` and published with GitHub Pages.
 
 ## Development
 
@@ -10,20 +10,16 @@ npm ci
 npm run dev
 ```
 
-`npm run check` checks types and Astro templates. `npm test` checks content validation and CMS compatibility. `npm run test:e2e` builds the site and checks screen and print rendering in Chromium, attaching an A4 PDF to the test results. The Nix shell provides Node 24 and matching Playwright browsers. Outside Nix, use Node 24 and run `npx playwright install --with-deps chromium` before browser tests.
-
-`npm run build` writes the standalone site to `dist/`; `npm run preview` serves it locally.
+Run `npm run check`, `npm test`, and `npm run test:e2e` before publishing; browser checks attach English and Czech A4 PDFs. The Nix shell supplies Node 24 and matching Playwright browsers. `npm run build` writes `dist/`; `npm run preview` serves it.
 
 ## Editing
 
-Sign in at https://app.pagescms.org with GitHub and grant the Pages CMS GitHub App access to this repository. Open the CV form on `master`. Uploaded portraits belong to `public/uploads`; their content paths start with `/uploads/`.
+Open this repository in [Pages CMS](https://app.pagescms.org) and edit the CV on `master`. Fill both translations of prose; leave both empty to omit an optional field. Dates use quoted `2023` or `3/2023`: a start alone means ongoing, an end alone means a completion date. Portraits belong in `public/uploads`; clearing a color restores the stylesheet default.
 
-Descriptions are plain text. Timeline dates are quoted strings: years use `2023`, months use `01` through `12`. A start without an end means “present”; an end alone displays a single date. Leave optional fields empty to omit them. Empty color fields use the stylesheet palette. Colors use hex values, such as `#283649`.
+## Publishing and printing
 
-## Publishing
+Configure GitHub Pages to use **GitHub Actions**, set its custom domain to `dlabaja.eu`, and [configure DNS and HTTPS](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site). Keep `astro.config.mjs` and `public/CNAME` aligned with the domain. Pushes to `master` publish after checks pass; pull requests run checks only.
 
-In the repository’s GitHub Pages settings, select **GitHub Actions** as the source and configure `dlabaja.eu` as the custom domain. Configure DNS for GitHub Pages and enable HTTPS after the domain is verified. `astro.config.mjs` and `public/CNAME` must match the chosen domain. See [GitHub’s custom-domain setup](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
+For PDFs, select the desired language, use A4 portrait at 100% scale, enable background graphics, and disable browser headers and footers. Browser versions and print margins can affect pagination.
 
-Pushes to `master` and manual workflow runs publish after checks pass. Pull requests run the same checks without publishing. Pages CMS needs repository write access; public site visitors need no account.
-
-For PDF output, use A4 portrait at 100% scale, enable background graphics, and disable browser headers and footers. Pagination also depends on browser version and print margins.
+[Product decisions](FEATURES.md) · [Technical decisions](ARCHITECTURE.md)

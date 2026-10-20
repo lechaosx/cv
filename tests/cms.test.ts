@@ -23,8 +23,7 @@ function completeForm(fields: Field[]): Record<string, any> {
     let value: any;
     if (field.fields) value = completeForm(field.fields);
     else if (field.type === 'select') value = field.options!.values[0];
-    else if (field.name.endsWith('_month')) value = '03';
-    else if (field.name.endsWith('_year')) value = '2023';
+    else if (field.name === 'from' || field.name === 'to') value = '3/2023';
     else if (field.name === 'email') value = 'person@example.org';
     else if (field.name === 'phone') value = '+420 123 456 789';
     else if (field.type === 'image') value = `${config.media.output}/portrait.jpg`;

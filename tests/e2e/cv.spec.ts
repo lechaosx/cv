@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { parse } from 'yaml';
-import { cvSchema } from '../../src/cv';
+import { cvSchema, localizeCV } from '../../src/cv';
 
-const cv = cvSchema.parse(parse(readFileSync('src/content/cv.yaml', 'utf8')));
+const cv = localizeCV(cvSchema.parse(parse(readFileSync('src/content/cv.yaml', 'utf8'))), 'en');
 
 test('screen content stays readable offline, without JavaScript, from phones to desktop', async ({ page }) => {
   const external: string[] = [];
@@ -36,7 +36,7 @@ test('screen content stays readable offline, without JavaScript, from phones to 
           const box = await section.boundingBox();
           expect(connectBox!.y, width + 'px Connect follows the other sections').toBeGreaterThanOrEqual(box!.y + box!.height);
         }
-        await expect(page.getByRole('link').last()).toHaveAttribute('href', cv.links.at(-1)!.url);
+        await expect(page.locator('main').getByRole('link').last()).toHaveAttribute('href', cv.links.at(-1)!.url);
       }
     } else {
       await expect(page.locator('.connect:visible')).toHaveCount(0);
@@ -54,7 +54,7 @@ test('screen content stays readable offline, without JavaScript, from phones to 
   if (cv.phone) await expect(page.getByRole('link', { name: cv.phone, exact: true })).toHaveAttribute('href', 'tel:' + cv.phone);
   for (const link of cv.links) await expect(page.getByRole('link', { name: link.label, exact: true })).toHaveAttribute('href', link.url);
   await expect(page.locator('article')).toHaveCount(cv.experience.length + cv.education.length);
-  await expect(page.locator('script')).toHaveCount(0);
+  await expect(page.getByRole('combobox')).toBeHidden();
   if (cv.photo) expect(await page.locator('.photo img').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
   expect(await page.evaluate(() => document.fonts.check('300 16px "Roboto Variable"') && document.fonts.check('700 40px "Roboto Condensed Variable"'))).toBe(true);
 
@@ -76,6 +76,11 @@ test('screen content stays readable offline, without JavaScript, from phones to 
   }
   expect(external).toEqual([]);
   expect(failures).toEqual([]);
+  await page.goto('/cs/');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'cs');
+  await expect(page.getByRole('heading', { name: 'Pracovní zkušenosti' })).toBeVisible();
+  await expect(page.locator('.theme-control')).toBeHidden();
+  await expect(page.getByRole('link', { name: 'English', exact: true })).toHaveAttribute('href', '/en/');
 });
 
 test('print keeps the two-column layout, colors, and readable content', async ({ page }, info) => {
@@ -94,10 +99,17 @@ test('print keeps the two-column layout, colors, and readable content', async ({
     const connect = await page.locator('.connect:visible').boundingBox();
     expect(connect!.x).toBeLessThan(header!.x);
   }
-  for (const [index, entry] of [...cv.experience, ...cv.education].entries()) {
-    await expect(page.locator('article').nth(index).getByText(entry.title, { exact: true })).toBeVisible();
+  for (const language of ['en', 'cs'] as const) {
+    await page.goto(`/${language}/`);
+    await page.evaluate(() => document.fonts.ready);
+    const localized = localizeCV(cvSchema.parse(parse(readFileSync('src/content/cv.yaml', 'utf8'))), language);
+    await expect(page.locator('html')).toHaveAttribute('lang', language);
+    await expect(page.locator('.page-settings')).toBeHidden();
+    for (const [index, entry] of [...localized.experience, ...localized.education].entries()) {
+      await expect(page.locator('article').nth(index).getByText(entry.title, { exact: true })).toBeVisible();
+    }
+    const pdf = info.outputPath(`cv-${language}.pdf`);
+    await page.pdf({ path: pdf, format: 'A4', printBackground: true });
+    await info.attach(`print-${language}.pdf`, { path: pdf, contentType: 'application/pdf' });
   }
-  const pdf = info.outputPath('cv.pdf');
-  await page.pdf({ path: pdf, format: 'A4', printBackground: true });
-  await info.attach('print.pdf', { path: pdf, contentType: 'application/pdf' });
 });
