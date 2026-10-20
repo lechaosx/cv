@@ -1,0 +1,15 @@
+---
+import type { CV } from '../cv';
+import Icon from './Icon.astro';
+
+interface Props {
+  links: CV['links'];
+  heading: string;
+}
+
+const { links, heading } = Astro.props;
+---
+<section class="connect">
+  <h2 class="section-header">{heading}</h2>
+  <ul>{links.map(link => <li><a href={link.url}><Icon name={link.icon} /><span>{link.label}</span></a></li>)}</ul>
+</section>

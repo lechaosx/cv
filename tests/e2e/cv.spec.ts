@@ -26,6 +26,21 @@ test('screen content stays readable offline, without JavaScript, from phones to 
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), width + 'px page fits the viewport').toBe(true);
     const portrait = await page.locator('.photo > img, .photo > svg').boundingBox();
     expect(Math.abs(portrait!.width - portrait!.height)).toBeLessThan(1);
+    if (cv.links.length > 0) {
+      const connect = page.locator('.connect:visible');
+      await expect(connect).toHaveCount(1);
+      if (width < 1280) {
+        const sections = page.locator('section:visible:not(.connect)');
+        const connectBox = await connect.boundingBox();
+        for (const section of await sections.all()) {
+          const box = await section.boundingBox();
+          expect(connectBox!.y, width + 'px Connect follows the other sections').toBeGreaterThanOrEqual(box!.y + box!.height);
+        }
+        await expect(page.getByRole('link').last()).toHaveAttribute('href', cv.links.at(-1)!.url);
+      }
+    } else {
+      await expect(page.locator('.connect:visible')).toHaveCount(0);
+    }
     if (width <= 390 && cv.experience.length + cv.education.length > 0) {
       const organization = await page.locator('.timeline article > :first-child').first().boundingBox();
       const description = await page.locator('.timeline article > :last-child').first().boundingBox();
@@ -51,7 +66,7 @@ test('screen content stays readable offline, without JavaScript, from phones to 
       ['.timeline article strong', 'AnExtremelyLongUnbrokenOrganizationName'],
       ['.badge-list li', 'AnExtremelyLongUnbrokenTechnicalSpecialization'],
     ] as const) {
-      const element = document.querySelector(selector);
+      const element = [...document.querySelectorAll<HTMLElement>(selector)].find(element => element.checkVisibility());
       if (element) element.textContent = text;
     }
   });
@@ -74,6 +89,11 @@ test('print keeps the two-column layout, colors, and readable content', async ({
   expect(Math.abs(header!.y - photo!.y)).toBeLessThan(1);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await expect(page.locator('body')).toHaveCSS('print-color-adjust', 'exact');
+  if (cv.links.length > 0) {
+    await expect(page.locator('.connect:visible')).toHaveCount(1);
+    const connect = await page.locator('.connect:visible').boundingBox();
+    expect(connect!.x).toBeLessThan(header!.x);
+  }
   for (const [index, entry] of [...cv.experience, ...cv.education].entries()) {
     await expect(page.locator('article').nth(index).getByText(entry.title, { exact: true })).toBeVisible();
   }

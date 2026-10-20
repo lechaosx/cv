@@ -6,6 +6,8 @@ Experience and education share a timeline entry shape. Descriptions are plain te
 
 SCSS controls the screen and print layout. At desktop widths and when printing, the photo/sidebar use the dark palette and the right column uses the light palette. Narrow screens follow the browser’s color preference; phone timeline metadata stacks above descriptions to preserve readable text width through screen-only styles. Print color preservation requires background graphics enabled in the print dialog.
 
+Connect renders in the sidebar and after the timeline, with CSS displaying only the copy appropriate to the layout. This keeps its reading and keyboard order aligned with its position in both layouts while preserving print pagination.
+
 Pages CMS commits directly to the content file. Its form configuration is `.pages.yml`; tests exercise form payloads and YAML round trips against the build schema. GitHub Actions checks every content or code change before publishing `dist/`.
 
 This repository owns its renderer, styles, content, and deployment.
