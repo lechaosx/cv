@@ -8,6 +8,8 @@ npm ci
 npm run dev
 ```
 
+With direnv, run `direnv allow` once to enter the Nix shell automatically.
+
 Run `npm run check`, `npm test`, and `npm run test:e2e` before publishing. Browser checks use stable fixtures in `dist-e2e/`; `dist/` remains the production build. The Nix shell supplies Node 24 and matching Playwright browsers.
 
 ## Editing
