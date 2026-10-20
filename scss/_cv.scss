@@ -221,6 +221,7 @@ section { margin-bottom: 20px; }
 
 @media screen and (width < 80rem) {
 	.additional-info .connect { display: none; }
+	.additional-info .page-settings { display: none; }
 	.connect-footer { display: block; }
 
 	main {
@@ -322,22 +323,34 @@ section { margin-bottom: 20px; }
 }
 
 .page-settings {
-	width: min(100%, 60rem);
-	padding: 0.75rem clamp(1rem, 5vw, 2.5rem);
+	margin-block-start: auto;
+	padding-block: 1rem 1.5rem;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: space-between;
 	gap: 0.75rem;
-	color: var(--white);
+	color: var(--text);
 	font-size: 0.875rem;
 
-	a { color: inherit; padding-block: 0.5rem; }
-	a[aria-current] { font-weight: bold; }
-	.language-links { display: flex; gap: 1rem; flex-wrap: wrap; }
-	.theme-control { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; min-inline-size: 0; max-width: 100%; }
+	> a, > button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		padding: 0;
+		border: 1px solid transparent;
+		background: transparent;
+		color: inherit;
+		font: inherit;
+		text-decoration: none;
+		cursor: pointer;
+		&:hover { border-color: currentColor; }
+		&:active { color: var(--panel); background: var(--text); }
+	}
+	.language-switch { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; }
+	svg { width: 1rem; height: 1rem; }
 	[hidden] { display: none; }
-	select { font: inherit; max-width: 100%; }
 	:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 }
 

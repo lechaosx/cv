@@ -2,11 +2,11 @@
 
 ## English and Czech [Explicit]
 
-Each language has a directly linkable CV and prints its own content. The homepage uses the saved choice or browser language, with English available when JavaScript is disabled.
+Each language has a directly linkable CV and prints its own content. The homepage uses the saved choice or browser language, with English available when JavaScript is disabled. Switching language keeps the controls in view and preserves keyboard focus and browser history.
 
 ## Screen preferences and print [Explicit]
 
-Readers can use the system theme or remember a light/dark preference on narrow screens. Desktop and print keep the CV's mixed palette, and page controls stay out of the PDF.
+Narrow screens follow the system theme until the reader saves a light/dark choice with the theme button. Compact square controls sit at the bottom of the desktop sidebar and follow Connect on narrow screens. Desktop and print keep the CV's mixed palette, and page controls stay out of the PDF.
 
 ## Responsive reading order [Explicit]
 

@@ -39,7 +39,7 @@ test('keyboard reaches phone, email and each visible Connect link exactly once',
       if (href) focused.push(href);
       if (focused.length > 0 && !href) break;
     }
-    expect(focused).toEqual(['/cs/', '/en/', '/en/cv.pdf', `tel:${cv.phone.replace(/[ ()-]/g, '')}`, `mailto:${cv.email}`, ...cv.links.map(link => link.url)]);
+    expect(focused).toEqual([`tel:${cv.phone.replace(/[ ()-]/g, '')}`, `mailto:${cv.email}`, ...cv.links.map(link => link.url), '/cs/', '/en/cv.pdf']);
   }
 });
 
@@ -61,6 +61,19 @@ test('screen content stays readable offline, without JavaScript, from phones to 
     await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
     await expect(page.getByRole('heading', { name: cv.name, exact: true })).toBeVisible();
+    const main = await page.locator('main').boundingBox();
+    const settings = page.locator('.page-settings:visible');
+    await expect(settings).toHaveCount(1);
+    const settingsBox = await settings.boundingBox();
+    expect(settingsBox!.y, width + 'px settings follow the CV header').toBeGreaterThan(main!.y);
+    if (width >= 1280) {
+      const sidebar = await page.locator('.additional-info').boundingBox();
+      const header = await page.locator('.main-info').boundingBox();
+      expect(settingsBox!.x).toBeLessThan(header!.x);
+      expect(settingsBox!.y + settingsBox!.height).toBeCloseTo(sidebar!.y + sidebar!.height, 0);
+    } else {
+      await expect(page.locator('main').getByRole('link').last()).toHaveAttribute('href', '/en/cv.pdf');
+    }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), width + 'px page fits the viewport').toBe(true);
     const portrait = await page.locator('.photo > img, .photo > svg').boundingBox();
     expect(Math.abs(portrait!.width - portrait!.height)).toBeLessThan(1);
@@ -74,7 +87,7 @@ test('screen content stays readable offline, without JavaScript, from phones to 
           const box = await section.boundingBox();
           expect(connectBox!.y, width + 'px Connect follows the other sections').toBeGreaterThanOrEqual(box!.y + box!.height);
         }
-        await expect(page.locator('main').getByRole('link').last()).toHaveAttribute('href', cv.links.at(-1)!.url);
+        expect(settingsBox!.y, width + 'px settings follow Connect').toBeGreaterThanOrEqual(connectBox!.y + connectBox!.height);
       }
     } else {
       await expect(page.locator('.connect:visible')).toHaveCount(0);
@@ -92,7 +105,7 @@ test('screen content stays readable offline, without JavaScript, from phones to 
   if (cv.phone) await expect(page.getByRole('link', { name: cv.phone, exact: true })).toHaveAttribute('href', 'tel:' + cv.phone.replace(/[ ()-]/g, ''));
   for (const link of cv.links) await expect(page.getByRole('link', { name: link.label, exact: true })).toHaveAttribute('href', link.url);
   await expect(page.locator('article')).toHaveCount(cv.experience.length + cv.education.length);
-  await expect(page.getByRole('combobox')).toBeHidden();
+  await expect(page.getByRole('button')).toBeHidden();
   if (cv.photo) expect(await page.locator('.photo img').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
   expect(await page.evaluate(() => document.fonts.check('300 16px "Roboto Variable"') && document.fonts.check('700 40px "Roboto Condensed Variable"'))).toBe(true);
 
@@ -117,7 +130,7 @@ test('screen content stays readable offline, without JavaScript, from phones to 
   await page.goto('/cs/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'cs');
   await expect(page.getByRole('heading', { name: 'Pracovní zkušenosti' })).toBeVisible();
-  await expect(page.locator('.theme-control')).toBeHidden();
+  await expect(page.locator('.theme-control:visible')).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'English', exact: true })).toHaveAttribute('href', '/en/');
 });
 
@@ -142,7 +155,7 @@ test('print keeps the two-column layout, colors, and readable content', async ({
     await page.evaluate(() => document.fonts.ready);
     const localized = localizeCV(fixture, language);
     await expect(page.locator('html')).toHaveAttribute('lang', language);
-    await expect(page.locator('.page-settings')).toBeHidden();
+    await expect(page.locator('.page-settings:visible')).toHaveCount(0);
     for (const [index, entry] of [...localized.experience, ...localized.education].entries()) {
       await expect(page.locator('article').nth(index).getByText(entry.title, { exact: true })).toBeVisible();
     }

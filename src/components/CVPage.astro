@@ -9,6 +9,7 @@ import { labels as translations, renderedText, preferredLanguage } from '../i18n
 import { pageMetadata, structuredData } from '../publishing';
 import Icon from './Icon.astro';
 import Connect from './Connect.astro';
+import PageSettings from './PageSettings.astro';
 
 interface Props { cv: CV; language: Language; neutral?: boolean }
 const { cv, language, neutral = false } = Astro.props;
@@ -63,20 +64,6 @@ const theme = Object.entries(data.theme).filter(([, value]) => value).map(([key,
     `} />}
   </head>
   <body>
-    <nav class="page-settings" aria-label={labels.controls}>
-      <div class="language-links" aria-label={labels.language}>
-        <a href="/cs/" lang="cs" hreflang="cs" data-language="cs" aria-current={language === 'cs' ? 'page' : undefined}>Čeština</a>
-        <a href="/en/" lang="en" hreflang="en" data-language="en" aria-current={language === 'en' ? 'page' : undefined}>English</a>
-      </div>
-      <a href={`/${language}/cv.pdf`} download>{labels.downloadPDF}</a>
-      <label class="theme-control" hidden>{labels.theme}
-        <select aria-label={labels.theme}>
-          <option value="system">{labels.system}</option>
-          <option value="light">{labels.light}</option>
-          <option value="dark">{labels.dark}</option>
-        </select>
-      </label>
-    </nav>
     <main>
       <figure class="photo">
         {data.photo ? <img src={data.photo} alt={data.name} width="400" /> : <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="var(--white)" /><circle cx="50" cy="38" r="18" fill="var(--light)" /><ellipse cx="50" cy="90" rx="30" ry="22" fill="var(--light)" /></svg>}
@@ -98,33 +85,19 @@ const theme = Object.entries(data.theme).filter(([, value]) => value).map(([key,
         {data.description && <section><h2 class="section-header">{t(labels.about)}</h2><p>{t(data.description)}</p></section>}
         {data.interests.length > 0 && <section><h2 class="section-header">{t(labels.interests)}</h2><ul class="badge-list">{data.interests.map(interest => <li>{t(interest)}</li>)}</ul></section>}
         {data.links.length > 0 && <Connect links={data.links} heading={labels.connect} language={language} />}
+        <PageSettings language={language} />
       </div>
       <div>
         {data.experience.length > 0 && <section><h2 class="section-header">{t(labels.experience)}</h2><Timeline entries={data.experience} present={labels.present} language={language} /></section>}
         {data.education.length > 0 && <section><h2 class="section-header">{t(labels.education)}</h2><Timeline entries={data.education} present={labels.present} language={language} /></section>}
       </div>
-      {data.links.length > 0 && <div class="connect-footer"><Connect links={data.links} heading={labels.connect} language={language} /></div>}
+      <div class="connect-footer">
+        {data.links.length > 0 && <Connect links={data.links} heading={labels.connect} language={language} />}
+        <PageSettings language={language} />
+      </div>
     </main>
     <script>
-      const root = document.documentElement;
-      for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-language]')) {
-        link.href += location.search + location.hash;
-        link.addEventListener('click', () => {
-          try { localStorage.setItem('lang', link.dataset.language!); } catch {}
-        });
-      }
-      const control = document.querySelector<HTMLElement>('.theme-control')!;
-      const select = control.querySelector('select')!;
-      select.value = root.dataset.theme ?? 'system';
-      control.hidden = false;
-      select.addEventListener('change', () => {
-        if (select.value === 'system') delete root.dataset.theme;
-        else root.dataset.theme = select.value;
-        try {
-          if (select.value === 'system') localStorage.removeItem('theme');
-          else localStorage.setItem('theme', select.value);
-        } catch {}
-      });
+      import '../page-controls';
     </script>
   </body>
 </html>
