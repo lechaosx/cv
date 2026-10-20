@@ -1,20 +1,20 @@
 ---
 import { existsSync } from 'node:fs';
-import { getEntry } from 'astro:content';
 import '@fontsource-variable/roboto/wght.css';
 import '@fontsource-variable/roboto-condensed/wght.css';
 import '../../scss/style.scss';
 import Timeline from './Timeline.astro';
-import { localizeCV, type Language } from '../cv';
+import { localizeCV, type CV, type Language } from '../cv';
 import { labels as translations, renderedText, preferredLanguage } from '../i18n';
+import { pageMetadata, structuredData } from '../publishing';
 import Icon from './Icon.astro';
 import Connect from './Connect.astro';
 
-interface Props { language: Language; neutral?: boolean }
-const { language, neutral = false } = Astro.props;
-const entry = await getEntry('cv', 'cv');
-if (!entry) throw new Error('Missing src/content/cv.yaml');
-const data = localizeCV(entry.data, language);
+interface Props { cv: CV; language: Language; neutral?: boolean }
+const { cv, language, neutral = false } = Astro.props;
+const data = localizeCV(cv, language);
+const site = Astro.site!;
+const meta = pageMetadata(cv, language, site);
 const t = (value: string) => renderedText(value, language);
 if (data.photo && !existsSync(`public${data.photo}`)) throw new Error(`Missing photo: ${data.photo}`);
 const labels = translations[language];
@@ -25,9 +25,29 @@ const theme = Object.entries(data.theme).filter(([, value]) => value).map(([key,
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{data.name}</title>
-    {data.description && <meta name="description" content={data.description} />}
-    <link rel="canonical" href={new URL(`/${language}/`, Astro.site)} />
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <link rel="canonical" href={meta.url} />
+    {(['en', 'cs'] as const).map(lang => <link rel="alternate" hreflang={lang} href={new URL(`/${lang}/`, site)} />)}
+    <link rel="alternate" hreflang="x-default" href={site} />
+    <link rel="alternate" type="text/markdown" href={new URL(`/${language}/index.md`, site)} />
+    <link rel="describedby" type="text/plain" href={new URL('/llms.txt', site)} />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={meta.url} />
+    <meta property="og:locale" content={language === 'cs' ? 'cs_CZ' : 'en_US'} />
+    <meta property="og:locale:alternate" content={language === 'cs' ? 'en_US' : 'cs_CZ'} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    {meta.image && <>
+      <meta property="og:image" content={meta.image} />
+      <meta property="og:image:alt" content={data.name} />
+      <meta name="twitter:image" content={meta.image} />
+      <meta name="twitter:image:alt" content={data.name} />
+    </>}
+    <script is:inline type="application/ld+json" set:html={structuredData(cv, language, site)} />
     {data.photo && <link rel="icon" href={data.photo} />}
     <script is:inline>
       try {
@@ -69,7 +89,7 @@ const theme = Object.entries(data.theme).filter(([, value]) => value).map(([key,
         </div>
         <address class="contact-list">
           {data.location && <div><Icon name="map-pin" /><span>{t(data.location)}</span></div>}
-          {data.phone && <div><Icon name="phone" /><a href={`tel:${data.phone}`}><span>{data.phone}</span></a></div>}
+          {data.phone && <div><Icon name="phone" /><a href={`tel:${data.phone.replace(/[ ()-]/g, '')}`}><span>{data.phone}</span></a></div>}
           {data.email && <div><Icon name="mail" /><a href={`mailto:${data.email}`}><span>{data.email}</span></a></div>}
         </address>
       </header>

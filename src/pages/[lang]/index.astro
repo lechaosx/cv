@@ -1,8 +1,11 @@
 ---
 import CVPage from '../../components/CVPage.astro';
+import { getEntry } from 'astro:content';
 export function getStaticPaths() {
   return (['en', 'cs'] as const).map(language => ({ params: { lang: language }, props: { language } }));
 }
 const { language } = Astro.props;
+const entry = await getEntry('cv', 'cv');
+if (!entry) throw new Error('Missing src/content/cv.yaml');
 ---
-<CVPage language={language} />
+<CVPage cv={entry.data} language={language} />

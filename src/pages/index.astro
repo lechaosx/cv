@@ -1,4 +1,7 @@
 ---
 import CVPage from '../components/CVPage.astro';
+import { getEntry } from 'astro:content';
+const entry = await getEntry('cv', 'cv');
+if (!entry) throw new Error('Missing src/content/cv.yaml');
 ---
-<CVPage language="en" neutral />
+<CVPage cv={entry.data} language="en" neutral />

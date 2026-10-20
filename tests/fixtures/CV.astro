@@ -1,0 +1,10 @@
+---
+import CVPage from '../../src/components/CVPage.astro';
+import { cv } from './cv';
+
+export function getStaticPaths() {
+  return (['en', 'cs'] as const).map(language => ({ params: { lang: language }, props: { language } }));
+}
+const { language = 'en' } = Astro.props;
+---
+<CVPage cv={cv} language={language} neutral={!Astro.params.lang} />

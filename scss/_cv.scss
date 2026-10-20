@@ -102,7 +102,7 @@ h1 { text-transform: uppercase; }
 		gap: 8px;
 	}
 
-	a { display: contents; }
+	a { display: flex; flex: 1; min-inline-size: 0; }
 
 	span {
 		flex: 1;
@@ -256,6 +256,9 @@ section { margin-bottom: 20px; }
 	}
 
 	.badge-list > * { max-inline-size: 100%; }
+
+	.additional-info > section > p,
+	.timeline article > :last-child > p { max-inline-size: 70ch; }
 }
 
 @media screen and (max-width: 40rem) {
