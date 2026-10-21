@@ -1,20 +1,34 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { dev } from 'astro';
+import { chromium } from '@playwright/test';
+import { readFile } from 'node:fs/promises';
 import { PDFDocument, PDFName } from 'pdf-lib';
 import { cv } from '../fixtures/cv.ts';
 
 test('development downloads render the current localized page without a production build', async () => {
   const server = await dev({ configFile: './tests/astro.config.mjs', server: { host: '127.0.0.1', port: 0 }, logLevel: 'error' });
+  let browser;
   try {
+    browser = await chromium.launch();
+    const page = await browser.newPage({ acceptDownloads: true, viewport: { width: 390, height: 900 } });
     const origin = `http://127.0.0.1:${server.address.port}`;
     for (const language of ['en', 'cs']) {
+      if (language === 'en') await page.goto(`${origin}/en/`);
+      else {
+        await page.getByRole('link', { name: 'Čeština', exact: true }).click();
+        await page.waitForURL('**/cs/');
+      }
+      const downloadPromise = page.waitForEvent('download');
+      await page.getByRole('link', { name: language === 'en' ? 'Download PDF' : 'Stáhnout PDF' }).click();
+      const download = await downloadPromise;
+      assert.equal(download.suggestedFilename(), `Example_Person_CV_${language.toUpperCase()}.pdf`);
       const response = await fetch(`${origin}/${language}/cv.pdf`);
       assert.equal(response.status, 200);
       assert.equal(response.headers.get('content-type'), 'application/pdf');
       assert.match(response.headers.get('content-disposition')!, /attachment/);
       assert.equal(response.headers.get('cache-control'), 'no-store');
-      const pdf = await PDFDocument.load(await response.arrayBuffer());
+      const pdf = await PDFDocument.load(await readFile((await download.path())!));
       assert.equal(pdf.getPageCount(), 1);
       assert.ok(pdf.getTitle()?.includes(cv.name));
       assert.ok(pdf.getTitle()?.includes(language === 'cs' ? 'Životopis' : 'CV'));
@@ -25,6 +39,7 @@ test('development downloads render the current localized page without a producti
     }
     assert.equal((await fetch(`${origin}/de/cv.pdf`)).status, 404);
   } finally {
+    await browser?.close();
     await server.stop();
   }
 });

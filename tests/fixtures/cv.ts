@@ -9,7 +9,7 @@ export const cv = cvSchema.parse({
   interests: [{ label_en: 'Learning', label_cs: 'Vzdělávání' }, { label_en: 'Running', label_cs: 'Běh' }],
   links: [
     { label: 'Portfolio', url: 'https://example.org', icon: 'website' },
-    { label: 'Source code', url: 'https://github.com/example', icon: 'github' },
+    { label: 'github.com/example', url: 'https://github.com/example', icon: 'github' },
   ],
   experience: [
     { organization_en: 'Current Studio', organization_cs: 'Současné studio', title_en: 'Engineer', title_cs: 'Vývojář', from: '03/2023', description_en: 'Designing and maintaining software with a small team. Investigating difficult problems, improving everyday development practices, and explaining trade-offs to colleagues.', description_cs: 'Návrh a údržba softwaru v malém týmu. Řešení složitých problémů, zlepšování každodenních postupů vývoje a vysvětlování kompromisů kolegům.', badges: ['TypeScript', 'Linux', 'C++', 'Git'] },

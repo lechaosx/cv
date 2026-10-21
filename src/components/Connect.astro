@@ -13,5 +13,5 @@ const { links, heading, language } = Astro.props;
 ---
 <section class="connect">
   <h2 class="section-header">{heading}</h2>
-  <ul>{links.map(link => <li><a href={link.url}><Icon name={link.icon} /><span>{renderedText(link.label, language)}</span></a></li>)}</ul>
+  <ul>{links.map(link => <li><a href={link.url}><Icon name={link.icon} /><span>{renderedText(link.label, language).split(/(?<=[./@])/).map(part => <>{part}<wbr /></>)}</span></a></li>)}</ul>
 </section>

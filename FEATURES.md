@@ -10,7 +10,7 @@ Narrow screens follow the system theme until the reader saves a light/dark choic
 
 ## Responsive reading order [Explicit]
 
-Small screens stack timeline details and move Connect after the career history. Longer tablet paragraphs keep a comfortable line length; desktop and print retain the sidebar layout. Phone, email and visible profile links are reachable by keyboard.
+Small screens stack timeline details and move Connect after the career history. Longer tablet paragraphs keep a comfortable line length; desktop and print retain the sidebar layout. Phone, email and visible profile links are reachable by keyboard; names, headings, dates and badges wrap between words, while only prose can split a word.
 
 ## Editable content [Explicit]
 
@@ -26,7 +26,7 @@ Each language has a Markdown CV; a bilingual full export and compact `llms.txt` 
 
 ## One-page PDF downloads [Explicit]
 
-Each language offers a selectable-text A4 PDF at the largest scale that fits one page. Publishing prepares static downloads; development downloads reflect current edits without a build.
+Each language offers a selectable-text A4 PDF at the largest scale that fits one page. Publishing prepares static downloads; development downloads reflect current edits without a build. Downloaded filenames include the person’s name and language for easy identification.
 
 ## Source greeting [Explicit]
 

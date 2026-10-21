@@ -19,7 +19,7 @@ export function developmentPDFs(): AstroIntegration {
             const { bytes } = await renderPDF(browser, `http://${host}:${address.port}`, match[1] as 'en' | 'cs');
             response.writeHead(200, {
               'Content-Type': 'application/pdf',
-              'Content-Disposition': `attachment; filename="cv-${match[1]}.pdf"`,
+              'Content-Disposition': 'attachment',
               'Cache-Control': 'no-store',
             });
             response.end(bytes);

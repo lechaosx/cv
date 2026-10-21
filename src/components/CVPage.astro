@@ -83,14 +83,14 @@ const theme = Object.entries(data.theme).filter(([, value]) => value).map(([key,
         <address class="contact-list">
           {data.location && <div><Icon name="map-pin" /><span>{t(data.location)}</span></div>}
           {data.phone && <div><Icon name="phone" /><a href={`tel:${data.phone.replace(/[ ()-]/g, '')}`}><span>{data.phone}</span></a></div>}
-          {data.email && <div><Icon name="mail" /><a href={`mailto:${data.email}`}><span>{data.email}</span></a></div>}
+          {data.email && <div><Icon name="mail" /><a href={`mailto:${data.email}`}><span>{data.email.split(/(?<=[@.])/).map(part => <>{part}<wbr /></>)}</span></a></div>}
         </address>
       </header>
       <div class="additional-info">
         {data.description && <section><h2 class="section-header">{t(labels.about)}</h2><p>{t(data.description)}</p></section>}
         {data.interests.length > 0 && <section><h2 class="section-header">{t(labels.interests)}</h2><ul class="badge-list">{data.interests.map(interest => <li>{t(interest)}</li>)}</ul></section>}
         {data.links.length > 0 && <Connect links={data.links} heading={labels.connect} language={language} />}
-        <PageSettings language={language} />
+        <PageSettings language={language} name={data.name} />
       </div>
       <div>
         {data.experience.length > 0 && <section><h2 class="section-header">{t(labels.experience)}</h2><Timeline entries={data.experience} present={labels.present} language={language} /></section>}
@@ -98,7 +98,7 @@ const theme = Object.entries(data.theme).filter(([, value]) => value).map(([key,
       </div>
       <div class="connect-footer">
         {data.links.length > 0 && <Connect links={data.links} heading={labels.connect} language={language} />}
-        <PageSettings language={language} />
+        <PageSettings language={language} name={data.name} />
       </div>
     </main>
     <script>

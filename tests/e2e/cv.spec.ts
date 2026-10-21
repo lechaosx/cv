@@ -112,10 +112,9 @@ test('screen content stays readable offline, without JavaScript, from phones to 
   await page.evaluate(() => {
     document.documentElement.style.fontSize = '200%';
     for (const [selector, text] of [
-      ['.contact-list div:last-child span', 'a.very.long.email.address.for.professional.enquiries@example.com'],
-      ['.connect a span', 'github.com/an-extremely-long-unbroken-professional-profile-name'],
-      ['.timeline article strong', 'AnExtremelyLongUnbrokenOrganizationName'],
-      ['.badge-list li', 'AnExtremelyLongUnbrokenTechnicalSpecialization'],
+      ['.connect a span', 'A professional profile with a longer descriptive label'],
+      ['.timeline article strong', 'A University With Several Faculties'],
+      ['.badge-list li', 'Software development'],
     ] as const) {
       const element = [...document.querySelectorAll<HTMLElement>(selector)].find(element => element.checkVisibility());
       if (element) element.textContent = text;
@@ -163,4 +162,51 @@ test('print keeps the two-column layout, colors, and readable content', async ({
     await page.pdf({ path: pdf, format: 'A4', printBackground: true });
     await info.attach(`print-${language}.pdf`, { path: pdf, contentType: 'application/pdf' });
   }
+});
+
+test('PDF links suggest the person and language in the downloaded filename', async ({ page }) => {
+  for (const language of ['en', 'cs']) {
+    await page.goto(`/${language}/`);
+    await expect(page.locator('.page-settings:visible a[download]')).toHaveAttribute('download', `Example_Person_CV_${language.toUpperCase()}.pdf`);
+  }
+});
+
+test('only prose may wrap inside a word on screen and in print', async ({ page }) => {
+  for (const language of ['en', 'cs']) {
+    for (const width of [320, 390, 768, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`/${language}/`);
+      for (const media of ['screen', 'print'] as const) {
+        await page.emulateMedia({ media });
+        const nonProse = page.locator('h1, .position, .contact-list span, .section-header, .timeline strong, .timeline article > :first-child > div, .cv-dates, .badge-list li, .connect span');
+        for (const element of await nonProse.all()) {
+          await expect(element).toHaveCSS('hyphens', 'none');
+          await expect(element).toHaveCSS('overflow-wrap', 'normal');
+        }
+        for (const element of await page.locator('.additional-info > section > p, .timeline article > :last-child > p').all()) {
+          await expect(element).toHaveCSS('hyphens', 'auto');
+          await expect(element).toHaveCSS('overflow-wrap', 'anywhere');
+        }
+      }
+    }
+  }
+  await page.emulateMedia({ media: 'screen' });
+  await page.setViewportSize({ width: 320, height: 900 });
+  await page.goto('/cs/');
+  await page.evaluate(() => document.fonts.ready);
+  const lineCount = async (selector: string, text: string) => page.locator(selector).first().evaluate((element, value) => {
+    element.textContent = value;
+    Object.assign((element as HTMLElement).style, { display: 'block', width: '50px' });
+    const textNode = element.firstChild!;
+    const lines = new Set<number>();
+    for (let index = 0; index < value.length; index++) {
+      const range = document.createRange();
+      range.setStart(textNode, index);
+      range.setEnd(textNode, index + 1);
+      lines.add(Math.round(range.getBoundingClientRect().top));
+    }
+    return lines.size;
+  }, text);
+  expect(await lineCount('.timeline strong', 'Technické')).toBe(1);
+  expect(await lineCount('.timeline article > :last-child > p', 'UnusuallyLongUnbrokenProseWord')).toBeGreaterThan(1);
 });
