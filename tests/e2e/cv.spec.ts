@@ -5,6 +5,39 @@ import { pageMetadata } from '../../src/publishing';
 
 const cv = localizeCV(fixture, 'en');
 
+test('text icons, badges and spacing follow the reader’s text size', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 900 });
+  await page.goto('/en/');
+  await page.evaluate(() => document.fonts.ready);
+  const measurements = () => page.evaluate(() => {
+    const value = (selector: string, property: string) => parseFloat(getComputedStyle(document.querySelector(selector)!).getPropertyValue(property));
+    return {
+      contactIcon: value('.contact-list svg', 'width'),
+      connectIcon: value('.connect-footer .connect svg', 'width'),
+      badgeText: value('.badge-list li', 'font-size'),
+      sectionGap: value('section', 'margin-bottom'),
+      headingGap: value('.section-header', 'margin-bottom'),
+      timelineGap: value('.timeline article > :last-child', 'padding-bottom'),
+    };
+  });
+  const normal = await measurements();
+  await page.evaluate(() => { document.documentElement.style.fontSize = '200%'; });
+  const enlarged = await measurements();
+  for (const name of Object.keys(normal) as (keyof typeof normal)[]) {
+    expect(enlarged[name], name + ' scales with enlarged text').toBeCloseTo(normal[name] * 2, 1);
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.evaluate(() => {
+    for (const element of document.querySelectorAll<HTMLElement>('.contact-list, .connect-footer .connect, .badge-list')) {
+      element.style.fontSize = '150%';
+    }
+  });
+  const componentText = await measurements();
+  for (const name of ['contactIcon', 'connectIcon', 'badgeText'] as const) {
+    expect(componentText[name], name + ' follows nearby text').toBeCloseTo(enlarged[name] * 1.5, 1);
+  }
+});
+
 test('the overall CV uses two columns once the full page fits with side gutters', async ({ page }) => {
   for (const language of ['en', 'cs']) {
     await page.goto(`/${language}/`);

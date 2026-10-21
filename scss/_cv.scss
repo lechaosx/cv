@@ -19,7 +19,7 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	min-height: 100vh;
+	min-height: 100svh;
 }
 
 // ── Main layout ────────────────────────────────────────────────────────────
@@ -99,14 +99,14 @@ h1 { text-transform: uppercase; }
 	div {
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: 0.5rem;
 	}
 
 	a { display: flex; flex: 1; min-inline-size: 0; }
 
 	span {
 		flex: 1;
-		padding: 5px 0;
+		padding: 0.3125rem 0;
 		border-bottom: 1px solid var(--border);
 	}
 
@@ -114,15 +114,15 @@ h1 { text-transform: uppercase; }
 
 	svg {
 		flex-shrink: 0;
-		width: 14px;
-		height: 14px;
+		width: 0.875em;
+		height: 0.875em;
 		color: var(--icon);
 	}
 }
 
 // ── Sections ───────────────────────────────────────────────────────────────
 
-section { margin-bottom: 20px; }
+section { margin-bottom: 1.25rem; }
 
 .additional-info > section > p,
 .timeline article > :last-child > p {
@@ -135,7 +135,7 @@ section { margin-bottom: 20px; }
 	font-size: 1.17em;
 	text-transform: uppercase;
 	border-bottom: 1px solid;
-	margin: 0 0 20px 0;
+	margin: 0 0 1.25rem 0;
 }
 
 .additional-info {
@@ -160,14 +160,14 @@ section { margin-bottom: 20px; }
 		gap: 0.5rem;
 	}
 
-	svg { flex-shrink: 0; width: 14px; height: 14px; }
+	svg { flex-shrink: 0; width: 0.875em; height: 0.875em; }
 }
 
 // ── Timeline ───────────────────────────────────────────────────────────────
 
 @mixin timeline-left {
-	padding-right: 20px;
-	padding-bottom: 20px;
+	padding-right: 1.25rem;
+	padding-bottom: 1.25rem;
 	border-right: 1px solid var(--timeline);
 	text-align: right;
 	position: relative;
@@ -188,8 +188,8 @@ section { margin-bottom: 20px; }
 }
 
 @mixin timeline-right {
-	padding-left: 20px;
-	padding-bottom: 20px;
+	padding-left: 1.25rem;
+	padding-bottom: 1.25rem;
 }
 
 .timeline {
@@ -202,13 +202,13 @@ section { margin-bottom: 20px; }
 
 	> article > :last-child     { @include timeline-right; }
 
-	.badge-list { margin-top: 8px; justify-content: end; }
+	.badge-list { margin-top: 0.5rem; justify-content: end; }
 }
 
 // ── Badges ─────────────────────────────────────────────────────────────────
 
 .badge-list {
-	gap: 4px;
+	gap: 0.25rem;
 	display: flex;
 	flex-wrap: wrap;
 	list-style: none;
@@ -218,8 +218,8 @@ section { margin-bottom: 20px; }
 		color: var(--badge-text);
 		border-radius: 0.5em;
 		text-align: center;
-		padding: 3px 5px;
-		font-size: small;
+		padding: 0.1875rem 0.3125rem;
+		font-size: 0.8125em;
 	}
 }
 
@@ -286,7 +286,7 @@ section { margin-bottom: 20px; }
 			display: block;
 			border-left: 1px solid var(--timeline);
 			margin-left: 7px;
-			padding-left: 20px;
+			padding-left: 1.25rem;
 		}
 
 		> article > :first-child {
@@ -295,13 +295,13 @@ section { margin-bottom: 20px; }
 			text-align: left;
 
 			&::after {
-				left: -20px;
+				left: -1.25rem;
 				right: auto;
 				transform: translate(-50%, -50%);
 			}
 		}
 
-		> article > :last-child { padding: 0 0 24px; }
+		> article > :last-child { padding: 0 0 1.5rem; }
 		.badge-list { justify-content: start; }
 	}
 }

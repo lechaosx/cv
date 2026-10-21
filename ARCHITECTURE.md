@@ -16,6 +16,10 @@ SCSS preserves the established screen and print design; fonts, icons, and the po
 
 The overall CV switches to two columns at 64rem, where the full 60rem page fits with side gutters and retains its established column widths.
 
+## Relative sizing [Explicit]
+
+Spacing follows the reader’s root text size, while text icons and badges scale with nearby text. Borders and timeline markers keep pixel dimensions; the page’s minimum height uses the small viewport to account for mobile browser controls.
+
 ## One publishing source [Explicit]
 
 HTML, metadata, structured identity and Markdown exports use the same validated content so edits cannot leave a second CV behind. URLs derive from the configured custom-domain origin; machine-readable facts contain only supplied information.
