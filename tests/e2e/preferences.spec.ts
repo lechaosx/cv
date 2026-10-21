@@ -4,6 +4,49 @@ import { cv } from '../fixtures/cv';
 
 test.use({ javaScriptEnabled: true });
 
+test('square controls use one matching hover and keyboard focus border', async ({ page }) => {
+  for (const [width, colorScheme, forcedColors] of [
+    [1440, 'light', 'none'],
+    [390, 'light', 'none'],
+    [390, 'dark', 'none'],
+    [390, 'dark', 'active'],
+  ] as const) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ colorScheme, forcedColors });
+    await page.goto('/en/');
+    await page.keyboard.press('Tab');
+    const textLink = page.getByRole('link', { name: cv.phone, exact: true });
+    await expect(textLink).toBeFocused();
+    await expect(textLink).toHaveCSS('outline-style', 'solid');
+    await expect(textLink).toHaveCSS('outline-width', '2px');
+
+    const controls = page.locator('.page-settings:visible').locator('a, button:visible');
+    for (const control of await controls.all()) {
+      const idleBackground = await control.evaluate(element => getComputedStyle(element).backgroundColor);
+      for (let step = 0; step < 12 && !await control.evaluate(element => element === document.activeElement); step++) {
+        await page.keyboard.press('Tab');
+      }
+      await expect(control).toBeFocused();
+      const focus = await control.evaluate(element => {
+        const style = getComputedStyle(element);
+        return { color: style.color, background: style.backgroundColor, border: style.borderColor };
+      });
+      await expect(control).toHaveCSS('border-width', '1px');
+      await expect(control).toHaveCSS('border-style', 'solid');
+      if (forcedColors === 'none') expect(focus.border).toBe(focus.color);
+      else expect(focus.background).not.toBe(idleBackground);
+      await expect(control, `${width}px ${colorScheme} ${forcedColors}`).toHaveCSS('outline-style', 'none');
+      await control.evaluate((element: HTMLElement) => element.blur());
+      await control.hover();
+      expect(await control.evaluate(element => {
+        const style = getComputedStyle(element);
+        return { color: style.color, background: style.backgroundColor, border: style.borderColor };
+      })).toEqual(focus);
+      await page.mouse.move(0, 0);
+    }
+  }
+});
+
 test('chooses a language at the neutral URL and switches in place with focus, scroll and history intact', async ({ browser }) => {
   const context = await browser.newContext({ locale: 'cs-CZ', javaScriptEnabled: true, viewport: { width: 390, height: 900 } });
   const page = await context.newPage();
