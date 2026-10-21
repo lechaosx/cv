@@ -91,7 +91,7 @@ test('chooses a language at the neutral URL and switches in place with focus, sc
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', meta.url);
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', meta.url);
     await expect(page.locator('link[type="text/markdown"]')).toHaveAttribute('href', `https://dlabaja.eu/${language}/index.md`);
-    await expect(page.getByRole('link', { name: language === 'en' ? 'Download PDF' : 'Stáhnout PDF' })).toHaveAttribute('href', `/${language}/cv.pdf`);
+    await expect(page.getByRole('link', { name: language === 'en' ? 'Download PDF' : 'Stáhnout PDF' })).toHaveAttribute('href', `/${language}/Example_Person_CV_${language.toUpperCase()}.pdf`);
     const graph = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent())!);
     expect(graph['@graph'][1].inLanguage).toBe(language);
   };

@@ -26,7 +26,7 @@ Each language has a Markdown CV; a bilingual full export and compact `llms.txt` 
 
 ## One-page PDF downloads [Explicit]
 
-Each language offers a selectable-text A4 PDF at the largest scale that fits one page. Publishing prepares static downloads; development downloads reflect current edits without a build. Downloaded filenames include the person’s name and language for easy identification.
+Each language offers a selectable-text A4 PDF at the largest scale that fits one page. Publishing prepares static downloads; development downloads reflect current edits without a build. Download URLs and filenames include the person’s name and language for easy sharing and identification.
 
 ## Source greeting [Explicit]
 

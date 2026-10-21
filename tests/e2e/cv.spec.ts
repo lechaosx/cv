@@ -39,7 +39,7 @@ test('keyboard reaches phone, email and each visible Connect link exactly once',
       if (href) focused.push(href);
       if (focused.length > 0 && !href) break;
     }
-    expect(focused).toEqual([`tel:${cv.phone.replace(/[ ()-]/g, '')}`, `mailto:${cv.email}`, ...cv.links.map(link => link.url), '/cs/', '/en/cv.pdf']);
+    expect(focused).toEqual([`tel:${cv.phone.replace(/[ ()-]/g, '')}`, `mailto:${cv.email}`, ...cv.links.map(link => link.url), '/cs/', '/en/Example_Person_CV_EN.pdf']);
   }
 });
 
@@ -72,7 +72,7 @@ test('screen content stays readable offline, without JavaScript, from phones to 
       expect(settingsBox!.x).toBeLessThan(header!.x);
       expect(settingsBox!.y + settingsBox!.height).toBeCloseTo(sidebar!.y + sidebar!.height, 0);
     } else {
-      await expect(page.locator('main').getByRole('link').last()).toHaveAttribute('href', '/en/cv.pdf');
+      await expect(page.locator('main').getByRole('link').last()).toHaveAttribute('href', '/en/Example_Person_CV_EN.pdf');
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), width + 'px page fits the viewport').toBe(true);
     const portrait = await page.locator('.photo > img, .photo > svg').boundingBox();

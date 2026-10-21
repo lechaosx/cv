@@ -19,15 +19,23 @@ test('development downloads render the current localized page without a producti
         await page.getByRole('link', { name: 'Čeština', exact: true }).click();
         await page.waitForURL('**/cs/');
       }
-      const downloadPromise = page.waitForEvent('download');
-      await page.getByRole('link', { name: language === 'en' ? 'Download PDF' : 'Stáhnout PDF' }).click();
-      const download = await downloadPromise;
-      assert.equal(download.suggestedFilename(), `Example_Person_CV_${language.toUpperCase()}.pdf`);
-      const response = await fetch(`${origin}/${language}/cv.pdf`);
+      const filename = `Example_Person_CV_${language.toUpperCase()}.pdf`;
+      const pathname = `/${language}/${filename}`;
+      const response = await fetch(`${origin}${pathname}?shared=1`);
       assert.equal(response.status, 200);
       assert.equal(response.headers.get('content-type'), 'application/pdf');
       assert.match(response.headers.get('content-disposition')!, /attachment/);
+      assert.ok(response.headers.get('content-disposition')!.includes(filename));
       assert.equal(response.headers.get('cache-control'), 'no-store');
+      const directPDF = await PDFDocument.load(await response.arrayBuffer());
+      assert.ok(directPDF.getTitle()?.includes(cv.name));
+      assert.ok(directPDF.getTitle()?.includes(language === 'cs' ? 'Životopis' : 'CV'));
+      const link = page.getByRole('link', { name: language === 'en' ? 'Download PDF' : 'Stáhnout PDF' });
+      assert.equal(await link.getAttribute('href'), pathname);
+      const downloadPromise = page.waitForEvent('download');
+      await link.click();
+      const download = await downloadPromise;
+      assert.equal(download.suggestedFilename(), filename);
       const pdf = await PDFDocument.load(await readFile((await download.path())!));
       assert.equal(pdf.getPageCount(), 1);
       assert.ok(pdf.getTitle()?.includes(cv.name));
@@ -37,7 +45,9 @@ test('development downloads render the current localized page without a producti
       assert.ok(Math.abs(width - 595.28) < 1);
       assert.ok(Math.abs(height - 841.89) < 1);
     }
-    assert.equal((await fetch(`${origin}/de/cv.pdf`)).status, 404);
+    for (const pathname of ['/de/Example_Person_CV_EN.pdf', '/en/Other_Person_CV_EN.pdf', '/en/Example_Person_CV_CS.pdf', '/en/cv.pdf']) {
+      assert.equal((await fetch(`${origin}${pathname}`)).status, 404);
+    }
   } finally {
     await browser?.close();
     await server.stop();

@@ -54,9 +54,14 @@ test('published crawler files and exports contain only canonical CV routes and c
 test('each language offers a tagged one-page A4 PDF download', async () => {
   for (const language of ['en', 'cs'] as const) {
     const html = output(`${language}/index.html`);
-    assert.match(html, new RegExp(`href="/${language}/cv\\.pdf"[^>]*download`));
+    const download = html.match(/href="([^"]+)"\s+download="([^"]+)"/);
+    assert.ok(download);
+    const [, pathname, filename] = download;
+    assert.match(filename!, new RegExp(`^(?:[A-Za-z0-9_]+_)?CV_${language.toUpperCase()}\\.pdf$`));
+    assert.equal(pathname, `/${language}/${filename}`);
+    assert.deepEqual(readdirSync(`dist/${language}`).filter(file => file.endsWith('.pdf')), [filename]);
     const { PDFDocument, PDFName } = await import('pdf-lib');
-    const pdf = await PDFDocument.load(readFileSync(`dist/${language}/cv.pdf`));
+    const pdf = await PDFDocument.load(readFileSync(`dist${pathname}`));
     assert.equal(pdf.getPageCount(), 1);
     const { width, height } = pdf.getPage(0).getSize();
     assert.ok(Math.abs(width - 595.28) < 1);

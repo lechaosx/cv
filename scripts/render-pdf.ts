@@ -17,6 +17,10 @@ export async function renderPDF(browser: Browser, origin: string, language: 'en'
     page.on('requestfailed', request => failures.push(`${request.failure()?.errorText}: ${request.url()}`));
     await page.emulateMedia({ media: 'print', colorScheme: 'light' });
     await page.goto(`${origin}/${language}/`, { waitUntil: 'load' });
+    const pathname = await page.locator('.page-settings a[download]').first().getAttribute('href');
+    if (!pathname || !new RegExp(`^/${language}/[A-Za-z0-9_]+\\.pdf$`).test(pathname)) {
+      throw new Error(`Invalid ${language} PDF download URL: ${pathname}`);
+    }
     await page.evaluate(async () => {
       await document.fonts.ready;
       await Promise.all([...document.images].map(image => image.decode()));
@@ -51,7 +55,7 @@ export async function renderPDF(browser: Browser, origin: string, language: 'en'
       }
     }
     if (failures.length) throw new Error(failures.join('\n'));
-    return { bytes: result.bytes, scale };
+    return { bytes: result.bytes, scale, pathname };
   } finally {
     await context.close();
   }

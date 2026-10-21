@@ -8,7 +8,7 @@ export function developmentPDFs(): AstroIntegration {
     hooks: {
       'astro:server:setup': ({ server, logger }) => {
         server.middlewares.use(async (request, response, next) => {
-          const match = request.url?.match(/^\/(en|cs)\/cv\.pdf(?:\?.*)?$/);
+          const match = request.url?.match(/^\/(en|cs)\/[A-Za-z0-9_]+\.pdf(?:\?.*)?$/);
           if (request.method !== 'GET' || !match) return next();
           let browser;
           try {
@@ -16,10 +16,11 @@ export function developmentPDFs(): AstroIntegration {
             if (!address || typeof address === 'string') throw new Error('Development server has no TCP address');
             const host = address.family === 'IPv6' ? '[::1]' : '127.0.0.1';
             browser = await chromium.launch();
-            const { bytes } = await renderPDF(browser, `http://${host}:${address.port}`, match[1] as 'en' | 'cs');
+            const { bytes, pathname } = await renderPDF(browser, `http://${host}:${address.port}`, match[1] as 'en' | 'cs');
+            if (request.url!.split('?')[0] !== pathname) return next();
             response.writeHead(200, {
               'Content-Type': 'application/pdf',
-              'Content-Disposition': 'attachment',
+              'Content-Disposition': `attachment; filename="${pathname.split('/').at(-1)}"`,
               'Cache-Control': 'no-store',
             });
             response.end(bytes);

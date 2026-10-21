@@ -13,7 +13,7 @@ const targetLabel = targetLanguage === 'cs' ? 'Čeština' : 'English';
   <a class="language-switch" href={`/${targetLanguage}/`} lang={targetLanguage} hreflang={targetLanguage} data-language={targetLanguage} aria-label={targetLabel} title={targetLabel}>
     <span aria-hidden="true">{targetLanguage.toUpperCase()}</span>
   </a>
-  <a href={`/${language}/cv.pdf`} download={filename} aria-label={text.downloadPDF} title={text.downloadPDF}>
+  <a href={`/${language}/${filename}`} download={filename} aria-label={text.downloadPDF} title={text.downloadPDF}>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4" /></svg>
   </a>
   <button type="button" class="theme-control" data-light-label={text.switchToLight} data-dark-label={text.switchToDark} aria-label={text.switchToDark} title={text.switchToDark} hidden>
