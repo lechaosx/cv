@@ -10,7 +10,7 @@ Narrow screens follow the system theme until the reader saves a light/dark choic
 
 ## Responsive reading order [Explicit]
 
-Small screens stack timeline details and move Connect after the career history. Longer tablet paragraphs keep a comfortable line length; desktop and print retain the sidebar layout. Phone, email and visible profile links are reachable by keyboard; names, headings, dates and badges wrap between words, while only prose can split a word.
+Small screens let names wrap beside contacts before stacking them, stack timeline details, and move Connect after the career history. Longer tablet paragraphs keep a comfortable line length; desktop and print retain the sidebar layout. Phone, email and visible profile links are reachable by keyboard; names, headings, dates and badges wrap between words, while only prose can split a word.
 
 ## Editable content [Explicit]
 

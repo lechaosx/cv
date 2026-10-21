@@ -5,6 +5,35 @@ import { pageMetadata } from '../../src/publishing';
 
 const cv = localizeCV(fixture, 'en');
 
+test('the header wraps names between words before moving contacts below', async ({ page }) => {
+  for (const language of ['en', 'cs']) {
+    await page.setViewportSize({ width: 450, height: 900 });
+    await page.goto(`/${language}/`);
+    await page.evaluate(() => document.fonts.ready);
+    const identity = page.locator('.main-info > :first-child');
+    const contacts = page.locator('.contact-list');
+    const nameLines = await page.locator('h1').evaluate(element => {
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      return new Set([...range.getClientRects()].map(rect => Math.round(rect.top))).size;
+    });
+    expect(nameLines, language + ' name wraps at the space').toBeGreaterThan(1);
+    const nameBox = (await identity.boundingBox())!;
+    const contactBox = (await contacts.boundingBox())!;
+    expect(contactBox.x).toBeGreaterThanOrEqual(nameBox.x + nameBox.width);
+    expect(contactBox.y).toBeLessThan(nameBox.y + nameBox.height);
+
+    for (const textSize of ['100%', '200%']) {
+      await page.setViewportSize({ width: 320, height: 900 });
+      await page.evaluate(size => { document.documentElement.style.fontSize = size; }, textSize);
+      const narrowName = (await identity.boundingBox())!;
+      const narrowContacts = (await contacts.boundingBox())!;
+      expect(narrowContacts.y, `${language} contacts follow the name at ${textSize} text size`).toBeGreaterThanOrEqual(narrowName.y + narrowName.height);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    }
+  }
+});
+
 test('language routes expose reciprocal discovery, localized sharing and a shared identity', async ({ page }) => {
   const site = new URL('https://dlabaja.eu');
   for (const language of ['en', 'cs'] as const) {
