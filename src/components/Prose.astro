@@ -1,0 +1,7 @@
+---
+import { proseHTML } from '../prose';
+import type { Language } from '../cv';
+interface Props { source: string; language: Language }
+const { source, language } = Astro.props;
+---
+<div class="prose" set:html={proseHTML(source, language)} />

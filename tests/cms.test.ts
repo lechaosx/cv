@@ -55,3 +55,13 @@ test('all CMS select choices are accepted by the content schema', () => {
     assert.equal(cvSchema.safeParse({ ...completeForm(fields), links: [{ label: 'Portfolio', url: 'https://example.org', icon }] }).success, true);
   }
 });
+
+test('CMS saving retains multiline Markdown and paired headlines', () => {
+  const source = 'A **short** introduction.\n\n- An achievement.\n- A [publication](https://example.org/research).';
+  const value = { ...content, headline_en: 'Clear software', headline_cs: 'Srozumitelný software', description_en: source, description_cs: source,
+    experience: [{ ...content.experience[0], description_en: source, description_cs: source }] };
+  const saved = cvSchema.parse(parse(stringify(formValues(form.fields, value))));
+  assert.equal(saved.description_en, source);
+  assert.equal(saved.experience[0]?.description_cs, source);
+  assert.equal(saved.headline_cs, 'Srozumitelný software');
+});

@@ -24,6 +24,10 @@ Spacing follows the reader’s root text size, while text icons and badges scale
 
 HTML, metadata, structured identity and Markdown exports use the same validated content so edits cannot leave a second CV behind. URLs derive from the configured custom-domain origin; machine-readable facts contain only supplied information.
 
+## Markdown prose [Implicit]
+
+Markdown is rendered at build time with raw HTML and image embedding disabled, while Czech typography changes only text tokens. Metadata uses the plain first paragraph; text exports retain authored Markdown.
+
 ## Stable browser fixtures [Explicit]
 
 Browser layout and preference checks render the production template with test-owned content so ordinary CV edits do not break them. Their separate output directory keeps fixtures out of the published artifact; production export checks still exercise the current CV.

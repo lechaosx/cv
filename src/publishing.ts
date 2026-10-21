@@ -1,4 +1,5 @@
 import { dateRange, localizeCV, type CV, type Language } from './cv.ts';
+import { proseSummary } from './prose.ts';
 import { labels } from './i18n.ts';
 
 const fullName = (cv: CV) => [cv.title_before_name, cv.name, cv.title_after_name].filter(Boolean).join(' ');
@@ -10,7 +11,7 @@ export function pageMetadata(cv: CV, language: Language, site: URL) {
   const data = localizeCV(cv, language);
   return {
     title: `${fullName(cv)} | ${labels[language].cv}`,
-    description: data.description || [fullName(cv), data.position].filter(Boolean).join(' — '),
+    description: proseSummary(data.description) || [fullName(cv), data.position].filter(Boolean).join(' — '),
     url: new URL(`/${language}/`, site).href,
     image: cv.photo && !cv.photo.toLowerCase().endsWith('.svg') ? new URL(cv.photo, site).href : undefined,
   };
@@ -27,7 +28,7 @@ export function structuredData(cv: CV, language: Language, site: URL) {
       honorificPrefix: cv.title_before_name || undefined,
       honorificSuffix: cv.title_after_name || undefined,
       jobTitle: cv[`position_${language}`] || undefined,
-      description: cv[`description_${language}`] || undefined,
+      description: proseSummary(cv[`description_${language}`]) || undefined,
       email: cv.email || undefined, telephone: cv.phone || undefined,
       image: cv.photo ? new URL(cv.photo, site).href : undefined,
       sameAs: cv.links.length ? cv.links.map(link => link.url) : undefined,
@@ -42,13 +43,13 @@ export function structuredData(cv: CV, language: Language, site: URL) {
 export function cvMarkdown(cv: CV, language: Language, site: URL): string {
   const data = localizeCV(cv, language);
   const ui = labels[language];
-  const lines = [`# ${markdown(fullName(cv))}`, '', data.position && markdown(data.position), '',
+  const lines = [`# ${markdown(fullName(cv))}`, '', data.position && markdown(data.position), '', data.headline && markdown(data.headline), '',
     link(ui.cv, new URL(`/${language}/`, site).href), '',
     data.location && markdown(data.location),
     data.phone && link(data.phone, `tel:${data.phone.replace(/[ ()-]/g, '')}`),
     data.email && link(data.email, `mailto:${data.email}`),
   ];
-  if (data.description) lines.push('', `## ${ui.about}`, '', markdown(data.description));
+  if (data.description) lines.push('', `## ${ui.about}`, '', data.description);
   if (data.interests.length) lines.push('', `## ${ui.interests}`, '', ...data.interests.map(interest => `- ${markdown(interest)}`));
   for (const [heading, entries] of [[ui.experience, data.experience], [ui.education, data.education]] as const) {
     if (!entries.length) continue;
@@ -59,7 +60,7 @@ export function cvMarkdown(cv: CV, language: Language, site: URL): string {
       const period = dateRange(entry.from, entry.to, ui.present);
       if (period) lines.push('', period);
       if (entry.badges.length) lines.push('', entry.badges.map(markdown).join(', '));
-      if (entry.description) lines.push('', markdown(entry.description));
+      if (entry.description) lines.push('', entry.description);
     }
   }
   if (data.links.length) lines.push('', `## ${ui.connect}`, '', ...data.links.map(item => `- ${link(item.label, item.url)}`));

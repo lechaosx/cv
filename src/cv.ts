@@ -44,6 +44,7 @@ export const cvSchema = z.strictObject({
   name: requiredText,
   title_after_name: text,
   position_en: text, position_cs: text,
+  headline_en: text, headline_cs: text,
   phone: z.string().regex(/^[+0-9 ()-]*$/, 'Use an international telephone number').default(''),
   email: z.union([z.email(), z.literal('')]).default(''),
   location: text,
@@ -58,7 +59,7 @@ export const cvSchema = z.strictObject({
   experience: z.preprocess(withoutEmptyRows, z.array(timelineSchema).default([])),
   education: z.preprocess(withoutEmptyRows, z.array(timelineSchema).default([])),
   theme: z.strictObject({ dark: color.optional(), light: color.optional() }).default({}),
-}).superRefine(paired(['position', 'description']));
+}).superRefine(paired(['position', 'headline', 'description']));
 
 export type CV = z.infer<typeof cvSchema>;
 export type TimelineEntry = z.infer<typeof timelineSchema>;
@@ -70,7 +71,7 @@ export function localizeCV(data: CV, language: Language) {
     organization: entry[`organization_${language}`], department: entry[`department_${language}`],
     title: entry[`title_${language}`], description: entry[`description_${language}`],
   });
-  return { ...data, language, position: data[`position_${language}`], description: data[`description_${language}`],
+  return { ...data, language, headline: data[`headline_${language}`], position: data[`position_${language}`], description: data[`description_${language}`],
     interests: data.interests.map(interest => interest[`label_${language}`]),
     experience: data.experience.map(timeline), education: data.education.map(timeline),
   };

@@ -82,3 +82,11 @@ test('localizes prose while retaining shared facts and source text', () => {
   assert.equal(localized.name, data.name);
   assert.equal(data.position_en, 'Engineer');
 });
+
+test('headline translations are optional, paired and localized separately from the profession', () => {
+  const data = cvSchema.parse({ ...cv(), headline_en: 'Making systems understandable', headline_cs: 'Srozumitelné systémy' });
+  assert.equal(localizeCV(data, 'cs').headline, 'Srozumitelné systémy');
+  assert.equal(localizeCV(data, 'cs').position, 'Vývojář');
+  assert.equal(cvSchema.safeParse({ ...cv(), headline_en: 'Making systems understandable' }).success, false);
+  assert.equal(cvSchema.safeParse({ ...cv(), headline_en: '', headline_cs: '' }).success, true);
+});

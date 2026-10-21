@@ -1,5 +1,6 @@
 ---
 import { dateTime, type LocalizedCV, type Language } from '../cv';
+import Prose from './Prose.astro';
 import { renderedText } from '../i18n';
 interface Props { entries: LocalizedCV['experience']; present: string; language: Language }
 const { entries, present, language } = Astro.props;
@@ -21,7 +22,7 @@ const t = (value: string) => renderedText(value, language);
       </div>
       <div>
         <strong>{t(entry.title)}</strong>
-        {entry.description && <p>{t(entry.description)}</p>}
+        {entry.description && <Prose source={entry.description} language={language} />}
       </div>
     </article>
   ))}

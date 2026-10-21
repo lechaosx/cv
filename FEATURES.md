@@ -14,7 +14,11 @@ Small screens let names wrap beside contacts before stacking them, stack timelin
 
 ## Editable content [Explicit]
 
-Pages CMS edits both translations together without a live editing interface. Dates accept years or month/year, ongoing roles stay open-ended, and completion dates can stand alone.
+Pages CMS edits both translations together without a live editing interface. Descriptions support Markdown paragraphs, achievement lists, emphasis, and links. Dates accept years or month/year, ongoing roles stay open-ended, and completion dates can stand alone.
+
+## Career presentation [Explicit]
+
+A personal headline introduces the CV separately from the profession. Concise experience descriptions and technology badges carry technical and leadership evidence without a separate skills section; the website and one-page PDF contain the same content.
 
 ## Discovery and sharing [Explicit]
 

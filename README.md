@@ -14,7 +14,7 @@ Run `npm run check`, `npm test`, and `npm run test:e2e` before publishing. Brows
 
 ## Editing
 
-Edit `src/content/cv.yaml` directly or open this repository in [Pages CMS](https://app.pagescms.org) on `master`. Fill both translations of prose, or omit both.
+Edit `src/content/cv.yaml` directly or open this repository in [Pages CMS](https://app.pagescms.org) on `master`. Fill both translations of prose, or omit both. About Me and timeline descriptions accept Markdown paragraphs, lists, emphasis, and links through the rich-text editor or its source view.
 
 ## Publishing and printing
 

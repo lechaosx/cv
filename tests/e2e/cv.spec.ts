@@ -126,7 +126,10 @@ test('keyboard reaches phone, email and each visible Connect link exactly once',
       if (href) focused.push(href);
       if (focused.length > 0 && !href) break;
     }
-    expect(focused).toEqual([`tel:${cv.phone.replace(/[ ()-]/g, '')}`, `mailto:${cv.email}`, ...cv.links.map(link => link.url), '/cs/', '/en/Example_Person_CV_EN.pdf']);
+    const contactLinks = [`tel:${cv.phone.replace(/[ ()-]/g, '')}`, `mailto:${cv.email}`];
+    const footerLinks = [...cv.links.map(link => link.url), '/cs/', '/en/Example_Person_CV_EN.pdf'];
+    const proseLinks = ['https://example.org/research', 'https://example.org/image.png'];
+    expect(focused).toEqual(width >= 1024 ? [...contactLinks, ...footerLinks, ...proseLinks] : [...contactLinks, ...proseLinks, ...footerLinks]);
   }
 });
 
@@ -265,12 +268,14 @@ test('only prose may wrap inside a word on screen and in print', async ({ page }
       await page.goto(`/${language}/`);
       for (const media of ['screen', 'print'] as const) {
         await page.emulateMedia({ media });
-        const nonProse = page.locator('h1, .position, .contact-list span, .section-header, .timeline strong, .timeline article > :first-child > div, .cv-dates, .badge-list li, .connect span');
+        const nonProse = page.locator('h1, .position, .contact-list span, .section-header, .timeline article > div > strong, .timeline article > :first-child > div, .cv-dates, .badge-list li, .connect span');
         for (const element of await nonProse.all()) {
           await expect(element).toHaveCSS('hyphens', 'none');
           await expect(element).toHaveCSS('overflow-wrap', 'normal');
         }
-        for (const element of await page.locator('.additional-info > section > p, .timeline article > :last-child > p').all()) {
+        const prose = page.locator('.prose p, .prose li');
+        expect(await prose.count()).toBeGreaterThan(0);
+        for (const element of await prose.all()) {
           await expect(element).toHaveCSS('hyphens', 'auto');
           await expect(element).toHaveCSS('overflow-wrap', 'anywhere');
         }
@@ -294,6 +299,22 @@ test('only prose may wrap inside a word on screen and in print', async ({ page }
     }
     return lines.size;
   }, text);
-  expect(await lineCount('.timeline strong', 'Technické')).toBe(1);
-  expect(await lineCount('.timeline article > :last-child > p', 'UnusuallyLongUnbrokenProseWord')).toBeGreaterThan(1);
+  expect(await lineCount('.timeline article > div > strong', 'Technické')).toBe(1);
+  expect(await lineCount('.timeline article > :last-child .prose > p', 'UnusuallyLongUnbrokenProseWord')).toBeGreaterThan(1);
+});
+
+test('CMS Markdown renders semantic prose safely without JavaScript or remote images', async ({ page }) => {
+  await page.goto('/en/');
+  const about = page.locator('.additional-info > section').first();
+  await expect(about.locator('p')).toHaveCount(2);
+  await expect(about.locator('strong')).toHaveText('useful software');
+  const role = page.locator('.timeline article').first();
+  await expect(role.locator('ul:not(.badge-list) > li')).toHaveCount(2);
+  await expect(role.getByRole('link', { name: 'research', exact: true })).toHaveAttribute('href', 'https://example.org/research');
+  await expect(role.locator('script, img, a[href^="javascript:"]')).toHaveCount(0);
+  await expect(role).toContainText('<script>alert(1)</script>');
+  await page.goto('/cs/');
+  const czech = page.locator('.timeline article').first();
+  await expect(czech.locator('li strong')).toHaveText('s\u00a0kolegy');
+  await expect(czech.getByRole('link', { name: 'k\u00a0výzkumu' })).toHaveAttribute('href', 'https://example.org/a/b');
 });

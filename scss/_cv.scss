@@ -72,7 +72,7 @@ main {
 	flex-wrap: wrap;
 	gap: 1rem;
 
-	> :first-child  { flex: 1 1 auto; }
+	> :first-child  { flex: 1 1 auto; text-align: left; }
 	.contact-list   { flex: 0 0 max-content; }
 }
 
@@ -91,6 +91,10 @@ h1 { text-transform: uppercase; }
 	text-transform: uppercase;
 	color: var(--position);
 	font-size: 1.5em;
+}
+
+.headline {
+	margin-block-start: 0.75rem;
 }
 
 // ── Contact list ───────────────────────────────────────────────────────────
@@ -124,10 +128,14 @@ h1 { text-transform: uppercase; }
 
 section { margin-bottom: 1.25rem; }
 
-.additional-info > section > p,
-.timeline article > :last-child > p {
+.prose {
 	hyphens: auto;
 	overflow-wrap: anywhere;
+
+	> * + * { margin-block-start: 0.5em; }
+	ul, ol { padding-inline-start: 1.15em; }
+	li { text-align: start; }
+	li + li { margin-block-start: 0.25em; }
 }
 
 .section-header {
@@ -202,6 +210,8 @@ section { margin-bottom: 1.25rem; }
 
 	> article > :last-child     { @include timeline-right; }
 
+	> article > :last-child > strong { display: block; text-align: start; }
+
 	.badge-list { margin-top: 0.5rem; justify-content: end; }
 }
 
@@ -271,8 +281,7 @@ section { margin-bottom: 1.25rem; }
 
 	.badge-list > * { max-inline-size: 100%; }
 
-	.additional-info > section > p,
-	.timeline article > :last-child > p { max-inline-size: 70ch; }
+	.prose { max-inline-size: 70ch; }
 }
 
 @media screen and (max-width: 40rem) {

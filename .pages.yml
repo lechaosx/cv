@@ -14,12 +14,14 @@ content:
   - {name: title_after_name, label: Title after name, type: string, required: false}
   - {name: position_en, description: Fill both languages or leave both empty., label: Profession — English, type: string, required: false}
   - {name: position_cs, label: Profession — Czech, type: string, required: false}
+  - {name: headline_en, description: Fill both languages or leave both empty., label: Headline — English, type: string, required: false}
+  - {name: headline_cs, label: Headline — Czech, type: string, required: false}
   - {name: phone, label: Phone, type: string, required: false}
   - {name: email, label: Email, type: string, required: false}
   - {name: location, label: Location, type: string, required: false}
   - {name: photo, label: Portrait, type: image, required: false}
-  - {name: description_en, description: Fill both languages or leave both empty., label: About me — English, type: text, required: false}
-  - {name: description_cs, label: About me — Czech, type: text, required: false}
+  - {name: description_en, description: Fill both languages or leave both empty., label: About me — English, type: rich-text, options: {format: markdown, media: false, switcher: true}, required: false}
+  - {name: description_cs, label: About me — Czech, type: rich-text, options: {format: markdown, media: false, switcher: true}, required: false}
   - name: interests
     label: Interests
     type: object
@@ -51,8 +53,8 @@ content:
     - {name: title_cs, label: Position or qualification — Czech, type: string, required: true}
     - {name: from, label: From, type: string, required: false, pattern: &datePattern {regex: '^([1-9][0-9]{3}|(0?[1-9]|1[0-2])/[1-9][0-9]{3})?$', message: 'Use YYYY or M/YYYY; leave empty for a completion date only.'}}
     - {name: to, label: To, type: string, required: false, pattern: *datePattern, description: Leave empty for an ongoing role.}
-    - {name: description_en, description: Fill both languages or leave both empty., label: Description — English, type: text, required: false}
-    - {name: description_cs, label: Description — Czech, type: text, required: false}
+    - {name: description_en, description: Fill both languages or leave both empty., label: Description — English, type: rich-text, options: {format: markdown, media: false, switcher: true}, required: false}
+    - {name: description_cs, label: Description — Czech, type: rich-text, options: {format: markdown, media: false, switcher: true}, required: false}
     - {name: badges, label: Skills and tools, type: string, required: false, list: true}
   - name: education
     label: Education

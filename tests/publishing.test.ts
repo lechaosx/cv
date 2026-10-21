@@ -25,11 +25,11 @@ test('Markdown exports source facts in displayed order and language, including o
   assert.ok(!cs.includes('\u00a0'));
 });
 
-test('Markdown escapes authored markup while retaining its literal meaning', () => {
+test('Markdown preserves authored prose formatting while escaping plain factual fields', () => {
   const special = cvSchema.parse({ name: '[Name] <script>', description_en: '# heading *text*', description_cs: '# nadpis *text*', links: [{ label: 'A [link]', url: 'https://example.org/project)notes' }] });
   const text = cvMarkdown(special, 'en', site);
   assert.ok(text.includes('\\[Name\\] &lt;script&gt;'));
-  assert.ok(text.includes('\\# heading \\*text\\*'));
+  assert.ok(text.includes('# heading *text*'));
   assert.ok(text.includes('[A \\[link\\]](https://example.org/project%29notes)'));
 });
 
@@ -57,7 +57,7 @@ test('localized search and share metadata uses existing content and the configur
   const cs = pageMetadata(cv, 'cs', site);
   assert.equal(en.title, 'Ing. Example Person | CV');
   assert.equal(cs.title, 'Ing. Example Person | Životopis');
-  assert.equal(en.description, cv.description_en);
+  assert.equal(en.description, 'An engineer who builds useful software and helps teams solve difficult problems.');
   assert.equal(cs.description, cv.description_cs);
   assert.equal(en.url, 'https://cv.example.org/en/');
   assert.equal(en.image, undefined);
@@ -84,4 +84,20 @@ test('structured identity stays stable across locales and does not infer employe
   assert.equal(empty['@graph'][0].telephone, undefined);
   assert.equal(empty['@graph'][0].honorificPrefix, undefined);
   assert.ok(!structuredData(cvSchema.parse({ name: '</script>' }), 'en', site).includes('<'));
+});
+
+test('prose exports preserve paragraphs, achievement lists, emphasis and links', () => {
+  const description = 'Building **useful** software.\n\n- Delivered a migration.\n- Read the [publication](https://example.org/research).';
+  const data = cvSchema.parse({ ...cv, description_en: description, description_cs: description,
+    experience: [{ ...cv.experience[0], description_en: description, description_cs: description }] });
+  const exported = cvMarkdown(data, 'en', site);
+  assert.equal(exported.split(description).length - 1, 2);
+  assert.ok(fullExport(data, site).includes(description));
+});
+
+test('search and structured descriptions use a plain first paragraph of Markdown', () => {
+  const data = cvSchema.parse({ ...cv, description_en: 'Building **useful** software with [teams](https://example.org).\n\nMy longer approach.\n\n- An achievement.', description_cs: 'Vývoj **užitečného** softwaru.\n\nDalší odstavec.' });
+  assert.equal(pageMetadata(data, 'en', site).description, 'Building useful software with teams.');
+  assert.equal(JSON.parse(structuredData(data, 'en', site))['@graph'][0].description, 'Building useful software with teams.');
+  assert.equal(pageMetadata(data, 'cs', site).description, 'Vývoj užitečného softwaru.');
 });

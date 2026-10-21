@@ -3,7 +3,7 @@ name: Drahomír Dlabaja
 title_after_name: ""
 phone: +420 605 401 878
 email: dr.dlabaja@gmail.com
-location: Brno, Královo Pole
+location: Brno, Czech Republic
 photo: /uploads/profile.jpg
 interests:
   - label_en: Learning
@@ -32,20 +32,78 @@ links:
     url: https://linkedin.com/in/dlabajad
     icon: linkedin
 experience:
-  - badges: []
-    title_en: Software Development Lead
-    title_cs: Vedoucí vývoje softwaru
-    description_en: Brief engagement during their leadership transition period. The role was
-      discontinued early due to organizational restructuring and strategic misalignment.
-    description_cs: Krátké působení během změny ve vedení společnosti. Pozice byla předčasně zrušena
-      kvůli organizační restrukturalizaci a rozdílným strategickým představám.
-    organization_en: Panoris
-    organization_cs: Panoris
-    department_en: ""
-    department_cs: ""
-    from: 07/2025
-    to: 07/2025
-  - badges:
+  - organization_en: Seznam.cz
+    organization_cs: Seznam.cz
+    title_en: Senior Software Engineer
+    title_cs: Seniorní softwarový inženýr
+    from: 08/2025
+    to: ""
+    description_en: >-
+      Backend infrastructure for identity, authentication, sessions, consent, and personal data
+      across Seznam’s services.
+
+
+      - Delivered production database and service migrations, including compatibility, monitoring,
+      controlled rollout, and recovery.
+
+      - Designed and now maintain security-sensitive data structures compatible with existing
+      accounts.
+
+      - Modernizing legacy C++ HTTP/RPC servers with lightweight asynchronous implementations.
+    description_cs: >-
+      Backendová infrastruktura pro identitu, autentizaci, relace, souhlasy a osobní údaje napříč
+      službami Seznamu.
+
+
+      - Realizoval jsem produkční migrace databází a služeb včetně kompatibility, monitoringu,
+      řízeného nasazení a obnovy.
+
+      - Navrhl jsem a udržuji bezpečnostně citlivé datové struktury kompatibilní s existujícími
+      účty.
+
+      - Modernizuji starší C++ HTTP/RPC servery pomocí odlehčených asynchronních implementací.
+    badges:
+      - C++
+      - Linux
+      - Kubernetes
+      - Docker
+      - Aerospike
+      - MariaDB
+      - Argo CD
+      - GitOps
+      - CMake
+      - Conan
+      - Git
+  - organization_en: Chyron
+    organization_cs: Chyron
+    title_en: Senior Software Engineer → Technical Lead
+    title_cs: Seniorní softwarový inženýr → technický vedoucí
+    from: 03/2023
+    to: 05/2025
+    description_en: >-
+      Chyron Weather: broadcast weather visualization with approximately 10 million lines of legacy
+      code.
+
+
+      - Helped restore the development environment and modernize fragmented repositories and
+      customer-specific branches.
+
+      - Participated in hiring and mentored engineers toward independent project ownership.
+
+      - Led technical decisions and hands-on development; introduced lightweight Kanban-inspired
+      practices.
+    description_cs: >-
+      Chyron Weather: vizualizace počasí pro televizní vysílání s přibližně 10 miliony řádků
+      staršího kódu.
+
+
+      - Pomáhal jsem obnovit vývojové prostředí a modernizovat roztříštěné repozitáře a zákaznické
+      větve.
+
+      - Podílel jsem se na náboru a vedl vývojáře k samostatné odpovědnosti za projekty.
+
+      - Vedl jsem technická rozhodnutí i vývoj; zavedl postupy inspirované Kanbanem.
+    badges:
       - Windows
       - Visual Studio
       - CMake
@@ -58,26 +116,31 @@ experience:
       - Jenkins
       - Jira
       - .NET Framework
-    title_en: Senior Software Engineer
-    title_cs: Seniorní softwarový inženýr
-    description_en: Working as a technical lead of Chyron Weather™, a product for interactive
-      visualization of weather forecasts for broadcast. Leading maintenance of a 20-year-old, 10M
-      LOC legacy codebase. Collaborating in a cross-functional, diverse team of nine software
-      developers. Mentoring team members and leading technical discussions. Actively promoting
-      healthy agile development practices. Introduced agility into our processes with measurable
-      positive outcomes.
-    description_cs: Práce na pozici technického vedoucího Chyron Weather™, produktu pro interaktivní
-      vizualizaci předpovědí počasí pro televizní vysílání. Vedení údržby dvacet let starého kódu o
-      rozsahu deseti milionů řádků. Spolupráce v mezioborovém a různorodém týmu devíti softwarových
-      vývojářů. Mentoring členů týmu a vedení technických diskusí. Aktivní podpora zdravých postupů
-      agilního vývoje. Zavedení agilních principů do procesů s měřitelnými pozitivními výsledky.
-    organization_en: Chyron
-    organization_cs: Chyron
-    department_en: ""
-    department_cs: ""
-    from: 03/2023
-    to: 05/2025
-  - badges:
+  - organization_en: TESCAN 3DIM
+    organization_cs: TESCAN 3DIM
+    title_en: Software Developer
+    title_cs: Softwarový vývojář
+    from: 04/2021
+    to: 03/2023
+    description_en: >-
+      BlueSkyPlan: dental treatment planning with complex 3D geometry.
+
+
+      - Optimized mesh Boolean operations, spatial queries, and parallel algorithms; improved UI
+      responsiveness with asynchronous computation.
+
+      - Led CMake/Conan build modernization, enabling independent Linux builds of computational
+      components for cloud deployment.
+    description_cs: >-
+      BlueSkyPlan: plánování stomatologických zákroků se složitou 3D geometrií.
+
+
+      - Optimalizoval jsem booleovské operace nad sítěmi, prostorové dotazy a paralelní algoritmy;
+      zlepšil odezvu UI asynchronními výpočty.
+
+      - Vedl jsem modernizaci sestavování pomocí CMake a Conanu pro samostatné Linuxové sestavení
+      výpočetních komponent do cloudu.
+    badges:
       - Linux
       - Windows
       - Visual Studio
@@ -88,82 +151,63 @@ experience:
       - Git
       - GitLab CI/CD
       - Redmine
-    title_en: Software Developer
-    title_cs: Softwarový vývojář
-    description_en: Worked on BlueSkyPlan, a product for dental treatment planning. As a member of a
-      Geometry Team, I spent most of the time researching, implementing, and optimizing advanced
-      algorithms and data structures for mesh and voxel data. I worked at spatial query
-      acceleration, vertical and horizontal parallelism, robust mesh booleans, and more. As part of
-      a cloud computing initiative, I led the development of a new, platform-independent build
-      architecture for the existing codebase based on modern CMake and Conan.
-    description_cs: Práce na BlueSkyPlan, produktu pro plánování stomatologických zákroků. Jako člen
-      týmu geometrie jsem se převážně věnoval výzkumu, implementaci a optimalizaci pokročilých
-      algoritmů a datových struktur pro polygonální sítě a voxelová data. Pracoval jsem na
-      zrychlování prostorových dotazů, vertikálním a horizontálním paralelismu, robustních
-      booleovských operacích nad sítěmi a dalších tématech. V rámci iniciativy zaměřené na cloudové
-      výpočty jsem vedl vývoj nové, platformově nezávislé architektury sestavování existujícího kódu
-      založené na moderním CMake a Conanu.
-    organization_en: TESCAN 3DIM, s.r.o.
-    organization_cs: TESCAN 3DIM, s.r.o.
-    department_en: ""
-    department_cs: ""
-    from: 04/2021
-    to: 03/2023
-  - badges:
+  - organization_en: Brno University of Technology
+    organization_cs: Vysoké učení technické v Brně
+    title_en: Data Compression Researcher
+    title_cs: Výzkumník v oblasti komprese dat
+    from: 06/2019
+    to: 12/2020
+    description_en: Researched and implemented compression algorithms for 4D light-field images.
+      Published in *Multimedia Tools and Applications* and presented at WSCG; open-source
+      implementation on GitHub.
+    description_cs: Výzkum a implementace komprese 4D obrazových dat světelných polí. Publikováno v
+      *Multimedia Tools and Applications* a prezentováno na WSCG; open-source implementace na
+      GitHubu.
+    badges:
       - Linux
       - C++20
       - Git
       - CMake
-    title_en: Data Compression Researcher
-    title_cs: Výzkumník v oblasti komprese dat
-    description_en: Researched and implemented new, state-of-the-art methodology for compression of 4D
-      light-field image data. The work was published in Multimedia Tools and Applications journal
-      and presented at the WSCG conference. The code is publicly available as an open-source library
-      at my GitHub.
-    description_cs: Výzkum a implementace nové špičkové metodiky komprese obrazových dat 4D světelných
-      polí. Práce byla publikována v časopise Multimedia Tools and Applications a prezentována na
-      konferenci WSCG. Kód je veřejně dostupný jako open-source knihovna na mém GitHubu.
-    organization_en: Brno University of Technology
-    organization_cs: Vysoké učení technické v Brně
-    department_en: ""
-    department_cs: ""
-    from: 06/2019
-    to: 12/2020
 education:
-  - title_en: Master's Degree
-    title_cs: Magisterský titul
-    description_en: Specialization in Computer Graphics and Interaction. Thesis on visualization of
-      large volumetric data on CPU, with emphasis on data structures, cache coherency,
-      parallelization, and vectorization. Developed in cooperation with TESCAN 3DIM, s.r.o.
-    description_cs: Specializace na počítačovou grafiku a interakci. Diplomová práce zaměřená na
-      vizualizaci rozsáhlých objemových dat na CPU s důrazem na datové struktury, koherenci cache,
-      paralelizaci a vektorizaci. Vyvinuto ve spolupráci s TESCAN 3DIM, s.r.o.
+  - title_en: Master’s Degree — Computer Graphics and Interaction
+    title_cs: Magisterský titul — Počítačová grafika a interakce
+    description_en: "CPU-based visualization of volumetric data: data structures, cache coherency,
+      parallelization, and vectorization. Thesis developed with TESCAN 3DIM."
+    description_cs: "Vizualizace objemových dat na CPU: datové struktury, koherence cache, paralelizace
+      a vektorizace. Diplomová práce ve spolupráci s TESCAN 3DIM."
     organization_en: Brno University of Technology
     organization_cs: Vysoké učení technické v Brně
     department_en: Faculty of Information Technology
     department_cs: Fakulta informačních technologií
     from: ""
     to: "2022"
-  - title_en: Bachelor's Degree
-    title_cs: Bakalářský titul
-    description_en: Thesis on lossy light field compression. Received Dean's award for excellent
-      bachelor's thesis. Presented the research at the Excel@FIT student conference, earned award
-      for quality work and experimental results.
-    description_cs: Bakalářská práce o ztrátové kompresi světelných polí. Ocenění děkana za vynikající
-      bakalářskou práci. Prezentace výzkumu na studentské konferenci Excel@FIT a ocenění za kvalitní
-      práci a experimentální výsledky.
+  - title_en: Bachelor’s Degree — Information Technology
+    title_cs: Bakalářský titul — Informační technologie
+    description_en: Lossy light-field compression. Thesis received the Dean’s Award and an award at the
+      Excel@FIT student conference.
+    description_cs: Ztrátová komprese světelných polí. Bakalářská práce získala ocenění děkana a ocenění
+      na studentské konferenci Excel@FIT.
     organization_en: Brno University of Technology
     organization_cs: Vysoké učení technické v Brně
     department_en: Faculty of Information Technology
     department_cs: Fakulta informačních technologií
     from: ""
     to: "2019"
-position_en: Software Engineer
-position_cs: Softwarový inženýr
-description_en: >
-  Skilled software engineer with a proven ability to lead and collaboratively tackle complex
-  problems, analyze solutions with their trade-offs, and make sure the implementation meets customer
-  needs. Proactive strategic thinker who can get things done.
-description_cs: Zkušený softwarový inženýr s prokázanou schopností vést tým a společně řešit složité
-  problémy, analyzovat řešení a jejich kompromisy a zajistit, aby implementace odpovídala potřebám
-  zákazníka. Proaktivní a strategicky uvažující člověk, který dokáže dotahovat věci do konce.
+position_en: Senior Software Engineer
+position_cs: Seniorní softwarový inženýr
+description_en: >-
+  I’m a senior software engineer working on C++ systems and backend infrastructure, with experience
+  in computational geometry, performance optimization, and technical leadership.
+
+
+  My approach has evolved from solving difficult technical problems to understanding which problems
+  are worth solving, how to manage their risks, and how to help other engineers succeed.
+description_cs: >-
+  Jsem seniorní softwarový inženýr se zkušenostmi s C++ systémy, backendovou infrastrukturou,
+  výpočetní geometrií, optimalizací výkonu a technickým vedením.
+
+
+  Od řešení náročných technických problémů jsem se postupně posunul k pochopení toho, které problémy
+  stojí za to řešit, jak zvládat jejich rizika a jak pomáhat ostatním vývojářům uspět.
+headline_en: I make complex software easier to understand, maintain, and evolve
+headline_cs: Zpřehledňuji složitý software a usnadňuji jeho údržbu a další rozvoj
