@@ -27,3 +27,7 @@ Development downloads and publishing share one Chromium renderer so both use loc
 ## Published HTML [Explicit]
 
 The build formats HTML for readable View Source and gives bundled assets neutral names, keeping component paths and development tooling out of the published page. Semantic markup, accessibility hooks and structured metadata remain public.
+
+## Content publishing [Explicit]
+
+Content and upload edits rebuild and validate every published export, including PDFs. Only pushes confined to those files skip code and fixture-based checks; other changes, pull requests and manual runs keep the full checks.

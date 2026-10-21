@@ -18,17 +18,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - name: Check whether code tests are needed
+        if: github.event_name == 'push' && github.event.before != '' && github.event.before != '0000000000000000000000000000000000000000'
+        id: changes
+        uses: dorny/paths-filter@v4
+        with:
+          base: ${{ github.event.before }}
+          ref: ${{ github.sha }}
+          predicate-quantifier: some-with-excludes
+          filters: |
+            code:
+              - '**'
+              - '!src/content/**'
+              - '!public/uploads/**'
       - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
       - run: npm ci
       - run: npm run check
+        if: steps.changes.outputs.code != 'false'
       - run: npm test
+        if: steps.changes.outputs.code != 'false'
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
+        if: steps.changes.outputs.code != 'false'
+      - name: Build and validate edited content
+        if: steps.changes.outputs.code == 'false'
+        run: npm run build && npm run test:build
       - uses: actions/upload-artifact@v7
-        if: always()
+        if: always() && steps.changes.outputs.code != 'false'
         with:
           name: browser-results
           path: test-results/

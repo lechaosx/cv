@@ -219,6 +219,14 @@ section { margin-bottom: 20px; }
 
 // ── Responsive ─────────────────────────────────────────────────────────────
 
+@media screen {
+	main {
+		a { text-decoration: none; }
+		a:where(:hover, :focus-visible) { text-decoration: underline; }
+		a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+	}
+}
+
 @media screen and (width < 80rem) {
 	.additional-info .connect { display: none; }
 	.additional-info .page-settings { display: none; }
@@ -345,7 +353,7 @@ section { margin-bottom: 20px; }
 		font: inherit;
 		text-decoration: none;
 		cursor: pointer;
-		&:hover { border-color: currentColor; }
+		&:is(:hover, :focus-visible) { border-color: currentColor; }
 		&:active { color: var(--panel); background: var(--text); }
 	}
 	.language-switch { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; }

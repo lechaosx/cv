@@ -13,7 +13,8 @@
     "build": "astro build && node scripts/generate-pdfs.ts",
     "preview": "astro preview",
     "test:dev": "node --test tests/dev/*.test.ts",
-    "test:e2e": "npm run build && node --test --test-isolation=none tests/build/*.test.ts && astro build --config tests/astro.config.mjs && playwright test && npm run test:dev"
+    "test:build": "node --test --test-isolation=none tests/build/*.test.ts",
+    "test:e2e": "npm run build && npm run test:build && astro build --config tests/astro.config.mjs && playwright test && npm run test:dev"
   },
   "dependencies": {
     "astro": "^7.3.5",
