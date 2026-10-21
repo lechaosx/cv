@@ -5,6 +5,31 @@ import { pageMetadata } from '../../src/publishing';
 
 const cv = localizeCV(fixture, 'en');
 
+test('the overall CV uses two columns once the full page fits with side gutters', async ({ page }) => {
+  for (const language of ['en', 'cs']) {
+    await page.goto(`/${language}/`);
+    await page.evaluate(() => document.fonts.ready);
+    for (const width of [1023, 1024, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      const photo = (await page.locator('.photo').boundingBox())!;
+      const header = (await page.locator('.main-info').boundingBox())!;
+      const connect = page.locator('.connect:visible');
+      await expect(connect).toHaveCount(1);
+      await expect(page.locator('.page-settings:visible')).toHaveCount(1);
+      if (width >= 1024) {
+        expect(header.y, `${language} header is beside the portrait at ${width}px`).toBeCloseTo(photo.y, 0);
+        expect(header.x).toBeGreaterThan(photo.x);
+        expect((await connect.boundingBox())!.x).toBeLessThan(header.x);
+      } else {
+        expect(header.y).toBeGreaterThanOrEqual(photo.y + photo.height);
+        const career = (await page.locator('main > div:not([class])').boundingBox())!;
+        expect((await connect.boundingBox())!.y).toBeGreaterThanOrEqual(career.y + career.height);
+      }
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    }
+  }
+});
+
 test('the header wraps names between words before moving contacts below', async ({ page }) => {
   for (const language of ['en', 'cs']) {
     await page.setViewportSize({ width: 450, height: 900 });
@@ -95,7 +120,7 @@ test('screen content stays readable offline, without JavaScript, from phones to 
     await expect(settings).toHaveCount(1);
     const settingsBox = await settings.boundingBox();
     expect(settingsBox!.y, width + 'px settings follow the CV header').toBeGreaterThan(main!.y);
-    if (width >= 1280) {
+    if (width >= 1024) {
       const sidebar = await page.locator('.additional-info').boundingBox();
       const header = await page.locator('.main-info').boundingBox();
       expect(settingsBox!.x).toBeLessThan(header!.x);
@@ -109,7 +134,7 @@ test('screen content stays readable offline, without JavaScript, from phones to 
     if (cv.links.length > 0) {
       const connect = page.locator('.connect:visible');
       await expect(connect).toHaveCount(1);
-      if (width < 1280) {
+      if (width < 1024) {
         const sections = page.locator('section:visible:not(.connect)');
         const connectBox = await connect.boundingBox();
         for (const section of await sections.all()) {

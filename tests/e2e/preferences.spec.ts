@@ -4,6 +4,23 @@ import { cv } from '../fixtures/cv';
 
 test.use({ javaScriptEnabled: true });
 
+test('the column boundary keeps Connect, controls and the manual theme aligned', async ({ page }) => {
+  for (const language of ['en', 'cs']) {
+    await page.goto(`/${language}/`);
+    await page.evaluate(() => {
+      localStorage.setItem('theme', 'dark');
+      document.documentElement.dataset.theme = 'dark';
+    });
+    for (const width of [1023, 1024, 1023]) {
+      await page.setViewportSize({ width, height: 900 });
+      await expect(page.locator('.connect:visible')).toHaveCount(1);
+      await expect(page.locator('.page-settings:visible')).toHaveCount(1);
+      await expect(page.locator('.theme-control:visible')).toHaveCount(width < 1024 ? 1 : 0);
+      await expect(page.locator('.main-info')).toHaveCSS('background-color', width < 1024 ? 'rgb(40, 54, 73)' : 'rgb(255, 255, 255)');
+    }
+  }
+});
+
 test('square controls use one matching hover and keyboard focus border', async ({ page }) => {
   for (const [width, colorScheme, forcedColors] of [
     [1440, 'light', 'none'],

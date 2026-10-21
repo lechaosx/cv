@@ -233,7 +233,7 @@ section { margin-bottom: 20px; }
 	}
 }
 
-@media screen and (width < 80rem) {
+@media screen and (width < 64rem) {
 	.additional-info .connect { display: none; }
 	.additional-info .page-settings { display: none; }
 	.connect-footer { display: block; }
@@ -306,7 +306,7 @@ section { margin-bottom: 20px; }
 	}
 }
 
-@media (min-width: 80rem), print {
+@media (min-width: 64rem), print {
 	main { grid-template-columns: 1fr 2fr; }
 
 	.main-info {
@@ -323,7 +323,7 @@ section { margin-bottom: 20px; }
 	.section-header { margin-right: -2.5rem; }
 }
 
-@media screen and (min-width: 80rem) {
+@media screen and (min-width: 64rem) {
 	main { grid-template-columns: 35% 65%; }
 }
 
@@ -379,6 +379,6 @@ section { margin-bottom: 20px; }
 	.page-settings { display: none; }
 }
 
-@media screen and (min-width: 80rem) {
+@media screen and (min-width: 64rem) {
 	.page-settings .theme-control { display: none; }
 }

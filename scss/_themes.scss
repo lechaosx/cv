@@ -13,12 +13,12 @@ main > * { @include apply-theme(dark); }
 }
 
 // Two-column desktop/print: odd (left) = dark, even (right) = light
-@media (min-width: 80rem), print {
+@media (min-width: 64rem), print {
 	main > :nth-child(2n + 1) { @include apply-theme(dark); }
 	main > :nth-child(2n)     { @include apply-theme(light); }
 }
 
-@media screen and (width < 80rem) {
+@media screen and (width < 64rem) {
 	html[data-theme='light'] main > * { @include apply-theme(light); }
 	html[data-theme='dark'] main > * { @include apply-theme(dark); }
 }

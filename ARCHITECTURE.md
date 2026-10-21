@@ -12,6 +12,10 @@ One content file keeps contact details, dates, credentials, and technical skills
 
 SCSS preserves the established screen and print design; fonts, icons, and the portrait stay local. Each person's repository owns its renderer and content, allowing their designs to diverge independently.
 
+## Responsive columns [Implicit]
+
+The overall CV switches to two columns at 64rem, where the full 60rem page fits with side gutters and retains its established column widths.
+
 ## One publishing source [Explicit]
 
 HTML, metadata, structured identity and Markdown exports use the same validated content so edits cannot leave a second CV behind. URLs derive from the configured custom-domain origin; machine-readable facts contain only supplied information.
