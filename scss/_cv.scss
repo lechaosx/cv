@@ -365,9 +365,7 @@ section { margin-bottom: 20px; }
 		&:active { color: var(--panel); background: var(--text); }
 		@media (forced-colors: active) {
 			&:is(:hover, :focus-visible) {
-				color: HighlightText;
-				background: Highlight;
-				border-color: Highlight;
+				border: 2px solid Highlight;
 			}
 		}
 	}

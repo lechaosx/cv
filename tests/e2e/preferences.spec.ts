@@ -22,7 +22,7 @@ test('square controls use one matching hover and keyboard focus border', async (
 
     const controls = page.locator('.page-settings:visible').locator('a, button:visible');
     for (const control of await controls.all()) {
-      const idleBackground = await control.evaluate(element => getComputedStyle(element).backgroundColor);
+      const idleBorder = await control.evaluate(element => getComputedStyle(element).borderColor);
       for (let step = 0; step < 12 && !await control.evaluate(element => element === document.activeElement); step++) {
         await page.keyboard.press('Tab');
       }
@@ -31,10 +31,10 @@ test('square controls use one matching hover and keyboard focus border', async (
         const style = getComputedStyle(element);
         return { color: style.color, background: style.backgroundColor, border: style.borderColor };
       });
-      await expect(control).toHaveCSS('border-width', '1px');
+      await expect(control).toHaveCSS('border-width', forcedColors === 'active' ? '2px' : '1px');
       await expect(control).toHaveCSS('border-style', 'solid');
       if (forcedColors === 'none') expect(focus.border).toBe(focus.color);
-      else expect(focus.background).not.toBe(idleBackground);
+      else expect(focus.border).not.toBe(idleBorder);
       await expect(control, `${width}px ${colorScheme} ${forcedColors}`).toHaveCSS('outline-style', 'none');
       await control.evaluate((element: HTMLElement) => element.blur());
       await control.hover();
