@@ -39,83 +39,70 @@ experience:
     from: 08/2025
     to: ""
     description_en: >-
-      Backend infrastructure for identity, authentication, sessions, consent, and personal data
-      across Seznam’s services.
+      - Owned several production database and service migrations in Seznam’s identity backend.
 
+      - Designed password storage that met new requirements and kept old passwords valid.
 
-      - Delivered production database and service migrations, including compatibility, monitoring,
-      controlled rollout, and recovery.
-
-      - Designed and now maintain security-sensitive data structures compatible with existing
-      accounts.
-
-      - Modernizing legacy C++ HTTP/RPC servers with lightweight asynchronous implementations.
+      - Helping move deployments to Argo CD GitOps, C++ builds to CMake, and dependencies from
+      Debian packages to Conan.
     description_cs: >-
-      Backendová infrastruktura pro identitu, autentizaci, relace, souhlasy a osobní údaje napříč
-      službami Seznamu.
+      - Samostatně jsem provedl několik produkčních migrací databází a služeb backendu
+      identit.
 
+      - Navrhl jsem úložiště hesel, jež splnilo nové požadavky a nezneplatnilo stará hesla.
 
-      - Realizoval jsem produkční migrace databází a služeb včetně kompatibility, monitoringu,
-      řízeného nasazení a obnovy.
-
-      - Navrhl jsem a udržuji bezpečnostně citlivé datové struktury kompatibilní s existujícími
-      účty.
-
-      - Modernizuji starší C++ HTTP/RPC servery pomocí odlehčených asynchronních implementací.
+      - Podílím se na přechodu nasazování na GitOps s Argo CD, sestavování C++ na CMake a
+      závislostí z balíčků pro Debian na Conan.
     badges:
       - C++
+      - CMake
+      - Conan
       - Linux
-      - Kubernetes
       - Docker
+      - GitOps
+      - Kubernetes
       - Aerospike
       - MariaDB
       - Argo CD
-      - GitOps
-      - CMake
-      - Conan
       - Git
   - organization_en: Chyron
     organization_cs: Chyron
     title_en: Senior Software Engineer → Technical Lead
-    title_cs: Seniorní softwarový inženýr → technický vedoucí
+    title_cs: Seniorní inženýr → technický vedoucí
     from: 03/2023
     to: 05/2025
     description_en: >-
-      Chyron Weather: broadcast weather visualization with approximately 10 million lines of legacy
-      code.
+      - Joined a new three-person team reviving an acquired ~10M-line broadcast weather suite.
 
+      - Helped merge ~5 customer-branch repositories semantically, which sped up development.
 
-      - Helped restore the development environment and modernize fragmented repositories and
-      customer-specific branches.
+      - Became technical lead, helped hire two engineers and an intern, and proposed the
+      process experiments behind a Kanban-style flow.
 
-      - Participated in hiring and mentored engineers toward independent project ownership.
-
-      - Led technical decisions and hands-on development; introduced lightweight Kanban-inspired
-      practices.
+      - Coached engineers to own problems from investigation to technical direction.
     description_cs: >-
-      Chyron Weather: vizualizace počasí pro televizní vysílání s přibližně 10 miliony řádků
-      staršího kódu.
+      - Ve tříčlenném týmu jsme oživili převzatý software TV vizualizace počasí (~10 mil.
+      řádků).
 
+      - Pomohl jsem sémanticky sloučit ~5 repozitářů zákaznických větví, což zrychlilo vývoj.
 
-      - Pomáhal jsem obnovit vývojové prostředí a modernizovat roztříštěné repozitáře a zákaznické
-      větve.
+      - Stal jsem se technickým vedoucím, pomáhal vybrat dva vývojáře a stážistu a navrhl
+      experimenty vedoucí k procesu ve stylu Kanbanu.
 
-      - Podílel jsem se na náboru a vedl vývojáře k samostatné odpovědnosti za projekty.
-
-      - Vedl jsem technická rozhodnutí i vývoj; zavedl postupy inspirované Kanbanem.
+      - Vedl jsem kolegy k samostatné odpovědnosti za problémy od analýzy po technické řešení.
     badges:
-      - Windows
-      - Visual Studio
-      - CMake
-      - Conan
       - C++14
       - C++/CLI
       - C#
-      - Python
+      - .NET Framework
       - Git
+      - Windows
+      - Visual Studio
+      - Python
+      - CMake
+      - Conan
       - Jenkins
       - Jira
-      - .NET Framework
   - organization_en: TESCAN 3DIM
     organization_cs: TESCAN 3DIM
     title_en: Software Developer
@@ -123,31 +110,27 @@ experience:
     from: 04/2021
     to: 03/2023
     description_en: >-
-      BlueSkyPlan: dental treatment planning with complex 3D geometry.
+      - Developed and optimized robust 3D mesh Booleans and spatial queries for BlueSkyPlan
+      dental planning.
 
+      - Moved heavy computation off the UI thread, substantially improving responsiveness.
 
-      - Optimized mesh Boolean operations, spatial queries, and parallel algorithms; improved UI
-      responsiveness with asynchronous computation.
-
-      - Led CMake/Conan build modernization, enabling independent Linux builds of computational
-      components for cloud deployment.
+      - Introduced modern CMake and pioneered Conan; computation ran standalone on Linux.
     description_cs: >-
-      BlueSkyPlan: plánování stomatologických zákroků se složitou 3D geometrií.
+      - Pro stomatologický BlueSkyPlan jsem vyvíjel a optimalizoval robustní booleovské
+      operace nad 3D sítěmi a prostorové dotazy.
 
+      - Přesunem výpočtů mimo UI vlákno jsem podstatně zlepšil odezvu starší aplikace.
 
-      - Optimalizoval jsem booleovské operace nad sítěmi, prostorové dotazy a paralelní algoritmy;
-      zlepšil odezvu UI asynchronními výpočty.
-
-      - Vedl jsem modernizaci sestavování pomocí CMake a Conanu pro samostatné Linuxové sestavení
-      výpočetních komponent do cloudu.
+      - Zavedením moderního CMake a Conanu jsem umožnil samostatný běh výpočtů na Linuxu.
     badges:
+      - C++17
+      - Qt 5
       - Linux
       - Windows
       - Visual Studio
       - CMake
       - Conan
-      - C++17
-      - Qt 5
       - Git
       - GitLab CI/CD
       - Redmine
@@ -157,57 +140,59 @@ experience:
     title_cs: Výzkumník v oblasti komprese dat
     from: 06/2019
     to: 12/2020
-    description_en: Researched and implemented compression algorithms for 4D light-field images.
-      Published in *Multimedia Tools and Applications* and presented at WSCG; open-source
-      implementation on GitHub.
-    description_cs: Výzkum a implementace komprese 4D obrazových dat světelných polí. Publikováno v
-      *Multimedia Tools and Applications* a prezentováno na WSCG; open-source implementace na
-      GitHubu.
+    description_en: >-
+      Developed a 4D-DCT light-field compression method and its [open-source C++
+      implementation](https://github.com/lechaosx/light-field-image-format), benchmarked
+      against other approaches in a [*Multimedia Tools and Applications*
+      paper](https://doi.org/10.1007/s11042-021-11645-x) (2022) I coauthored, and at WSCG.
+    description_cs: >-
+      Vyvinul jsem metodu komprese světelných polí založenou na 4D DCT a její [open-source
+      implementaci v C++](https://github.com/lechaosx/light-field-image-format), srovnanou s
+      jinými přístupy v [článku v *Multimedia Tools and
+      Applications*](https://doi.org/10.1007/s11042-021-11645-x) (2022), jehož jsem
+      spoluautorem, a na WSCG.
     badges:
-      - Linux
       - C++20
-      - Git
       - CMake
+      - Linux
+      - Git
 education:
-  - title_en: Master’s Degree — Computer Graphics and Interaction
-    title_cs: Magisterský titul — Počítačová grafika a interakce
-    description_en: "CPU-based visualization of volumetric data: data structures, cache coherency,
-      parallelization, and vectorization. Thesis developed with TESCAN 3DIM."
-    description_cs: "Vizualizace objemových dat na CPU: datové struktury, koherence cache, paralelizace
-      a vektorizace. Diplomová práce ve spolupráci s TESCAN 3DIM."
+  - title_en: Master’s in Computer Graphics and Interaction
+    title_cs: Ing. – Počítačová grafika a interakce
+    description_en: >-
+      Thesis with TESCAN 3DIM: CPU visualization of large volumetric data.
+    description_cs: >-
+      Diplomová práce ve spolupráci s TESCAN 3DIM: vizualizace velkých objemových dat na CPU.
     organization_en: Brno University of Technology
     organization_cs: Vysoké učení technické v Brně
-    department_en: Faculty of Information Technology
-    department_cs: Fakulta informačních technologií
     from: ""
     to: "2022"
-  - title_en: Bachelor’s Degree — Information Technology
-    title_cs: Bakalářský titul — Informační technologie
-    description_en: Lossy light-field compression. Thesis received the Dean’s Award and an award at the
-      Excel@FIT student conference.
-    description_cs: Ztrátová komprese světelných polí. Bakalářská práce získala ocenění děkana a ocenění
-      na studentské konferenci Excel@FIT.
+  - title_en: Bachelor’s in Information Technology
+    title_cs: Bc. – Informační technologie
+    description_en: >-
+      Thesis *Lossy Light Field Compression*: Dean’s Award and Excel@FIT recognition.
+    description_cs: >-
+      Bakalářská práce o ztrátové kompresi světelných polí: cena děkana a ocenění na
+      Excel@FIT.
     organization_en: Brno University of Technology
     organization_cs: Vysoké učení technické v Brně
-    department_en: Faculty of Information Technology
-    department_cs: Fakulta informačních technologií
     from: ""
     to: "2019"
 position_en: Senior Software Engineer
 position_cs: Seniorní softwarový inženýr
 description_en: >-
-  I’m a senior software engineer working on C++ systems and backend infrastructure, with experience
-  in computational geometry, performance optimization, and technical leadership.
+  Focused on C++ and backend systems, with a background in computational geometry, performance
+  optimization, legacy modernization, production migrations, and technical leadership.
 
 
-  My approach has evolved from solving difficult technical problems to understanding which problems
-  are worth solving, how to manage their risks, and how to help other engineers succeed.
+  I care about which problems are worth solving, making their risks explicit, and helping other
+  engineers own their work.
 description_cs: >-
-  Jsem seniorní softwarový inženýr se zkušenostmi s C++ systémy, backendovou infrastrukturou,
-  výpočetní geometrií, optimalizací výkonu a technickým vedením.
+  Zaměřuji se na C++ a backendové systémy. Mám zkušenosti s výpočetní geometrií, optimalizací
+  výkonu, modernizací staršího softwaru, produkčními migracemi i technickým vedením.
 
 
-  Od řešení náročných technických problémů jsem se postupně posunul k pochopení toho, které problémy
-  stojí za to řešit, jak zvládat jejich rizika a jak pomáhat ostatním vývojářům uspět.
+  Zajímá mě, které problémy stojí za to řešit, jak pojmenovat jejich rizika a jak pomáhat kolegům
+  převzít odpovědnost za vlastní práci.
 headline_en: I make complex software easier to understand, maintain, and evolve
 headline_cs: Zpřehledňuji složitý software a usnadňuji jeho údržbu a další rozvoj
