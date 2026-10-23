@@ -20,6 +20,10 @@ Pages CMS edits both translations together without a live editing interface. Des
 
 A personal headline introduces the CV separately from the profession. Concise experience descriptions and technology badges carry technical and leadership evidence without a separate skills section; the website and one-page PDF contain the same content.
 
+## Headline as tagline [Explicit]
+
+The headline completes the name and profession as a tagline in a light condensed italic, wrapping into balanced lines. In the two-column layout and print it spans beneath both the name and the contacts, filling the space beside the portrait without making the header taller.
+
 ## Discovery and sharing [Explicit]
 
 Search results and share previews follow the page language, with one identity across translations. All crawlers are allowed; the sitemap lists the two canonical CV pages.
@@ -31,6 +35,10 @@ Each language has a Markdown CV; a bilingual full export and compact `llms.txt` 
 ## One-page PDF downloads [Explicit]
 
 Each language offers a selectable-text A4 PDF at the largest scale that fits one page. Publishing prepares static downloads; development downloads reflect current edits without a build. Download URLs and filenames include the person’s name and language for easy sharing and identification.
+
+## PDF links [Explicit]
+
+The PDF shows contact and profile links without underlines, since their text already names the destination. Links within descriptions get a thin, offset gold underline so readers can still tell they are clickable.
 
 ## Small PDF text warning [Explicit]
 

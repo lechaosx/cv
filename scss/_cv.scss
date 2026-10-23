@@ -94,7 +94,14 @@ h1 { text-transform: uppercase; }
 }
 
 .headline {
-	margin-block-start: 0.75rem;
+	margin-block-start: 0.875rem;
+	font-family: var(--condensed-font);
+	font-weight: 350;
+	font-style: italic;
+	font-size: 1.25em;
+	line-height: 1.25;
+	color: var(--name);
+	text-wrap: balance;
 }
 
 // ── Contact list ───────────────────────────────────────────────────────────
@@ -318,10 +325,18 @@ section { margin-bottom: 1.25rem; }
 @media (min-width: 64rem), print {
 	main { grid-template-columns: 1fr 2fr; }
 
+	// Up to four identity rows (titles, name, position) beside the contacts; the headline spans beneath both.
 	.main-info {
-		flex-wrap: nowrap;
-		gap: 2rem;
-		> :first-child { flex: 1 1 0; }
+		display: grid;
+		grid-template-columns: 1fr max-content;
+		grid-template-rows: repeat(4, auto) auto;
+		align-content: center;
+		gap: 0 2rem;
+
+		> :first-child { display: contents; }
+		> :first-child > :not(.headline) { grid-column: 1; }
+		.contact-list { grid-area: 1 / 2 / -2; }
+		.headline { grid-area: -2 / 1 / -1 / -1; }
 	}
 
 	.contact-list {
@@ -343,6 +358,14 @@ section { margin-bottom: 1.25rem; }
 		max-width: none;
 		min-height: 100%;
 		grid-template-rows: auto 1fr;
+	}
+
+	// Contact and profile links show their destination; prose links need a cue that they are clickable.
+	.contact-list a, .connect a { text-decoration: none; }
+
+	.prose a {
+		text-decoration: underline 1px var(--position);
+		text-underline-offset: 0.2em;
 	}
 
 }
