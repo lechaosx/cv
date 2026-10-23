@@ -45,14 +45,20 @@ experience:
 
       - Helping move deployments to Argo CD GitOps, C++ builds to CMake, and dependencies from
       Debian packages to Conan.
+
+      - Identifying hidden risks and assumptions in modernization proposals, and the cost of
+      mitigating them, so the team can decide which to accept.
     description_cs: >-
-      - Samostatně jsem provedl několik produkčních migrací databází a služeb backendu
-      identit.
+      - Samostatně provedené produkční migrace několika databází a služeb backendu pro
+      správu identit.
 
-      - Navrhl jsem úložiště hesel, jež splnilo nové požadavky a nezneplatnilo stará hesla.
+      - Návrh úložiště hesel, jež splnilo nové požadavky a nezneplatnilo stará hesla.
 
-      - Podílím se na přechodu nasazování na GitOps s Argo CD, sestavování C++ na CMake a
-      závislostí z balíčků pro Debian na Conan.
+      - Podíl na probíhajícím přechodu sestavování C++ na CMake, závislostí z balíčků pro
+      Debian na Conan a nasazování na GitOps s Argo CD.
+
+      - Odhalování skrytých rizik a předpokladů v návrzích modernizace i ceny jejich zmírnění,
+      aby tým mohl vědomě rozhodnout, která přijmout.
     badges:
       - C++
       - CMake
@@ -65,31 +71,35 @@ experience:
       - MariaDB
       - Argo CD
       - Git
+      - Claude Code
   - organization_en: Chyron
     organization_cs: Chyron
     title_en: Senior Software Engineer → Technical Lead
-    title_cs: Seniorní inženýr → technický vedoucí
+    title_cs: Seniorní softwarový inženýr → Tech Lead
     from: 03/2023
     to: 05/2025
     description_en: >-
-      - Joined a new three-person team reviving an acquired ~10M-line broadcast weather suite.
+      - Joined a new three-person team reviving an acquired ~10M-line broadcast weather suite,
+      starting by restoring its build environment.
 
       - Helped merge ~5 customer-branch repositories semantically, which sped up development.
 
-      - Became technical lead, helped hire two engineers and an intern, and proposed the
-      process experiments behind a Kanban-style flow.
+      - Became Technical Lead, helped hire two engineers and an intern, and coached
+      teammates to own problems from investigation to technical direction.
 
-      - Coached engineers to own problems from investigation to technical direction.
+      - Proposed process experiments through which the team replaced fixed two-week sprints
+      with a lightweight Kanban-style flow it found more efficient.
     description_cs: >-
-      - Ve tříčlenném týmu jsme oživili převzatý software TV vizualizace počasí (~10 mil.
-      řádků).
+      - Člen nového tříčlenného týmu oživujícího převzatý software TV vizualizace počasí
+      (~10 mil. řádků), počínaje zprovozněním jeho sestavení.
 
-      - Pomohl jsem sémanticky sloučit ~5 repozitářů zákaznických větví, což zrychlilo vývoj.
+      - Podíl na sémantickém sloučení ~5 repozitářů zákaznických větví, což zrychlilo vývoj.
 
-      - Stal jsem se technickým vedoucím, pomáhal vybrat dva vývojáře a stážistu a navrhl
-      experimenty vedoucí k procesu ve stylu Kanbanu.
+      - Převzetí role Tech Lead, účast na výběru dvou vývojářů a stážisty;
+      vedení kolegů k samostatné odpovědnosti za problémy od analýzy po technické řešení.
 
-      - Vedl jsem kolegy k samostatné odpovědnosti za problémy od analýzy po technické řešení.
+      - Návrh procesních experimentů, díky nimž tým nahradil pevné dvoutýdenní sprinty
+      odlehčeným postupem ve stylu Kanbanu, který považoval za efektivnější.
     badges:
       - C++14
       - C++/CLI
@@ -103,6 +113,7 @@ experience:
       - Conan
       - Jenkins
       - Jira
+      - PostgreSQL
   - organization_en: TESCAN 3DIM
     organization_cs: TESCAN 3DIM
     title_en: Software Developer
@@ -115,14 +126,16 @@ experience:
 
       - Moved heavy computation off the UI thread, substantially improving responsiveness.
 
-      - Introduced modern CMake and pioneered Conan; computation ran standalone on Linux.
+      - Introduced modern CMake and pioneered Conan so computation ran standalone on Linux for
+      integration with a cloud platform.
     description_cs: >-
-      - Pro stomatologický BlueSkyPlan jsem vyvíjel a optimalizoval robustní booleovské
-      operace nad 3D sítěmi a prostorové dotazy.
+      - Vývoj a optimalizace robustních booleovských operací nad 3D sítěmi a prostorových
+      dotazů pro stomatologický BlueSkyPlan.
 
-      - Přesunem výpočtů mimo UI vlákno jsem podstatně zlepšil odezvu starší aplikace.
+      - Přesun výpočtů mimo UI vlákno, který podstatně zlepšil odezvu starší aplikace.
 
-      - Zavedením moderního CMake a Conanu jsem umožnil samostatný běh výpočtů na Linuxu.
+      - Zavedení moderního CMake a Conanu pro samostatný běh výpočtů na Linuxu a napojení
+      na cloud.
     badges:
       - C++17
       - Qt 5
@@ -143,14 +156,13 @@ experience:
     description_en: >-
       Developed a 4D-DCT light-field compression method and its [open-source C++
       implementation](https://github.com/lechaosx/light-field-image-format), benchmarked
-      against other approaches in a [*Multimedia Tools and Applications*
-      paper](https://doi.org/10.1007/s11042-021-11645-x) (2022) I coauthored, and at WSCG.
+      against other approaches at WSCG and in [*Multimedia Tools and
+      Applications*](https://doi.org/10.1007/s11042-021-11645-x) (2022, coauthor).
     description_cs: >-
-      Vyvinul jsem metodu komprese světelných polí založenou na 4D DCT a její [open-source
-      implementaci v C++](https://github.com/lechaosx/light-field-image-format), srovnanou s
-      jinými přístupy v [článku v *Multimedia Tools and
-      Applications*](https://doi.org/10.1007/s11042-021-11645-x) (2022), jehož jsem
-      spoluautorem, a na WSCG.
+      Vývoj metody založené na 4D DCT pro kompresi světelných polí a její [open-source
+      implementace v C++](https://github.com/lechaosx/light-field-image-format), srovnané s
+      jinými přístupy na WSCG a v [článku v *Multimedia Tools and
+      Applications*](https://doi.org/10.1007/s11042-021-11645-x) (2022, spoluautor).
     badges:
       - C++20
       - CMake
@@ -160,9 +172,11 @@ education:
   - title_en: Master’s in Computer Graphics and Interaction
     title_cs: Ing. – Počítačová grafika a interakce
     description_en: >-
-      Thesis with TESCAN 3DIM: CPU visualization of large volumetric data.
+      Thesis with TESCAN 3DIM: CPU visualization of large volumetric data (cache-aware data
+      structures, parallelization, vectorization).
     description_cs: >-
-      Diplomová práce ve spolupráci s TESCAN 3DIM: vizualizace velkých objemových dat na CPU.
+      Diplomová práce ve spolupráci s TESCAN 3DIM: vizualizace velkých objemových dat na CPU
+      (datové struktury s ohledem na cache, paralelizace, vektorizace).
     organization_en: Brno University of Technology
     organization_cs: Vysoké učení technické v Brně
     from: ""
@@ -185,8 +199,8 @@ description_en: >-
   optimization, legacy modernization, production migrations, and technical leadership.
 
 
-  I care about which problems are worth solving, making their risks explicit, and helping other
-  engineers own their work.
+  Most interested in deciding which problems are worth solving, making their risks explicit, and
+  helping other engineers own their work.
 description_cs: >-
   Zaměřuji se na C++ a backendové systémy. Mám zkušenosti s výpočetní geometrií, optimalizací
   výkonu, modernizací staršího softwaru, produkčními migracemi i technickým vedením.
