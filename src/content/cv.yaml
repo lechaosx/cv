@@ -109,8 +109,8 @@ experience:
       - Joined a new three-person team reviving an acquired ~10M-line broadcast weather suite,
       starting by restoring its build environment.
 
-      - Merged ~5 customer-branch repositories semantically, speeding development and helping
-      ship customer-facing improvements alongside maintenance.
+      - Reconciled divergent customer-specific branches across ~5 Git repositories, speeding
+      development and helping ship customer-facing improvements alongside maintenance.
 
       - Grew into the technical lead role, participated in hiring two engineers and an intern,
       and mentored teammates to lead increasingly complex projects.
@@ -121,7 +121,7 @@ experience:
       - Člen nového tříčlenného týmu oživujícího převzatý software TV vizualizace počasí
       (~10 mil. řádků), počínaje zprovozněním jeho sestavení.
 
-      - Sémantické sloučení ~5 repozitářů zákaznických větví, což zrychlilo vývoj a
+      - Sladění rozdílných zákaznických větví v ~5 repozitářích Gitu, což zrychlilo vývoj a
       pomohlo týmu vedle údržby dodávat i vylepšení pro zákazníky.
 
       - Postupné převzetí role tech lead, účast na výběru dvou vývojářů a stážisty a vedení
