@@ -39,6 +39,22 @@ content:
     - {name: label, label: Visible text, type: string, required: true}
     - {name: url, label: 'Address (https://…) ', type: string, required: true}
     - {name: icon, label: Icon, type: select, required: true, options: {values: [website, github, linkedin]}}
+  - name: projects
+    label: Open source
+    type: object
+    required: false
+    list: true
+    fields: &entryFields
+    - {name: title, label: Name or title, type: string, required: true}
+    - {name: url, label: 'Address (https://…)', type: string, required: false}
+    - {name: description_en, description: Fill both languages or leave both empty., label: Short description — English, type: string, required: false}
+    - {name: description_cs, label: Short description — Czech, type: string, required: false}
+  - name: publications
+    label: Publications
+    type: object
+    required: false
+    list: true
+    fields: *entryFields
   - name: experience
     label: Work experience
     type: object

@@ -38,6 +38,11 @@ export const timelineSchema = z.strictObject({
     context.addIssue({ code: 'custom', path: ['to'], message: 'End must follow start' });
   }
 });
+const entries = z.preprocess(withoutEmptyRows, z.array(z.strictObject({
+  title: requiredText,
+  url: z.union([z.url({ protocol: /^https?$/ }), z.literal('')]).default(''),
+  description_en: text, description_cs: text,
+}).superRefine(paired(['description']))).default([]));
 const color = z.union([z.string().regex(/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i, 'Use a hex color'), z.literal('')]);
 export const cvSchema = z.strictObject({
   title_before_name: text,
@@ -56,6 +61,8 @@ export const cvSchema = z.strictObject({
     url: z.url({ protocol: /^https?$/ }),
     icon: z.enum(['website', 'github', 'linkedin']).default('website'),
   })).default([])),
+  projects: entries,
+  publications: entries,
   experience: z.preprocess(withoutEmptyRows, z.array(timelineSchema).default([])),
   education: z.preprocess(withoutEmptyRows, z.array(timelineSchema).default([])),
   theme: z.strictObject({ dark: color.optional(), light: color.optional() }).default({}),
@@ -74,6 +81,8 @@ export function localizeCV(data: CV, language: Language) {
   return { ...data, language, headline: data[`headline_${language}`], position: data[`position_${language}`], description: data[`description_${language}`],
     interests: data.interests.map(interest => interest[`label_${language}`]),
     experience: data.experience.map(timeline), education: data.education.map(timeline),
+    projects: data.projects.map(entry => ({ ...entry, description: entry[`description_${language}`] })),
+    publications: data.publications.map(entry => ({ ...entry, description: entry[`description_${language}`] })),
   };
 }
 export type LocalizedCV = ReturnType<typeof localizeCV>;

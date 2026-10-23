@@ -65,3 +65,12 @@ test('CMS saving retains multiline Markdown and paired headlines', () => {
   assert.equal(saved.experience[0]?.description_cs, source);
   assert.equal(saved.headline_cs, 'Srozumitelný software');
 });
+
+test('CMS saving retains open-source projects and publications, with or without an address', () => {
+  const value = { ...content,
+    projects: [{ title: 'Editor', url: 'https://example.org/editor', description_en: 'A chart editor.', description_cs: 'Editor grafů.' }],
+    publications: [{ title: 'A Study', url: '', description_en: 'Journal, 2022', description_cs: 'Časopis, 2022' }] };
+  const saved = cvSchema.parse(parse(stringify(formValues(form.fields, value))));
+  assert.deepEqual(saved.projects, value.projects);
+  assert.deepEqual(saved.publications, value.publications);
+});

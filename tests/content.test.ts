@@ -35,6 +35,9 @@ for (const [label, mutate] of [
   ['unknown theme keys', (value: any) => { value.theme.arbitrary = '#123456'; }],
   ['palette references', (value: any) => { value.theme.dark = '--dark'; }],
   ['invalid email', (value: any) => { value.email = 'not an email'; }],
+  ['script project links', (value: any) => { value.projects = [{ title: 'Editor', url: 'javascript:alert(1)' }]; }],
+  ['untitled publications', (value: any) => { value.publications = [{ url: 'https://example.org/paper', description_en: 'Journal, 2022', description_cs: 'Časopis, 2022' }]; }],
+  ['one-language project descriptions', (value: any) => { value.projects = [{ title: 'Editor', description_en: 'A chart editor.' }]; }],
 ] as const) {
   test(`rejects ${label}`, () => {
     const value = cv();
@@ -89,4 +92,19 @@ test('headline translations are optional, paired and localized separately from t
   assert.equal(localizeCV(data, 'cs').position, 'Vývojář');
   assert.equal(cvSchema.safeParse({ ...cv(), headline_en: 'Making systems understandable' }).success, false);
   assert.equal(cvSchema.safeParse({ ...cv(), headline_en: '', headline_cs: '' }).success, true);
+});
+
+test('open-source projects and publications are optional, link only when addressed, and localize their descriptions', () => {
+  assert.deepEqual(cvSchema.parse(cv()).projects, []);
+  assert.deepEqual(cvSchema.parse(cv()).publications, []);
+  const data = cvSchema.parse({ ...cv(),
+    projects: [{}, { title: '', url: '', description_en: '', description_cs: '' }, { title: 'Editor', url: '', description_en: 'A chart editor.', description_cs: 'Editor grafů.' }],
+    publications: [{ title: 'A Study', url: 'https://doi.org/10.1000/example', description_en: 'Journal, 2022 · coauthor', description_cs: 'Časopis, 2022 · spoluautor' }, { title: 'Thesis' }] });
+  assert.deepEqual(data.projects.map(entry => entry.title), ['Editor']);
+  assert.equal(data.projects[0]?.url, '');
+  const localized = localizeCV(data, 'cs');
+  assert.equal(localized.projects[0]?.description, 'Editor grafů.');
+  assert.equal(localized.publications[0]?.description, 'Časopis, 2022 · spoluautor');
+  assert.equal(localized.publications[1]?.description, '');
+  assert.equal(localized.publications[0]?.url, 'https://doi.org/10.1000/example');
 });

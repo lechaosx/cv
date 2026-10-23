@@ -1,8 +1,8 @@
 import type { Language } from './cv';
 
 export const labels = {
-  en: { cv: 'CV', downloadPDF: 'Download PDF', about: 'About Me', interests: 'Interests', connect: 'Connect', experience: 'Work Experience', education: 'Education', present: 'present', switchToLight: 'Switch to light theme', switchToDark: 'Switch to dark theme', controls: 'Page settings' },
-  cs: { cv: 'Životopis', downloadPDF: 'Stáhnout PDF', about: 'O mně', interests: 'Zájmy', connect: 'Kontakty', experience: 'Pracovní zkušenosti', education: 'Vzdělání', present: 'současnost', switchToLight: 'Přepnout na světlý vzhled', switchToDark: 'Přepnout na tmavý vzhled', controls: 'Nastavení stránky' },
+  en: { cv: 'CV', downloadPDF: 'Download PDF', about: 'About Me', interests: 'Interests', projects: 'Open Source', publications: 'Publications', connect: 'Connect', experience: 'Work Experience', education: 'Education', present: 'present', switchToLight: 'Switch to light theme', switchToDark: 'Switch to dark theme', controls: 'Page settings' },
+  cs: { cv: 'Životopis', downloadPDF: 'Stáhnout PDF', about: 'O mně', interests: 'Zájmy', projects: 'Open source', publications: 'Publikace', connect: 'Kontakty', experience: 'Pracovní zkušenosti', education: 'Vzdělání', present: 'současnost', switchToLight: 'Přepnout na světlý vzhled', switchToDark: 'Přepnout na tmavý vzhled', controls: 'Nastavení stránky' },
 };
 
 export function preferredLanguage(saved: string | null, languages: readonly string[]): Language {

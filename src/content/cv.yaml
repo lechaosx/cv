@@ -33,6 +33,31 @@ links:
   - label: linkedin.com/in/dlabajad
     url: https://linkedin.com/in/dlabajad
     icon: linkedin
+projects:
+  - title: Mosaic Crochet Editor
+    url: https://lechaosx.github.io/mosaic-crochet-editor/
+    description_en: Browser editor for mosaic crochet charts that generates row-by-row
+      instructions, in Rust and TypeScript.
+    description_cs: Webový editor schémat mozaikového háčkování s generováním postupu po
+      řadách, v Rustu a TypeScriptu.
+  - title: LFIF
+    url: https://github.com/lechaosx/light-field-image-format
+    description_en: C++ codec for 4D light-field image compression from the university
+      research.
+    description_cs: Kodek v C++ pro kompresi 4D světelných polí z univerzitního výzkumu.
+publications:
+  - title: Comparison of light field compression methods
+    url: https://doi.org/10.1007/s11042-021-11645-x
+    description_en: Multimedia Tools and Applications, 2022, coauthor
+    description_cs: Multimedia Tools and Applications, 2022, spoluautor
+  - title: Evaluation of 4D Light Field Compression Methods
+    url: https://doi.org/10.24132/CSRN.2019.2901.1.7
+    description_en: WSCG 2019, coauthor
+    description_cs: WSCG 2019, spoluautor
+  - title: 4D-DCT Based Light Field Image Compression
+    url: https://excel.fit.vutbr.cz/submissions/2019/021/21.pdf
+    description_en: Excel@FIT 2019, sole author
+    description_cs: Excel@FIT 2019, jediný autor
 experience:
   - organization_en: Seznam.cz
     organization_cs: Seznam.cz
@@ -84,11 +109,11 @@ experience:
       - Joined a new three-person team reviving an acquired ~10M-line broadcast weather suite,
       starting by restoring its build environment.
 
-      - Merged ~5 customer-branch repositories semantically, speeding development so the team
-      could ship customer-facing improvements alongside maintenance.
+      - Merged ~5 customer-branch repositories semantically, speeding development and helping
+      ship customer-facing improvements alongside maintenance.
 
       - Grew into the technical lead role, participated in hiring two engineers and an intern,
-      and mentored teammates to lead complex projects independently.
+      and mentored teammates to lead increasingly complex projects.
 
       - Proposed process experiments through which the team replaced fixed two-week sprints
       with a lightweight Kanban-style flow it found more efficient.
@@ -97,10 +122,10 @@ experience:
       (~10 mil. řádků), počínaje zprovozněním jeho sestavení.
 
       - Sémantické sloučení ~5 repozitářů zákaznických větví, což zrychlilo vývoj a
-      umožnilo týmu vedle údržby dodávat i vylepšení pro zákazníky.
+      pomohlo týmu vedle údržby dodávat i vylepšení pro zákazníky.
 
       - Postupné převzetí role tech lead, účast na výběru dvou vývojářů a stážisty a vedení
-      kolegů k samostatnému řízení složitých projektů.
+      kolegů k řízení stále složitějších projektů.
 
       - Návrh procesních experimentů, díky nimž tým nahradil pevné dvoutýdenní sprinty
       odlehčeným postupem ve stylu Kanbanu, který považoval za efektivnější.
@@ -125,7 +150,7 @@ experience:
     from: 04/2021
     to: 03/2023
     description_en: >-
-      - Developed and optimized robust 3D mesh Booleans and spatial queries for BlueSkyPlan
+      - Developed and optimized robust 3D mesh Booleans and spatial queries in BlueSkyPlan
       dental planning.
 
       - Moved heavy computation off the UI thread, substantially improving responsiveness.
@@ -134,7 +159,7 @@ experience:
       integration with a cloud platform.
     description_cs: >-
       - Vývoj a optimalizace robustních booleovských operací nad 3D sítěmi a prostorových
-      dotazů pro stomatologický BlueSkyPlan.
+      dotazů pro stomatologický software BlueSkyPlan.
 
       - Přesun výpočtů mimo UI vlákno, který podstatně zlepšil odezvu starší aplikace.
 
@@ -159,17 +184,10 @@ experience:
     to: 12/2020
     description_en: >-
       Designed and implemented a 4D-DCT light-field compression method in C++, building on the
-      bachelor’s thesis. Its [open-source
-      implementation](https://github.com/lechaosx/light-field-image-format) was benchmarked
-      against other methods in two coauthored papers: WSCG (2019) and [*Multimedia Tools and
-      Applications*](https://doi.org/10.1007/s11042-021-11645-x) (2022).
+      bachelor’s thesis, and coauthored two comparative papers.
     description_cs: >-
-      Návrh a implementace metody komprese světelných polí na bázi 4D DCT v C++, navazující na
-      bakalářskou práci. Její [open-source
-      implementace](https://github.com/lechaosx/light-field-image-format) byla srovnána s jinými
-      přístupy na WSCG (2019) a v [*Multimedia Tools and
-      Applications*](https://doi.org/10.1007/s11042-021-11645-x) (2022); spoluautor obou
-      článků.
+      Návrh metody komprese světelných polí na bázi 4D DCT a její implementace v C++, navazující
+      na bakalářskou práci, a spoluautorství dvou srovnávacích článků.
     badges:
       - C++20
       - CMake
@@ -191,11 +209,10 @@ education:
   - title_en: Bachelor’s in Information Technology
     title_cs: Bc. – Informační technologie
     description_en: >-
-      Thesis *Lossy Light Field Compression*: Dean’s Award; published and recognized at
-      Excel@FIT 2019.
+      Thesis *Lossy Light Field Compression*: Dean’s Award and Excel@FIT 2019 recognition.
     description_cs: >-
-      Bakalářská práce o ztrátové kompresi světelných polí: cena děkana; publikace a
-      ocenění na Excel@FIT 2019.
+      Bakalářská práce o ztrátové kompresi světelných polí: cena děkana a ocenění na
+      Excel@FIT 2019.
     organization_en: Brno University of Technology
     organization_cs: Vysoké učení technické v Brně
     from: ""
@@ -204,7 +221,7 @@ position_en: Senior Software Engineer
 position_cs: Seniorní softwarový inženýr
 description_en: >-
   I specialize in C++ and backend systems, with experience in computational geometry,
-  performance optimization, legacy modernization, production infrastructure, and technical
+  performance optimization, legacy code modernization, production infrastructure, and technical
   leadership.
 
 

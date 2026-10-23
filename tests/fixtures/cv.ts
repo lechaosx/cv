@@ -8,6 +8,13 @@ export const cv = cvSchema.parse({
   description_en: 'An engineer who builds **useful software** and helps teams solve difficult problems.\n\nClear communication and thoughtful decisions keep work focused on what people need.',
   description_cs: 'Vývojář, který vytváří užitečný software a pomáhá týmům řešit složité problémy. Jasná komunikace a promyšlená technická rozhodnutí udržují práci zaměřenou na potřeby lidí.',
   interests: [{ label_en: 'Learning', label_cs: 'Vzdělávání' }, { label_en: 'Running', label_cs: 'Běh' }],
+  projects: [
+    { title: 'Example Editor', url: 'https://example.org/editor', description_en: 'A browser editor for example charts.', description_cs: 'Prohlížečový editor ukázkových grafů.' },
+    { title: 'Example Library', description_en: 'A small C++ library.', description_cs: 'Malá knihovna v C++.' },
+  ],
+  publications: [
+    { title: 'A Study of Examples', url: 'https://doi.org/10.1000/example', description_en: 'Example Journal, 2022, coauthor', description_cs: 'Example Journal, 2022, spoluautor' },
+  ],
   links: [
     { label: 'Portfolio', url: 'https://example.org', icon: 'website' },
     { label: 'github.com/example', url: 'https://github.com/example', icon: 'github' },

@@ -63,6 +63,32 @@ test('the overall CV uses two columns once the full page fits with side gutters'
   }
 });
 
+test('open source and publications join the sidebar on desktop and print, and follow the career history on small screens', async ({ page }) => {
+  await page.goto('/en/');
+  await page.evaluate(() => document.fonts.ready);
+  const sections = page.locator('section:visible', { has: page.getByRole('heading', { name: /^(Open Source|Publications)$/ }) });
+  const career = page.locator('main > div:not([class])');
+  for (const [width, media] of [[1440, 'screen'], [794, 'print'], [390, 'screen']] as const) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ media });
+    await expect(sections).toHaveCount(2);
+    const careerBox = (await career.boundingBox())!;
+    const connect = (await page.locator('.connect:visible').boundingBox())!;
+    for (const section of await sections.all()) {
+      const box = (await section.boundingBox())!;
+      if (width >= 794) expect(box.x + box.width, `${width}px ${media} sidebar`).toBeLessThanOrEqual(careerBox.x + 1);
+      else expect(box.y).toBeGreaterThanOrEqual(careerBox.y + careerBox.height);
+      expect(connect.y).toBeGreaterThanOrEqual(box.y + box.height);
+    }
+    await expect(sections.first().getByRole('link', { name: 'Example Editor', exact: true })).toHaveAttribute('href', 'https://example.org/editor');
+    await expect(sections.first().getByRole('link')).toHaveCount(1);
+    await expect(sections.first()).toContainText('Example Library');
+    await expect(sections.last().getByRole('link', { name: 'A Study of Examples', exact: true })).toHaveAttribute('href', 'https://doi.org/10.1000/example');
+  }
+  await page.goto('/cs/');
+  await expect(page.locator('section:visible').filter({ hasText: 'Publikace' })).toContainText('spoluautor');
+});
+
 test('the header wraps names between words before moving contacts below', async ({ page }) => {
   for (const language of ['en', 'cs']) {
     await page.setViewportSize({ width: 450, height: 900 });
@@ -115,19 +141,20 @@ test('language routes expose reciprocal discovery, localized sharing and a share
   }
 });
 
-test('keyboard reaches phone, email and each visible Connect link exactly once', async ({ page }) => {
+test('keyboard reaches phone, email and each visible sidebar link exactly once', async ({ page }) => {
   for (const width of [390, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/en/');
     const focused: string[] = [];
-    for (let step = 0; step < 12; step++) {
+    for (let step = 0; step < 16; step++) {
       await page.keyboard.press('Tab');
       const href = await page.evaluate(() => document.activeElement?.getAttribute('href'));
       if (href) focused.push(href);
       if (focused.length > 0 && !href) break;
     }
     const contactLinks = [`tel:${cv.phone.replace(/[ ()-]/g, '')}`, `mailto:${cv.email}`];
-    const footerLinks = [...cv.links.map(link => link.url), '/cs/', '/en/Example_Person_CV_EN.pdf'];
+    const entryLinks = [...cv.projects, ...cv.publications].filter(entry => entry.url).map(entry => entry.url);
+    const footerLinks = [...entryLinks, ...cv.links.map(link => link.url), '/cs/', '/en/Example_Person_CV_EN.pdf'];
     const proseLinks = ['https://example.org/research', 'https://example.org/image.png'];
     expect(focused).toEqual(width >= 1024 ? [...contactLinks, ...footerLinks, ...proseLinks] : [...contactLinks, ...proseLinks, ...footerLinks]);
   }
@@ -268,7 +295,7 @@ test('only prose may wrap inside a word on screen and in print', async ({ page }
       await page.goto(`/${language}/`);
       for (const media of ['screen', 'print'] as const) {
         await page.emulateMedia({ media });
-        const nonProse = page.locator('h1, .position, .contact-list span, .section-header, .timeline article > div > strong, .timeline article > :first-child > div, .cv-dates, .badge-list li, .connect span');
+        const nonProse = page.locator('h1, .position, .contact-list span, .section-header, .timeline article > div > strong, .timeline article > :first-child > div, .cv-dates, .badge-list li, .connect span, .entries li');
         for (const element of await nonProse.all()) {
           await expect(element).toHaveCSS('hyphens', 'none');
           await expect(element).toHaveCSS('overflow-wrap', 'normal');

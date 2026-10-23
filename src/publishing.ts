@@ -63,6 +63,10 @@ export function cvMarkdown(cv: CV, language: Language, site: URL): string {
       if (entry.description) lines.push('', entry.description);
     }
   }
+  for (const [heading, entries] of [[ui.projects, data.projects], [ui.publications, data.publications]] as const) {
+    if (entries.length) lines.push('', `## ${heading}`, '', ...entries.map(entry =>
+      `- ${entry.url ? link(entry.title, entry.url) : markdown(entry.title)}${entry.description ? ` — ${markdown(entry.description)}` : ''}`));
+  }
   if (data.links.length) lines.push('', `## ${ui.connect}`, '', ...data.links.map(item => `- ${link(item.label, item.url)}`));
   return `${lines.join('\n').replace(/\n{3,}/g, '\n\n').trim()}\n`;
 }

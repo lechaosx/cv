@@ -11,6 +11,7 @@ import { labels as translations, renderedText, preferredLanguage } from '../i18n
 import { pageMetadata, structuredData } from '../publishing';
 import Icon from './Icon.astro';
 import Connect from './Connect.astro';
+import Entries from './Entries.astro';
 import PageSettings from './PageSettings.astro';
 
 interface Props { cv: CV; language: Language; neutral?: boolean }
@@ -91,6 +92,8 @@ const theme = Object.entries(data.theme).filter(([, value]) => value).map(([key,
       </header>
       <div class="additional-info">
         {data.description && <section><h2 class="section-header">{t(labels.about)}</h2><Prose source={data.description} language={language} /></section>}
+        {data.projects.length > 0 && <Entries entries={data.projects} heading={labels.projects} language={language} />}
+        {data.publications.length > 0 && <Entries entries={data.publications} heading={labels.publications} language={language} />}
         {data.interests.length > 0 && <section><h2 class="section-header">{t(labels.interests)}</h2><ul class="badge-list">{data.interests.map(interest => <li>{t(interest)}</li>)}</ul></section>}
         {data.links.length > 0 && <Connect links={data.links} heading={labels.connect} language={language} />}
         <PageSettings language={language} name={data.name} />
@@ -100,6 +103,8 @@ const theme = Object.entries(data.theme).filter(([, value]) => value).map(([key,
         {data.education.length > 0 && <section><h2 class="section-header">{t(labels.education)}</h2><Timeline entries={data.education} present={labels.present} language={language} /></section>}
       </div>
       <div class="connect-footer">
+        {data.projects.length > 0 && <Entries entries={data.projects} heading={labels.projects} language={language} />}
+        {data.publications.length > 0 && <Entries entries={data.publications} heading={labels.publications} language={language} />}
         {data.links.length > 0 && <Connect links={data.links} heading={labels.connect} language={language} />}
         <PageSettings language={language} name={data.name} />
       </div>

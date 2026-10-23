@@ -25,6 +25,25 @@ test('Markdown exports source facts in displayed order and language, including o
   assert.ok(!cs.includes('\u00a0'));
 });
 
+test('Markdown lists open-source projects and publications after the career history, linking only addressed entries', () => {
+  const en = cvMarkdown(cv, 'en', site);
+  const cs = cvMarkdown(cv, 'cs', site);
+  assert.ok(en.includes('## Open Source\n\n- [Example Editor](https://example.org/editor) — A browser editor for example charts.\n- Example Library — A small C++ library.'));
+  assert.ok(en.includes('## Publications\n\n- [A Study of Examples](https://doi.org/10.1000/example) — Example Journal, 2022, coauthor'));
+  assert.ok(cs.includes('## Publikace\n\n- [A Study of Examples](https://doi.org/10.1000/example) — Example Journal, 2022, spoluautor'));
+  assert.ok(en.indexOf("Master's Degree") < en.indexOf('## Open Source'));
+  assert.ok(en.indexOf('## Publications') < en.indexOf('## Connect'));
+  const full = fullExport(cv, site);
+  assert.ok(full.includes('A browser editor for example charts.'));
+  assert.ok(full.includes('Prohlížečový editor ukázkových grafů.'));
+});
+
+test('Markdown omits headings for empty open-source and publication lists', () => {
+  const text = cvMarkdown(cvSchema.parse({ name: 'Person' }), 'en', site);
+  assert.ok(!text.includes('## Open Source'));
+  assert.ok(!text.includes('## Publications'));
+});
+
 test('Markdown preserves authored prose formatting while escaping plain factual fields', () => {
   const special = cvSchema.parse({ name: '[Name] <script>', description_en: '# heading *text*', description_cs: '# nadpis *text*', links: [{ label: 'A [link]', url: 'https://example.org/project)notes' }] });
   const text = cvMarkdown(special, 'en', site);

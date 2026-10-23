@@ -1,0 +1,17 @@
+---
+import type { LocalizedCV, Language } from '../cv';
+import { renderedText } from '../i18n';
+
+interface Props {
+  entries: LocalizedCV['projects'];
+  heading: string;
+  language: Language;
+}
+
+const { entries, heading, language } = Astro.props;
+const t = (value: string) => renderedText(value, language);
+---
+<section class="entries">
+  <h2 class="section-header">{t(heading)}</h2>
+  <ul>{entries.map(entry => <li><strong>{entry.url ? <a href={entry.url}>{t(entry.title)}</a> : t(entry.title)}</strong>{entry.description && <p>{t(entry.description)}</p>}</li>)}</ul>
+</section>

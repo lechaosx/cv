@@ -10,7 +10,7 @@ Narrow screens follow the system theme until the reader saves a light/dark choic
 
 ## Responsive reading order [Explicit]
 
-Small screens let names wrap beside contacts before stacking them, stack timeline details, and move Connect after the career history. Longer tablet paragraphs keep a comfortable line length; desktop and print retain the sidebar layout. Phone, email and visible profile links are reachable by keyboard; names, headings, dates and badges wrap between words, while only prose can split a word.
+Small screens let names wrap beside contacts before stacking them, stack timeline details, and move Open Source, Publications and Connect after the career history. Longer tablet paragraphs keep a comfortable line length; desktop and print retain the sidebar layout. Phone, email and visible profile links are reachable by keyboard; names, headings, dates and badges wrap between words, while only prose can split a word.
 
 ## Editable content [Explicit]
 
@@ -19,6 +19,14 @@ Pages CMS edits both translations together without a live editing interface. Des
 ## Career presentation [Explicit]
 
 A personal headline introduces the CV separately from the profession. Concise experience descriptions and technology badges carry technical and leadership evidence without a separate skills section; the website and one-page PDF contain the same content.
+
+## Open source and publications [Explicit]
+
+The sidebar lists open-source projects and publications, each a name, linked when it has an address, with an optional short line, so the career history stays concise and the one-page PDF prints larger. Either list may be empty.
+
+## Sidebar order [Implicit]
+
+Desktop and print order the sidebar About Me, Open Source, Publications, Interests, Connect, putting professional evidence before personal details.
 
 ## Headline as tagline [Explicit]
 
@@ -38,7 +46,7 @@ Each language offers a selectable-text A4 PDF at the largest scale that fits one
 
 ## PDF links [Explicit]
 
-The PDF shows contact and profile links without underlines, since their text already names the destination. Links within descriptions get a thin, offset gold underline so readers can still tell they are clickable.
+The PDF shows contact, profile, project and publication links without underlines, since their text already names the destination. Links within descriptions get a thin, offset gold underline so readers can still tell they are clickable.
 
 ## Small PDF text warning [Explicit]
 
