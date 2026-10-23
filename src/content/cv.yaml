@@ -14,6 +14,8 @@ interests:
     label_cs: Běh
   - label_en: 3D Printing
     label_cs: 3D tisk
+  - label_en: Crocheting
+    label_cs: Háčkování
   - label_en: Cooking
     label_cs: Vaření
   - label_en: Hiking
@@ -82,10 +84,11 @@ experience:
       - Joined a new three-person team reviving an acquired ~10M-line broadcast weather suite,
       starting by restoring its build environment.
 
-      - Helped merge ~5 customer-branch repositories semantically, which sped up development.
+      - Merged ~5 customer-branch repositories semantically, speeding development so the team
+      could ship customer-facing improvements alongside maintenance.
 
-      - Became technical lead, helped hire two engineers and an intern, and coached
-      teammates to own problems from investigation to technical direction.
+      - Grew into the technical lead role, participated in hiring two engineers and an intern,
+      and mentored teammates to lead complex projects independently.
 
       - Proposed process experiments through which the team replaced fixed two-week sprints
       with a lightweight Kanban-style flow it found more efficient.
@@ -93,10 +96,11 @@ experience:
       - Člen nového tříčlenného týmu oživujícího převzatý software TV vizualizace počasí
       (~10 mil. řádků), počínaje zprovozněním jeho sestavení.
 
-      - Podíl na sémantickém sloučení ~5 repozitářů zákaznických větví, což zrychlilo vývoj.
+      - Sémantické sloučení ~5 repozitářů zákaznických větví, což zrychlilo vývoj a
+      umožnilo týmu vedle údržby dodávat i vylepšení pro zákazníky.
 
-      - Převzetí role tech lead, účast na výběru dvou vývojářů a stážisty;
-      vedení kolegů k samostatné odpovědnosti za problémy od analýzy po technické řešení.
+      - Postupné převzetí role tech lead, účast na výběru dvou vývojářů a stážisty a vedení
+      kolegů k samostatnému řízení složitých projektů.
 
       - Návrh procesních experimentů, díky nimž tým nahradil pevné dvoutýdenní sprinty
       odlehčeným postupem ve stylu Kanbanu, který považoval za efektivnější.
@@ -154,15 +158,18 @@ experience:
     from: 06/2019
     to: 12/2020
     description_en: >-
-      Developed a 4D-DCT light-field compression method and its [open-source C++
-      implementation](https://github.com/lechaosx/light-field-image-format), benchmarked
-      against other approaches at WSCG and in [*Multimedia Tools and
-      Applications*](https://doi.org/10.1007/s11042-021-11645-x) (2022, coauthor).
+      Designed and implemented a 4D-DCT light-field compression method in C++, building on the
+      bachelor’s thesis. Its [open-source
+      implementation](https://github.com/lechaosx/light-field-image-format) was benchmarked
+      against other methods in two coauthored papers: WSCG (2019) and [*Multimedia Tools and
+      Applications*](https://doi.org/10.1007/s11042-021-11645-x) (2022).
     description_cs: >-
-      Vývoj metody založené na 4D DCT pro kompresi světelných polí a její [open-source
-      implementace v C++](https://github.com/lechaosx/light-field-image-format), srovnané s
-      jinými přístupy na WSCG a v [článku v *Multimedia Tools and
-      Applications*](https://doi.org/10.1007/s11042-021-11645-x) (2022, spoluautor).
+      Návrh a implementace metody komprese světelných polí na bázi 4D DCT v C++, navazující na
+      bakalářskou práci. Její [open-source
+      implementace](https://github.com/lechaosx/light-field-image-format) byla srovnána s jinými
+      přístupy na WSCG (2019) a v [*Multimedia Tools and
+      Applications*](https://doi.org/10.1007/s11042-021-11645-x) (2022); spoluautor obou
+      článků.
     badges:
       - C++20
       - CMake
@@ -184,10 +191,11 @@ education:
   - title_en: Bachelor’s in Information Technology
     title_cs: Bc. – Informační technologie
     description_en: >-
-      Thesis *Lossy Light Field Compression*: Dean’s Award and Excel@FIT recognition.
+      Thesis *Lossy Light Field Compression*: Dean’s Award; published and recognized at
+      Excel@FIT 2019.
     description_cs: >-
-      Bakalářská práce o ztrátové kompresi světelných polí: cena děkana a ocenění na
-      Excel@FIT.
+      Bakalářská práce o ztrátové kompresi světelných polí: cena děkana; publikace a
+      ocenění na Excel@FIT 2019.
     organization_en: Brno University of Technology
     organization_cs: Vysoké učení technické v Brně
     from: ""
@@ -195,18 +203,20 @@ education:
 position_en: Senior Software Engineer
 position_cs: Seniorní softwarový inženýr
 description_en: >-
-  Focused on C++ and backend systems, with a background in computational geometry, performance
-  optimization, legacy modernization, production migrations, and technical leadership.
+  I specialize in C++ and backend systems, with experience in computational geometry,
+  performance optimization, legacy modernization, production infrastructure, and technical
+  leadership.
 
 
-  Most interested in deciding which problems are worth solving, making their risks explicit, and
-  helping other engineers own their work.
+  My approach has evolved from solving difficult technical problems to understanding which
+  problems are worth solving, how to manage their risks, and how to help other engineers succeed.
 description_cs: >-
-  Zaměřuji se na C++ a backendové systémy. Mám zkušenosti s výpočetní geometrií, optimalizací
-  výkonu, modernizací staršího softwaru, produkčními migracemi i technickým vedením.
+  Specializuji se na C++ a backendové systémy. Mám zkušenosti s výpočetní geometrií,
+  optimalizací výkonu, modernizací staršího softwaru, produkční infrastrukturou i technickým
+  vedením.
 
 
-  Zajímá mě, které problémy stojí za to řešit, jak pojmenovat jejich rizika a jak pomáhat kolegům
-  převzít odpovědnost za vlastní práci.
+  Můj přístup se posunul od řešení náročných technických problémů k pochopení, které problémy
+  stojí za to řešit, jak zvládat jejich rizika a jak pomáhat ostatním vývojářům uspět.
 headline_en: I make complex software easier to understand, maintain, and evolve
 headline_cs: Zpřehledňuji složitý software a usnadňuji jeho údržbu a další rozvoj
