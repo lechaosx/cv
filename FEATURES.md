@@ -32,6 +32,10 @@ Each language has a Markdown CV; a bilingual full export and compact `llms.txt` 
 
 Each language offers a selectable-text A4 PDF at the largest scale that fits one page. Publishing prepares static downloads; development downloads reflect current edits without a build. Download URLs and filenames include the person’s name and language for easy sharing and identification.
 
+## Small PDF text warning [Explicit]
+
+When fitting a PDF to one page shrinks its body text below 9pt, the build and development downloads warn instead of failing, prompting the editor to shorten the content.
+
 ## Source greeting [Explicit]
 
 View Source includes a small greeting and a link to the repository for curious readers.

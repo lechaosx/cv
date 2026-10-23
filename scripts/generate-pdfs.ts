@@ -18,9 +18,10 @@ try {
   const origin = `http://127.0.0.1:${server.port}`;
   const generated = [];
   for (const language of languages) {
-    const { bytes, scale, pathname } = await renderPDF(browser, origin, language);
+    const { bytes, scale, pathname, warning } = await renderPDF(browser, origin, language);
     generated.push({ pathname, bytes });
     console.log(`PDF: ${pathname} — one A4 page at ${scale}%`);
+    if (warning) console.log(`::warning title=Small PDF text::${warning}`);
   }
   for (const { pathname, bytes } of generated) await writeFile(output(pathname), bytes);
 } catch (error) {

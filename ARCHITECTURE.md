@@ -34,7 +34,7 @@ Browser layout and preference checks render the production template with test-ow
 
 ## PDF generation [Implicit]
 
-Development downloads and publishing share one Chromium renderer so both use local assets, the print stylesheet and the same page-count fitting rule. Development renders the current page on demand; publishing stores static PDFs and stops on generation failure.
+Development downloads and publishing share one Chromium renderer so both use local assets, the print stylesheet and the same page-count fitting rule. Development renders the current page on demand; publishing stores static PDFs and stops on generation failure. The small-text check uses the printed size of the description prose (computed size × fitted scale), so the threshold follows what readers see rather than a scale percentage; the build reports it as a GitHub Actions annotation.
 
 ## Published HTML [Explicit]
 

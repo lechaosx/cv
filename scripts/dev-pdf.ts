@@ -16,8 +16,9 @@ export function developmentPDFs(): AstroIntegration {
             if (!address || typeof address === 'string') throw new Error('Development server has no TCP address');
             const host = address.family === 'IPv6' ? '[::1]' : '127.0.0.1';
             browser = await chromium.launch();
-            const { bytes, pathname } = await renderPDF(browser, `http://${host}:${address.port}`, match[1] as 'en' | 'cs');
+            const { bytes, pathname, warning } = await renderPDF(browser, `http://${host}:${address.port}`, match[1] as 'en' | 'cs');
             if (request.url!.split('?')[0] !== pathname) return next();
+            if (warning) logger.warn(warning);
             response.writeHead(200, {
               'Content-Type': 'application/pdf',
               'Content-Disposition': `attachment; filename="${pathname.split('/').at(-1)}"`,

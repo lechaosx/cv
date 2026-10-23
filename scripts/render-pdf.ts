@@ -1,6 +1,14 @@
 import type { Browser } from '@playwright/test';
 import { PDFDocument } from 'pdf-lib';
 
+const minimumBodyTextPt = 9;
+
+export function smallTextWarning(language: 'en' | 'cs', scale: number, bodyPx: number) {
+  const pt = bodyPx * 0.75 * scale / 100;
+  if (pt >= minimumBodyTextPt) return;
+  return `${language.toUpperCase()} PDF body text is ${Number(pt.toFixed(2))}pt at ${scale}% scale, below the ${minimumBodyTextPt}pt minimum; shorten the content to enlarge it.`;
+}
+
 export async function renderPDF(browser: Browser, origin: string, language: 'en' | 'cs') {
   const context = await browser.newContext({ javaScriptEnabled: false, locale: language === 'cs' ? 'cs-CZ' : 'en-US' });
   try {
@@ -21,12 +29,13 @@ export async function renderPDF(browser: Browser, origin: string, language: 'en'
     if (!pathname || !new RegExp(`^/${language}/[A-Za-z0-9_]+\\.pdf$`).test(pathname)) {
       throw new Error(`Invalid ${language} PDF download URL: ${pathname}`);
     }
-    await page.evaluate(async () => {
+    const bodyPx = await page.evaluate(async () => {
       await document.fonts.ready;
       await Promise.all([...document.images].map(image => image.decode()));
       if (!document.fonts.check('300 16px "Roboto Variable"') || !document.fonts.check('700 40px "Roboto Condensed Variable"')) {
         throw new Error('CV fonts did not load');
       }
+      return parseFloat(getComputedStyle(document.querySelector('.prose > *') ?? document.body).fontSize);
     });
     if (failures.length) throw new Error(failures.join('\n'));
 
@@ -55,7 +64,7 @@ export async function renderPDF(browser: Browser, origin: string, language: 'en'
       }
     }
     if (failures.length) throw new Error(failures.join('\n'));
-    return { bytes: result.bytes, scale, pathname };
+    return { bytes: result.bytes, scale, pathname, warning: smallTextWarning(language, scale, bodyPx) };
   } finally {
     await context.close();
   }
