@@ -6,7 +6,7 @@ Astro renders the CV at build time so reading and printing need no JavaScript or
 
 ## Shared facts, paired translations [Implicit]
 
-One content file keeps contact details, dates, credentials, and technical skills shared while translated prose stays in English/Czech pairs. Build validation and the Pages CMS form must agree so publishing cannot silently omit a translation.
+One content file keeps phone, email, dates, credentials, and technical skills shared while translated text stays in English/Czech pairs. Build validation and the Pages CMS form must agree so publishing cannot silently omit a translation.
 
 ## Local rendering and ownership [Implicit]
 

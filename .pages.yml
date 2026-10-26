@@ -18,7 +18,8 @@ content:
   - {name: headline_cs, label: Headline — Czech, type: string, required: false}
   - {name: phone, label: Phone, type: string, required: false}
   - {name: email, label: Email, type: string, required: false}
-  - {name: location, label: Location, type: string, required: false}
+  - {name: location_en, description: Fill both languages or leave both empty., label: Location — English, type: string, required: false}
+  - {name: location_cs, label: Location — Czech, type: string, required: false}
   - {name: photo, label: Portrait, type: image, required: false}
   - {name: description_en, description: Fill both languages or leave both empty., label: About me — English, type: rich-text, options: {format: markdown, media: false, switcher: true}, required: false}
   - {name: description_cs, label: About me — Czech, type: rich-text, options: {format: markdown, media: false, switcher: true}, required: false}

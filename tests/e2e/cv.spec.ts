@@ -118,6 +118,13 @@ test('the header wraps names between words before moving contacts below', async 
   }
 });
 
+test('each language shows its own location', async ({ page }) => {
+  for (const language of ['en', 'cs'] as const) {
+    await page.goto(`/${language}/`);
+    await expect(page.locator('.contact-list')).toContainText(fixture[`location_${language}`]);
+  }
+});
+
 test('language routes expose reciprocal discovery, localized sharing and a shared identity', async ({ page }) => {
   const site = new URL('https://dlabaja.eu');
   for (const language of ['en', 'cs'] as const) {

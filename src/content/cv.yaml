@@ -3,7 +3,8 @@ name: Drahomír Dlabaja
 title_after_name: ""
 phone: +420 605 401 878
 email: dr.dlabaja@gmail.com
-location: Brno, Czech Republic
+location_en: Brno, Czech Republic
+location_cs: Brno, Česká republika
 photo: /uploads/profile.jpg
 interests:
   - label_en: Learning
@@ -84,8 +85,8 @@ experience:
       - Podíl na probíhajícím přechodu sestavování C++ na CMake, závislostí z balíčků pro
       Debian na Conan a nasazování na GitOps s Argo CD.
 
-      - Odhalování skrytých rizik a předpokladů v návrzích modernizace i ceny jejich zmírnění,
-      aby tým mohl vědomě rozhodnout, která přijmout.
+      - Identifikace skrytých rizik a předpokladů v návrzích modernizace a posouzení nákladů
+      na jejich zmírnění, aby se tým mohl rozhodnout, která rizika přijme.
     badges:
       - C++
       - CMake
@@ -109,7 +110,7 @@ experience:
       - Joined a new three-person team reviving an acquired ~10M-line broadcast weather suite,
       starting by restoring its build environment.
 
-      - Reconciled divergent customer-specific branches across ~5 Git repositories, speeding
+      - Reconciled divergent customer-specific branches across five Git repositories, speeding
       development and helping ship customer-facing improvements alongside maintenance.
 
       - Grew into the technical lead role, participated in hiring two engineers and an intern,
@@ -121,7 +122,7 @@ experience:
       - Člen nového tříčlenného týmu oživujícího převzatý software TV vizualizace počasí
       (~10 mil. řádků), počínaje zprovozněním jeho sestavení.
 
-      - Sladění rozdílných zákaznických větví v ~5 repozitářích Gitu, což zrychlilo vývoj a
+      - Sladění rozdílných zákaznických větví v pěti repozitářích Gitu, což zrychlilo vývoj a
       pomohlo týmu vedle údržby dodávat i vylepšení pro zákazníky.
 
       - Postupné převzetí role tech lead, účast na výběru dvou vývojářů a stážisty a vedení

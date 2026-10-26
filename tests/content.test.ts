@@ -94,6 +94,15 @@ test('headline translations are optional, paired and localized separately from t
   assert.equal(cvSchema.safeParse({ ...cv(), headline_en: '', headline_cs: '' }).success, true);
 });
 
+test('location translations are optional, paired and localized', () => {
+  const data = cvSchema.parse({ ...cv(), location_en: 'Brno, Czech Republic', location_cs: 'Brno, Česká republika' });
+  assert.equal(localizeCV(data, 'en').location, 'Brno, Czech Republic');
+  assert.equal(localizeCV(data, 'cs').location, 'Brno, Česká republika');
+  assert.equal(cvSchema.safeParse({ ...cv(), location_en: 'Brno, Czech Republic' }).success, false);
+  assert.equal(cvSchema.safeParse({ ...cv(), location_cs: 'Brno, Česká republika' }).success, false);
+  assert.equal(cvSchema.safeParse({ ...cv(), location_en: '', location_cs: '' }).success, true);
+});
+
 test('open-source projects and publications are optional, link only when addressed, and localize their descriptions', () => {
   assert.deepEqual(cvSchema.parse(cv()).projects, []);
   assert.deepEqual(cvSchema.parse(cv()).publications, []);

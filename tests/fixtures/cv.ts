@@ -4,7 +4,7 @@ export const cv = cvSchema.parse({
   name: 'Example Person', title_before_name: 'Ing.',
   position_en: 'Software Engineer', position_cs: 'Softwarový inženýr',
   headline_en: 'Making complex software understandable', headline_cs: 'Srozumitelný složitý software',
-  phone: '+420 123 456 789', email: 'person@example.org', location: 'Brno',
+  phone: '+420 123 456 789', email: 'person@example.org', location_en: 'Brno, Czechia', location_cs: 'Brno, Česko',
   description_en: 'An engineer who builds **useful software** and helps teams solve difficult problems.\n\nClear communication and thoughtful decisions keep work focused on what people need.',
   description_cs: 'Vývojář, který vytváří užitečný software a pomáhá týmům řešit složité problémy. Jasná komunikace a promyšlená technická rozhodnutí udržují práci zaměřenou na potřeby lidí.',
   interests: [{ label_en: 'Learning', label_cs: 'Vzdělávání' }, { label_en: 'Running', label_cs: 'Běh' }],

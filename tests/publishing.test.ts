@@ -20,6 +20,9 @@ test('Markdown exports source facts in displayed order and language, including o
   assert.ok(en.includes('[+420 123 456 789](tel:+420123456789)'));
   assert.ok(en.includes('[person@example.org](mailto:person@example.org)'));
   assert.ok(en.includes('[github.com/example](https://github.com/example)'));
+  assert.ok(en.includes('Brno, Czechia'));
+  assert.ok(cs.includes('Brno, Česko'));
+  assert.ok(!cs.includes('Czechia'));
   assert.ok(cs.includes('## Pracovní zkušenosti'));
   assert.ok(!cs.includes('Current Studio'));
   assert.ok(!cs.includes('\u00a0'));

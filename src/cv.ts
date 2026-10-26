@@ -52,7 +52,7 @@ export const cvSchema = z.strictObject({
   headline_en: text, headline_cs: text,
   phone: z.string().regex(/^[+0-9 ()-]*$/, 'Use an international telephone number').default(''),
   email: z.union([z.email(), z.literal('')]).default(''),
-  location: text,
+  location_en: text, location_cs: text,
   photo: z.union([z.string().regex(/^\/uploads\/[^/\\?#%]+\.(?:avif|gif|jpe?g|png|webp|svg)$/i, 'Choose a local image from uploads'), z.literal('')]).default(''),
   description_en: text, description_cs: text,
   interests: z.preprocess(withoutEmptyRows, z.array(z.strictObject({ label_en: requiredText, label_cs: requiredText })).default([])),
@@ -66,7 +66,7 @@ export const cvSchema = z.strictObject({
   experience: z.preprocess(withoutEmptyRows, z.array(timelineSchema).default([])),
   education: z.preprocess(withoutEmptyRows, z.array(timelineSchema).default([])),
   theme: z.strictObject({ dark: color.optional(), light: color.optional() }).default({}),
-}).superRefine(paired(['position', 'headline', 'description']));
+}).superRefine(paired(['position', 'headline', 'location', 'description']));
 
 export type CV = z.infer<typeof cvSchema>;
 export type TimelineEntry = z.infer<typeof timelineSchema>;
@@ -78,7 +78,8 @@ export function localizeCV(data: CV, language: Language) {
     organization: entry[`organization_${language}`], department: entry[`department_${language}`],
     title: entry[`title_${language}`], description: entry[`description_${language}`],
   });
-  return { ...data, language, headline: data[`headline_${language}`], position: data[`position_${language}`], description: data[`description_${language}`],
+  return { ...data, language, headline: data[`headline_${language}`], position: data[`position_${language}`],
+    location: data[`location_${language}`], description: data[`description_${language}`],
     interests: data.interests.map(interest => interest[`label_${language}`]),
     experience: data.experience.map(timeline), education: data.education.map(timeline),
     projects: data.projects.map(entry => ({ ...entry, description: entry[`description_${language}`] })),
